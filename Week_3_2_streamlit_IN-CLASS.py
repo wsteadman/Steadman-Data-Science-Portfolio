@@ -1,5 +1,5 @@
 # Import the Streamlit library
-
+import streamlit
 # Display a simple text message
 
 # Display a large title on the app
