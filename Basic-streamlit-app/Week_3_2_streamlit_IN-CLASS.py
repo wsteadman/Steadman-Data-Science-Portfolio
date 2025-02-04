@@ -1,19 +1,51 @@
 # Import the Streamlit library
-import streamlit
-# Display a simple text message
+import streamlit as st
 
+# Navigate 
+  # ls
+  # cd then tab (forward)
+  # cd .. (back)
+
+# To get Streamlit browser: streamlit run
+  # save after all changes 'ctrl S'
+
+
+# Display a simple text message
 # Display a large title on the app
+st.title('Hello Streamlit!')
+st.markdown('##### This is my first Streamlit app!')
+
 
 # ------------------------
 # INTERACTIVE BUTTON
 # ------------------------
-
 # Create a button that users can click.
 # If the button is clicked, the message changes.
+
+if st.button('Click me'):
+    st.write('Nice job clicking the button')
+else:
+    st.write('Click it or else')
+
+
+
+
+## Country picker
+st.radio('Pick one:', ['Europe','N. America', 'S. America', 'Asia', 'Africa', 'Antarctica'])
+
+## Slider
+if st.slider('', min_value=0, max_value=1000) == 1000:
+    st.write('NO TOO High!')
+else: 
+    st.write('Keep Sliding, I dare you...')
+
+
 
 # ------------------------
 # COLOR PICKER WIDGET
 # ------------------------
+
+
 
 # Creates an interactive color picker where users can choose a color.
 # The selected color is stored in the variable 'color'.
