@@ -6,7 +6,7 @@ import streamlit as st
   # cd then tab (forward)
   # cd .. (back)
 
-# To get Streamlit browser: streamlit run
+# To get Streamlit browser: streamlit run 'file name'
   # save after all changes 'ctrl S'
 
 
