@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 st.title("This is an app to analyze some penguins!")
-
+st.write('This app filters penguin data based on their flipper size')
 ## Importing the Penguins Df using relative path
 df = pd.read_csv('Data\penguins.csv')
 
@@ -18,4 +18,4 @@ if st.button('Click me for exact flipper length'):
     if not df_2.empty:
         st.dataframe(df_2)
     else:
-        st.write('No penguin has that exact flipper length')
+        st.write(f'No penguin has {flip_length} as their flipper length')
