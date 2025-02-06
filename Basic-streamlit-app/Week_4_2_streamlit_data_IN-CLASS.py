@@ -23,16 +23,17 @@ st.dataframe(df)
 # ================================
 # Step 2: Adding User Interaction with Widgets
 # ================================
+city = st.selectbox('Select a City', df['City'].unique())
+# .unique() ensures if there were repeats they wouldnt be included twice
 
 # Using a selectbox to allow users to filter data by city
-# Students learn how to use widgets in Streamlit for interactivity
 
 # Filtering the DataFrame based on user selection
-
+city_filtered_df = df[df['City'] == city]
 # Display the filtered results
-
-
-# ================================
+st.write(f'People who live in {city}:')
+st.dataframe(city_filtered_df)
+# ================================  
 # Step 3: Importing Data Using a Relative Path
 # ================================
 
@@ -41,13 +42,18 @@ st.dataframe(df)
 # # Ensure the "data" folder exists with the CSV file
 # Display the imported dataset
 
+df2 = pd.read_csv('Data\sample_data.csv')
+st.dataframe(df2)
+# copy its 'relative path'
+
+
 # Using a selectbox to allow users to filter data by city
 # Students learn how to use widgets in Streamlit for interactivity
 
 # Filtering the DataFrame based on user selection
-
+salary = st.slider('Select a Salary range', min_value = df2['Salary'].min(), max_value = df2['Salary'].max())
 # Display the filtered results
-
+st.dataframe(df2[df2['Salary'] <= salary])
 # ================================
 # Summary of Learning Progression:
 # 1️⃣ Displaying a basic DataFrame in Streamlit.
