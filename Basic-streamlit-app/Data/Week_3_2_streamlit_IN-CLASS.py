@@ -1,6 +1,7 @@
 # Import the Streamlit library
 import streamlit as st
 
+##streamlit run basic_streamlit_app/main.py 
 # Navigate 
   # ls
   # cd then tab (forward)
