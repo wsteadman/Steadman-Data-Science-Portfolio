@@ -74,12 +74,49 @@ st.subheader('Handling Missing Data')
 column = st.selectbox('Choose Column to Fill', df.select_dtypes(include = ['number']).columns)
 st.dataframe(df[column])
 
-st.radio('Choose a method', ['Original df', 'Drop Rows', 'Drop Columns', 'Implement Mean', 
-'Impute Median', 'Imputer Zero'])
+method = st.radio('Choose a method', ['Original df', 'Drop Rows', 'Drop Columns (> 50% Missing)', 'Impute Mean', 
+'Impute Median', 'Impute Zero'])
+
+
+
+df_clean = df.copy()
+# have to use copy method because standard '=' will make them both change together if one is edited 
+# df_clean will be the one we edit 
+
+
+if method == "Original DF":
+    pass  # Keep the data unchanged.
+elif method == "Drop Rows":
+    # Remove all rows that contain any missing values.
+    df_clean = df_clean.dropna()
+elif method == "Drop Columns (>50% Missing)":
+    # Drop columns where more than 50% of the values are missing.
+    df_clean = df_clean.drop(columns=df_clean.columns[df_clean.isnull().mean() > 0.5])
+elif method == "Impute Mean":
+    # Replace missing values in the selected column with the column's mean.
+    df_clean[column] = df_clean[column].fillna(df[column].mean())
+elif method == "Impute Median":
+    # Replace missing values in the selected column with the column's median.
+    df_clean[column] = df_clean[column].fillna(df[column].median())
+elif method == "Impute Zero":
+    # Replace missing values in the selected column with zero.
+    df_clean[column] = df_clean[column].fillna(0)
+
+
 
 # Apply the selected method to handle missing data.
 
+st.dataframe(df_clean)
 
+
+st.subheader('Cleaned Data Graph')
+fig, ax = plt.subplots()
+sns.histplot(df_clean[column], kde = True)
+st.pyplot(fig)
+
+st.write(df_clean.describe())
+
+## imputation is not a good idea for data missing not at random!!
 # ------------------------------------------------------------------------------
 # Compare Data Distributions: Original vs. Cleaned
 #
