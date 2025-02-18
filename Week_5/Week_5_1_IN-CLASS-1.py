@@ -1,6 +1,6 @@
 import pandas as pd            # Library for data manipulation
 import seaborn as sns          # Library for statistical plotting
-import matplotlib.pyplot as plt  # For creating custom plots
+import matplotlib.pyplot as plt # For creating custom plots
 import streamlit as st         # Framework for building interactive web apps
 
 # ================================================================================
