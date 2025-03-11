@@ -20,9 +20,9 @@ This project is desgined to showcase cleaning & visualizing a flawed dataset in 
    - Flawed in that each athlete is cross referenced with every event 
 
 ## References:
-[Data_Tidy_Notes_1]().
+[Data_Tidy_Notes_1](Notes\Week 6\IDS_6_1_FINAL (2).ipynb).
 
-[Data_Tidy_Notes_2]()
+[Data_Tidy_Notes_2](Notes\Week 6\IDS 6_2_FINAL-1 (2).ipynb)
 
 ## Visuals:
 
