@@ -24,7 +24,7 @@ This project is desgined to showcase cleaning & visualizing a flawed dataset in 
 
 [Data_Tidy_Notes_2](file:///C:/Users/WilliamSteadman/OneDrive%20-%20nd.edu/Documents/GitHub/Steadman-Data-Science-Portfolio/Notes/Week%206/IDS%206_2_FINAL-1%20(2).ipynb)
 
-
+[Data_Tidy_Notes_2](Notes/Week%206/IDS%206_2_FINAL-1%20(2).ipynb)
 ## Visuals:
 
 
