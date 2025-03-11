@@ -26,5 +26,7 @@ C:\Users\WilliamSteadman\OneDrive - nd.edu\Documents\GitHub\Steadman-Data-Scienc
 
 
 ## Visuals:
-<img src="image.png" alt="alt text" width="300" height="200" />
+<img src="image.png" alt="alt text" width="400" height="300" />
+
+
 
