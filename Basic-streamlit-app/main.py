@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 
+## Use 'Streamlit run' in the terminal to open up the Streamlit link
+
 st.title("This is an app to analyze some penguins!")
 st.write('This app filters penguin data based on their flipper size')
 ## Importing the Penguins Df using relative path
