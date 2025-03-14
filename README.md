@@ -16,3 +16,4 @@ This Portfolio is a compilation of all the Data Science and Data Analysis projec
 [Link Tidy Data Project}](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Tidy%20Data%20Project/Olympians.ipynb)
 
 ### Visual: 
+![image](https://github.com/user-attachments/assets/1f665d80-1f3b-4a10-aee4-3b8c4ec176fb)
