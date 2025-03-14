@@ -13,5 +13,6 @@ This Portfolio is a compilation of all the Data Science and Data Analysis projec
 ## Tidy Data Project
 - This project demonstrates taking unclean data, cleaning it, and using it to create basic charts/visualizations
 
+[Link Tidy Data Project}](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Tidy%20Data%20Project/Olympians.ipynb)
 
 ### Visual: 
