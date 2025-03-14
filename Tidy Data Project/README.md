@@ -1,6 +1,8 @@
 # Project Overview: 
 This project is desgined to showcase cleaning & visualizing a flawed dataset in Python! 
 
+[Link to Project](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Tidy%20Data%20Project/Olympians.ipynb)
+
 ## Instructions: 
 - Pip install pandas 
 - Import the 2008 Olympic Medalist dataset
