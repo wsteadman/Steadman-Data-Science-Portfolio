@@ -26,5 +26,9 @@ This project is desgined to showcase cleaning & visualizing a flawed dataset in 
 
 
 ## Visuals:
+### Transforming flawed dataframe:
+<img src="image-2.png" alt="alt text" width="600"> <img src="image-3.png" alt="alt text" width="300">
 
+### Example Charts:
+<img src="image.png" alt="alt text" width="500"> <img src="image-1.png" alt="alt text" width="500">
 
