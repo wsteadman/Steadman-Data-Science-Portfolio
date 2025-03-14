@@ -22,7 +22,7 @@ This project is desgined to showcase cleaning & visualizing a flawed dataset in 
 ## References:
 [Data_Tidy_Notes_1](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Notes/Week%206/IDS_6_1_FINAL.ipynb)
 
-[Data_Tidy_Notes_2](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Notes/Week%206/IDS%206_2_FINAL-1%20(2).ipynb)
+[Data_Tidy_Notes_2](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Notes/Week%206/IDS_6_2_FINAL.ipynb)
 
 
 ## Visuals:
