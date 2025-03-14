@@ -8,7 +8,7 @@ This Portfolio is a compilation of all the Data Science and Data Analysis projec
 [Link to Basic Streamlit App](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Basic-streamlit-app/main.py)
 
 ### Visual:
-
+<img src="https://github.com/user-attachments/assets/abd61c90-b9ad-43fc-8f13-fe45be483baa" alt="image" width="600" />
 
 ## Tidy Data Project
 - This project demonstrates taking unclean data, cleaning it, and using it to create basic charts/visualizations
