@@ -2,7 +2,8 @@
 
 This Portfolio is a compilation of all the Data Science and Data Analysis projects I have done for academic and self-learning purposes.
 
-## First Streamlit App
+First Streamlit App
+---
 This project demonstrates the process of importing a dataset and creating a web application using Streamlit.
 
 - Project Description: In this project, I worked with a dataset of Penguins and built an interactive web application that allows users to explore and visualize the data sournding the penguins fliiper lengths in a dynamic way.
