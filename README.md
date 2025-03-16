@@ -11,8 +11,9 @@ This project demonstrates the process of importing a dataset and creating a web 
 
 ### Visual:
 <img src="https://github.com/user-attachments/assets/abd61c90-b9ad-43fc-8f13-fe45be483baa" alt="image" width="600" />
+
+Tidy Data Project
 ---
-## Tidy Data Project
 This project focuses on cleaning unstructured data and transforming it into a tidy format suitable for analysis.
 
 - Project Description: In this project, I worked with raw, messy data about Olympians and applied data wrangling techniques to clean it. After cleaning, I visualized key insights from the dataset.
