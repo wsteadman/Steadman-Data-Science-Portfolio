@@ -1,7 +1,7 @@
 # Steadman-Data Science Portfolio
 
 This Portfolio is a compilation of all the Data Science and Data Analysis projects I have done for academic and self-learning purposes.
-
+---
 ## First Streamlit App
 This project demonstrates the process of importing a dataset and creating a web application using Streamlit.
 
@@ -10,7 +10,7 @@ This project demonstrates the process of importing a dataset and creating a web 
 
 ### Visual:
 <img src="https://github.com/user-attachments/assets/abd61c90-b9ad-43fc-8f13-fe45be483baa" alt="image" width="600" />
-
+---
 ## Tidy Data Project
 This project focuses on cleaning unstructured data and transforming it into a tidy format suitable for analysis.
 
