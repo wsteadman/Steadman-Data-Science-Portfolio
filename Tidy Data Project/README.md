@@ -14,7 +14,10 @@ This project is desgined to showcase cleaning & visualizing a flawed dataset in 
 - Create visualizations by running Jypter notebook cells:
     - barchart showing total numbers of each medal 
     - barchart comparing total number of men's to women's sports 
-    - horizontal barchart showing number of medals for each sport 
+    - horizontal barchart showing number of medals for each sport
+ 
+  - Create a pivot table:
+    - counting number of medals by sex and sport
 
 ## Dataset Description: 
 - Contains 2008 olympic medal winners 
