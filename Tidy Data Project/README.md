@@ -16,7 +16,7 @@ This project is desgined to showcase cleaning & visualizing a flawed dataset in 
     - barchart comparing total number of men's to women's sports 
     - horizontal barchart showing number of medals for each sport
  
-  - Create a pivot table:
+- Create a pivot table:
     - counting number of medals by sex and sport
 
 ## Dataset Description: 
