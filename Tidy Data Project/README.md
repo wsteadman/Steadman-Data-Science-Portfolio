@@ -26,6 +26,8 @@ This project is desgined to showcase cleaning & visualizing a flawed dataset in 
 
 [Data_Tidy_Notes_2](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Notes/Week%206/IDS_6_2_FINAL.ipynb)
 
+[Pandas_Cheat_Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
+
 
 ## Visuals:
 ### Transforming flawed dataframe:
