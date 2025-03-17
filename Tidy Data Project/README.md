@@ -37,4 +37,4 @@ This project is desgined to showcase cleaning & visualizing a flawed dataset in 
 <img src="image.png" alt="alt text" width="500"> <img src="image-1.png" alt="alt text" width="500">
 
 ### Pivot Table:
-<img src="image-4.png" alt="alt text" width="500"> <img src="image-1.png" alt="alt text" width="500">
+<img src="image-4.png" alt="alt text" width="500"> 
