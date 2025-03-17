@@ -23,6 +23,7 @@ This project is desgined to showcase cleaning & visualizing a flawed dataset in 
 - Contains 2008 olympic medal winners 
 - Sourced from a CSV given by professor 
    - Flawed in that each athlete is cross referenced with every event 
+[link to flawed data](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Tidy%20Data%20Project/olympics_08_medalists.csv)
 
 ## References:
 [Data_Tidy_Notes_1](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Notes/Week%206/IDS_6_1_FINAL.ipynb)
