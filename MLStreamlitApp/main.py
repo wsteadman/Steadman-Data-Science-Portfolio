@@ -150,6 +150,7 @@ if df is not None:
         plt.clf()
 
 
+
     else:  # Logistic Regression
         model = train_logistic_regression_model(X_train, y_train)
         
@@ -169,11 +170,13 @@ if df is not None:
         # Create Classification Report
         st.subheader("Classification Report")
         st.text(classification_report(y_test, y_pred))   
+        
+         # Examine coefficients 
+        st.subheader("Examine Coefficients")
+        coef = pd.Series(model.coef_[0], index=X.columns)
+        st.write(coef.sort_values(ascending=False))
 
 
 
-# Examine coefficients 
-st.subheader("Examine Coefficients")
-coef = pd.Series(model.coef_[0], index=X.columns)
-st.write(coef.sort_values(ascending=False))
+
 # is negative good??
