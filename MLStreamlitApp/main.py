@@ -6,7 +6,9 @@ import matplotlib.pyplot as plt
 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LinearRegression
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+from sklearn.metrics import mean_squared_error, root_mean_squared_error, r2_score
 
 
 
@@ -48,7 +50,13 @@ def split_data(X, y, test_size=0.2, random_state=42):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     return X_train, X_test, y_train, y_test
 
-def train_model(X_train, y_train):
+
+def train_linear_regression_model(X_train, y_train):
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+    return model
+
+def train_logistic_regression_model(X_train, y_train):
     model = LogisticRegression()
     model.fit(X_train, y_train)
     return model
@@ -62,7 +70,6 @@ def plot_confusion_matrix(cm):
     plt.ylabel('Actual')
     st.pyplot(plt)
     plt.clf()
-
 
 # -----------------------------------------------
 # Streamlit App Layout
@@ -94,6 +101,9 @@ else:
         # Load the selected demo dataset
         df = pd.read_csv(demosets[demo_selection])
 
+st.markdown("### Select Model")
+model_selector = st.radio("Model", options=["Linear_regression", "Logistic_regression"])
+
 # Only process if we have a dataframe
 if df is not None:
     # Display the raw dataset first
@@ -103,12 +113,67 @@ if df is not None:
     processed_df, X, y, features = format_data(df)
     # Split data
     X_train, X_test, y_train, y_test = split_data(X, y)
-    # Train model
-    model = train_model(X_train, y_train)
-    # Make predictions
-    y_pred = model.predict(X_test)
+    
+    if model_selector == "Linear_regression":
+        model = train_linear_regression_model(X_train, y_train)
+        
+        # Make predictions
+        y_pred = model.predict(X_test)
+        
+        # Model metrics
+        mse = mean_squared_error(y_test, y_pred)
+        rmse = root_mean_squared_error(y_test, y_pred)
+        r2 = r2_score(y_test, y_pred)
+
+        st.subheader("Model Performance")
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("Mean Squared Error", f"{mse:.4f}")
+        with col2:
+            st.metric("R² Score", f"{r2:.4f}")
+        with col3: 
+            st.metric("Root Mean Squared Error", f"{rmse:.4f}")
+    
+        
+        # Examine coefficients
+        st.subheader("Model Coefficients")
+        coef = pd.Series(model.coef_, index=X.columns)
+        intercept = model.intercept_
+        
+        # Create a bar chart for coefficients
+        plt.figure(figsize=(10, 6))
+        coef.sort_values().plot(kind='barh')
+        plt.title('Feature Coefficients')
+        plt.xlabel('Coefficient Value')
+        plt.tight_layout()
+        st.pyplot(plt)
+        plt.clf()
 
 
-st.subheader("Confusion Matrix")
-cm = confusion_matrix(y_test, y_pred)
-plot_confusion_matrix(cm)
+    else:  # Logistic Regression
+        model = train_logistic_regression_model(X_train, y_train)
+        
+        # Make predictions
+        y_pred = model.predict(X_test)
+        
+        # Model accuracy
+        accuracy = accuracy_score(y_test, y_pred)
+        st.subheader("Model Performance")
+        st.metric("Accuracy", f"{accuracy:.2%}")
+        
+        # Create a confusion matrix
+        st.subheader("Confusion Matrix")
+        cm = confusion_matrix(y_test, y_pred)
+        plot_confusion_matrix(cm)
+        
+        # Create Classification Report
+        st.subheader("Classification Report")
+        st.text(classification_report(y_test, y_pred))   
+
+
+
+# Examine coefficients 
+st.subheader("Examine Coefficients")
+coef = pd.Series(model.coef_[0], index=X.columns)
+st.write(coef.sort_values(ascending=False))
+# is negative good??
