@@ -1,5 +1,4 @@
 import streamlit as st
-import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -9,6 +8,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.metrics import mean_squared_error, root_mean_squared_error, r2_score
+from sklearn.preprocessing import StandardScaler
 
 
 
@@ -43,7 +43,6 @@ def format_data(df):
     y = df[target_col]
 
     return df, X, y, features
-
 
 
 def split_data(X, y, test_size=0.2, random_state=42):
@@ -82,9 +81,7 @@ upload_file = st.sidebar.file_uploader("Choose a file")
 st.header("Don't have a dataset? Load a demo")
 
 demosets = {
-        'Tennis': 'https://raw.githubusercontent.com/JadeMaveric/DecisionTreeViz/main/data/tennis.csv',
-        'Cars': 'https://raw.githubusercontent.com/JadeMaveric/DecisionTreeViz/main/data/cars.csv',
-        'Customers': 'https://raw.githubusercontent.com/JadeMaveric/DecisionTreeViz/main/data/customers.csv'
+        'Titanic': 'https://raw.githubusercontent.com/datasciencedojo/datasets/refs/heads/master/titanic.csv',
     }
 
 
@@ -104,27 +101,54 @@ else:
 st.markdown("### Select Model")
 model_selector = st.radio("Model", options=["Linear_regression", "Logistic_regression"])
 
-# Only process if we have a dataframe
+
+st.markdown("### Select Scaled or Unscaled Data")
+scaler_selector = st.radio("Scale_Data", options=["Scaled", "Unscaled"])
+
+
+
+# Only process if a dataframe is inputted
 if df is not None:
-    # Display the raw dataset first
-    st.subheader("Raw Dataset")
-    st.write(df.head())
+
+    # Display the raw dataset
+    with st.expander("Click to view Data Information"):
+        st.write("### Overview of your Dataset")
+        st.write("#### First 10 Rows of the Dataset")
+        st.dataframe(df.head(10))
+        st.write("#### Statistical Summary")
+        st.dataframe(df.describe())
+
     # Process the data
     processed_df, X, y, features = format_data(df)
+
     # Split data
     X_train, X_test, y_train, y_test = split_data(X, y)
-    
-    if model_selector == "Linear_regression":
+
+    # Scale data (conditional on radio)
+    if scaler_selector == "Scaled":
+        scaler = StandardScaler()
+        X_train = scaler.fit_transform(X_train)
+        X_test = scaler.transform(X_test)
+
+        # Convert the scaled arrays back to DataFrames
+        X_train = pd.DataFrame(X_train, columns=features)
+        X_test = pd.DataFrame(X_test, columns=features)
+
+
+    #Linear Regression
+    if model_selector == "Linear_regression": 
+        # Train Model
         model = train_linear_regression_model(X_train, y_train)
         
-        # Make predictions
+        # Make predictions based on trained model
         y_pred = model.predict(X_test)
         
-        # Model metrics
+        # Calculate Model metrics
         mse = mean_squared_error(y_test, y_pred)
         rmse = root_mean_squared_error(y_test, y_pred)
         r2 = r2_score(y_test, y_pred)
 
+        # Display metrics
         st.subheader("Model Performance")
         col1, col2, col3 = st.columns(3)
         with col1:
@@ -133,31 +157,21 @@ if df is not None:
             st.metric("R² Score", f"{r2:.4f}")
         with col3: 
             st.metric("Root Mean Squared Error", f"{rmse:.4f}")
-    
         
         # Examine coefficients
-        st.subheader("Model Coefficients")
-        coef = pd.Series(model.coef_, index=X.columns)
-        intercept = model.intercept_
+        st.write("Model Coefficients")
+        st.dataframe(pd.Series(model.coef_, 
+                               index=X_train.columns))
         
-        # Create a bar chart for coefficients
-        plt.figure(figsize=(10, 6))
-        coef.sort_values().plot(kind='barh')
-        plt.title('Feature Coefficients')
-        plt.xlabel('Coefficient Value')
-        plt.tight_layout()
-        st.pyplot(plt)
-        plt.clf()
-
-
-
-    else:  # Logistic Regression
+    # Logistic Regression
+    else:  
+        # Train model
         model = train_logistic_regression_model(X_train, y_train)
         
         # Make predictions
         y_pred = model.predict(X_test)
         
-        # Model accuracy
+        # Calculate accuracy
         accuracy = accuracy_score(y_test, y_pred)
         st.subheader("Model Performance")
         st.metric("Accuracy", f"{accuracy:.2%}")
@@ -171,12 +185,11 @@ if df is not None:
         st.subheader("Classification Report")
         st.text(classification_report(y_test, y_pred))   
         
-         # Examine coefficients 
+         # Examine Coefficients 
         st.subheader("Examine Coefficients")
         coef = pd.Series(model.coef_[0], index=X.columns)
         st.write(coef.sort_values(ascending=False))
+    
 
 
 
-
-# is negative good??
