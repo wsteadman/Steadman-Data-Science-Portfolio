@@ -86,7 +86,7 @@ demosets = {
 
 df = None
 
-coeffiencents_message = "- Each coefficient represents the change in the Performance Index for a one-unit change " \
+coefficients_message = "- Each coefficient represents the change in the Performance Index for a one-unit change " \
                         "in the respective feature, holding all other features constant"
 
 # Handle dataset selection (file upload or demo selection)
@@ -136,7 +136,7 @@ if df is not None:
         X_train = pd.DataFrame(X_train, columns=features)
         X_test = pd.DataFrame(X_test, columns=features)
 
-        coeffiencents_message = "- Scaled coefficients indicate the change in the Performance Index for a one standard deviation change in that feature." \
+        coefficients_message = "- Scaled coefficients indicate the change in the Performance Index for a one standard deviation change in that feature." \
                                 "- This standardization makes it easier to compare the relative importance of features."
 
 
@@ -174,9 +174,8 @@ if df is not None:
         # Examine coefficients
         st.write("Model Coefficients")
         st.dataframe(pd.Series(model.coef_, 
-                               index=X_train.columns))
-        st.write(coeffiencents_message)
-        
+                     index=X_train.columns).sort_values(ascending=False))
+        st.write(coefficients_message)
     # Logistic Regression
     else:  
         # Train model
@@ -203,7 +202,7 @@ if df is not None:
         st.subheader("Examine Coefficients")
         coef = pd.Series(model.coef_[0], index=X.columns)
         st.write(coef.sort_values(ascending=False))
-        st.write(coeffiencents_message)
+        st.write(coefficients_message)
     
 
 
