@@ -11,14 +11,12 @@ from sklearn.metrics import mean_squared_error, root_mean_squared_error, r2_scor
 from sklearn.preprocessing import StandardScaler
 
 
-
 # -----------------------------------------------
 # Application Information
 # -----------------------------------------------
 
 st.title("Logistic Regression Visualiser")
 st.markdown("""Description""")
-
 
 # -----------------------------------------------
 # Helper Functions
@@ -64,7 +62,7 @@ def train_logistic_regression_model(X_train, y_train):
 def plot_confusion_matrix(cm):
     plt.figure(figsize=(6,4))
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-    plt.title('COnfusion Matrix')
+    plt.title('Confusion Matrix')
     plt.xlabel('Predicted')
     plt.ylabel('Actual')
     st.pyplot(plt)
@@ -86,6 +84,9 @@ demosets = {
 
 
 df = None
+
+coeffiencents_message = "- Each coefficient represents the change in the Performance Index for a one-unit change " \
+                        "in the respective feature, holding all other features constant"
 
 # Handle dataset selection (file upload or demo selection)
 if upload_file is not None:
@@ -134,6 +135,9 @@ if df is not None:
         X_train = pd.DataFrame(X_train, columns=features)
         X_test = pd.DataFrame(X_test, columns=features)
 
+        coeffiencents_message = "-Scaled coefficients indicate the change in the Performance Index for a one standard deviation change in that feature." \
+                                "- This standardization makes it easier to compare the relative importance of features."
+
 
     #Linear Regression
     if model_selector == "Linear_regression": 
@@ -154,14 +158,23 @@ if df is not None:
         with col1:
             st.metric("Mean Squared Error", f"{mse:.4f}")
         with col2:
-            st.metric("R² Score", f"{r2:.4f}")
-        with col3: 
             st.metric("Root Mean Squared Error", f"{rmse:.4f}")
+        with col3: 
+            st.metric("R² Score", f"{r2:.4f}")
         
+        st.write("""- MSE: average squared difference between actual and predicted values. """)
+        
+        st.write("""- RMSE: square root of MSE, gives an error metric in the same units as the target.
+                    - Lower RMSE values indicate better predictive performance. """)
+        
+        st.write("""- R²: indicates the proportion of the variance in the target variable explained by the model.
+                    - An R² close to 1 suggests a very good fit, while an R² near 0 indicates the model fails to capture much variance.""")
+
         # Examine coefficients
         st.write("Model Coefficients")
         st.dataframe(pd.Series(model.coef_, 
                                index=X_train.columns))
+        st.write(coeffiencents_message)
         
     # Logistic Regression
     else:  
@@ -189,6 +202,7 @@ if df is not None:
         st.subheader("Examine Coefficients")
         coef = pd.Series(model.coef_[0], index=X.columns)
         st.write(coef.sort_values(ascending=False))
+        st.write(coeffiencents_message)
     
 
 
