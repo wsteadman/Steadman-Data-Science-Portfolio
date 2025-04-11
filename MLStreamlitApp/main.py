@@ -80,6 +80,7 @@ st.header("Don't have a dataset? Load a demo")
 
 demosets = {
         'Titanic': 'https://raw.githubusercontent.com/datasciencedojo/datasets/refs/heads/master/titanic.csv',
+        ## other data sets?
     }
 
 
@@ -135,7 +136,7 @@ if df is not None:
         X_train = pd.DataFrame(X_train, columns=features)
         X_test = pd.DataFrame(X_test, columns=features)
 
-        coeffiencents_message = "-Scaled coefficients indicate the change in the Performance Index for a one standard deviation change in that feature." \
+        coeffiencents_message = "- Scaled coefficients indicate the change in the Performance Index for a one standard deviation change in that feature." \
                                 "- This standardization makes it easier to compare the relative importance of features."
 
 
