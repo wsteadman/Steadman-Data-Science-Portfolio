@@ -23,8 +23,26 @@ st.set_page_config(
     page_title="Classification Predictor",
     page_icon="📊",
 )
-st.title("Classification Predictor")
-st.markdown("""This is my app!""")
+st.title("Classification Predictor 🔍")
+st.markdown("""
+### This appp builds and evaluate classification models on your data with just a few clicks!
+
+### How To Use
+* **Select Data**: Upload a CSV file or choose a demo dataset from the sidebar
+* **Select Model**: Decision Tree or Logistic Regression
+* **Configure Parameters**: Adjust model-specific settings to optimize performance
+* **Interpret Results**: Explore visualizations and metrics to understand your model's strengths and limitations
+
+### Understanding Your Model
+* The app uses the **last (rightmost) column** in your dataset as the target variable (variable being predicted) and other columns as features
+
+* **Decision Tree**: 
+  * Splits the dataset into branches using feature thresholds, based on criteria like Gini impurity, entropy, or log loss
+
+* **Logistic Regression**: 
+  * Models the logistic relationship between a dataset's features and the probability of a target variable with binary outcomes (ex: yes/no)
+  * To convert probabilities into predictions, a cutoff (typically 0.5) is used with probabilities above the threshold classified as "positives" and below as "negatives"
+""")
 
 # -----------------------------------------------
 # Helper Functions
@@ -47,7 +65,6 @@ def format_data(df):
     # Define features and target
     X = df[features]
     y = df[target_col]
-
     return df, X, y, features
 
 
@@ -56,13 +73,12 @@ def split_data(X, y, test_size=0.2, random_state=42):
     return X_train, X_test, y_train, y_test
 
 
-def train_tree_model(X_train, y_train, criterion='gini'):
+def train_tree_model(X_train, y_train, criterion='gini', max_depth = 5):
     # Create model with the user-specified criterion
-    DT_model = DecisionTreeClassifier(criterion=criterion)
-
+    DT_model = DecisionTreeClassifier(criterion=criterion,
+                                      max_depth = max_depth)
     # Train the model
     DT_model.fit(X_train, y_train)
-    
     return DT_model
 
 def train_logistic_regression_model(X_train, y_train):
@@ -93,10 +109,10 @@ def plot_roc_curve(fpr, tpr, roc_auc):
     plt.clf()
 
 
-
 # -----------------------------------------------
 # Sidebar layout
 # -----------------------------------------------
+
 
 with st.sidebar: 
       # File upload
@@ -105,7 +121,6 @@ with st.sidebar:
       
       # Demo set options
       st.markdown("Don't have a dataset? Load a demo")
-      
       demosets = {
         'Titanic': 'https://raw.githubusercontent.com/datasciencedojo/datasets/refs/heads/master/titanic.csv',
         ## other data sets?
@@ -114,26 +129,30 @@ with st.sidebar:
       demo_selection = st.selectbox('Select a demo dataset', 
                                     ['None'] + list(demosets.keys()), 
                                     key='demo_selection')
+      
+      st.divider()
 
-      st.markdown("### ⚙️ Model Settings")
+      st.markdown("## ⚙️ Model Settings")
 
       # model selection
-      model_selector = st.radio("Model", options=["Decision_Tree", "Logistic_regression"])
-    
+      model_selector = st.radio("",options=["Decision_Tree", "Logistic_regression"])
+      st.write("")
+
       if model_selector == "Decision_Tree":
-          st.markdown("### Decision Tree Parameters")
+          st.markdown("#### Decision Tree Parameters")
           tree_split_criterion = st.radio("Splitting Criterion", options=["gini", "entropy", "log_loss"])
-      
+          max_depth = st.slider("Select Max Depth of Tree", min_value=1, max_value=30, value=5)
+          st.markdown("*Higher values may lead to overfitting.*")
+
       elif model_selector == "Logistic_regression":
          # Data scaled or unscaled 
          scaler_selector = st.radio("Scale_Data", options=["Scaled", "Unscaled"])
           
-          
-
 
 # -----------------------------------------------
 # Main Panel layout
 # -----------------------------------------------
+
 
 df = None
 
@@ -145,6 +164,9 @@ else:
     if demo_selection != 'None':
         # Load the selected demo dataset
         df = pd.read_csv(demosets[demo_selection])
+
+
+st.divider()
 
 # Only process if a dataframe is inputted
 if df is not None:
@@ -166,21 +188,32 @@ if df is not None:
     #Decision Tree
     if model_selector == "Decision_Tree": 
         # Train Model
-        model = train_tree_model(X_train, y_train, criterion=tree_split_criterion)
+        model = train_tree_model(X_train, y_train, criterion=tree_split_criterion, max_depth=max_depth)
         
         # Make predictions based on trained model
         y_pred = model.predict(X_test)
         
       # Calculate accuracy
         accuracy = accuracy_score(y_test, y_pred)
-        st.subheader("Model Performance")
         st.metric("Accuracy", f"{accuracy:.2%}")
         
+        col1, col2 = st.columns(2)
+
+        with col1:
         # Create a confusion matrix
-        st.subheader("Confusion Matrix")
-        cm = confusion_matrix(y_test, y_pred)
-        plot_confusion_matrix(cm)
-        
+            st.write("## Confusion Matrix")
+            cm = confusion_matrix(y_test, y_pred)
+            plot_confusion_matrix(cm)
+        with col2:
+            st.markdown("##### Understanding the Matrix")
+            st.markdown("""
+                        A confusion matrix shows how well the model classifies:
+                        - **True Positives (top left)**: Correctly predicted positive
+                        - **False Positives (bottom left)**: Incorrectly predicted as positive
+                        - **False Negatives (top right)**: Incorrectly predicted as negative
+                        - **True Negatives (bottom right)**: Correctly predicted negatives
+                        """)
+            
         # Create Classification Report
         st.subheader("Classification Report")
         st.text(classification_report(y_test, y_pred))  
@@ -201,7 +234,7 @@ if df is not None:
             # Compute the Area Under the Curve (AUC) score
         roc_auc = roc_auc_score(y_test, y_probs)
         plot_roc_curve(fpr, tpr, roc_auc)
-
+        st.metric("AUC", f"{roc_auc:.2}")
 
 
     # Logistic Regression
@@ -227,9 +260,22 @@ if df is not None:
         st.metric("Accuracy", f"{accuracy:.2%}")
         
         # Create a confusion matrix
-        st.subheader("Confusion Matrix")
-        cm = confusion_matrix(y_test, y_pred)
-        plot_confusion_matrix(cm)
+        col1, col2 = st.columns(2)
+
+        with col1:
+        # Create a confusion matrix
+            st.write("## Confusion Matrix")
+            cm = confusion_matrix(y_test, y_pred)
+            plot_confusion_matrix(cm)
+        with col2:
+            st.markdown("##### Understanding the Matrix")
+            st.markdown("""
+                        A confusion matrix shows how well the model classifies:
+                        - **True Positives (top left)**: Correctly predicted positive
+                        - **False Positives (bottom left)**: Incorrectly predicted as positive
+                        - **False Negatives (top right)**: Incorrectly predicted as negative
+                        - **True Negatives (bottom right)**: Correctly predicted negatives
+                        """)
         
         # Create Classification Report
         st.subheader("Classification Report")
@@ -243,19 +289,20 @@ if df is not None:
             st.markdown("### Model Coefficients")
             coef = pd.Series(model.coef_[0], index=X.columns)
             st.write(coef.sort_values(ascending=False))
+        with col2:  
             st.write({"Unscaled": "Each coefficient represents the change in the outcome probability (log-odds) for a one-unit change in the respective feature, holding all other features constant.", 
                       "Scaled": "Scaled coefficients indicate the change in outcome probability (log-odds) for a one standard deviation change in that feature. This standardization makes it easier to compare the relative importance of features."})
 
-        # ROC Curve
-        with col2:    
-            st.markdown("### ROC Curve")
-            # Get the predicted probabilities for the positive class, only the second column of the array 
-            y_probs = model.predict_proba(X_test)[:, 1]
-            # Calculate the False Positive Rate (FPR), True Positive Rate (TPR), and thresholds
-            fpr, tpr, thresholds = roc_curve(y_test, y_probs)
-            # Compute the Area Under the Curve (AUC) score
-            roc_auc = roc_auc_score(y_test, y_probs)
-            plot_roc_curve(fpr, tpr, roc_auc)
+        # ROC Curve  
+        st.markdown("### ROC Curve")
+        # Get the predicted probabilities for the positive class, only the second column of the array 
+        y_probs = model.predict_proba(X_test)[:, 1]
+        # Calculate the False Positive Rate (FPR), True Positive Rate (TPR), and thresholds
+        fpr, tpr, thresholds = roc_curve(y_test, y_probs)
+        # Compute the Area Under the Curve (AUC) score
+        roc_auc = roc_auc_score(y_test, y_probs)
+        plot_roc_curve(fpr, tpr, roc_auc)
+        st.metric("AUC", f"{roc_auc:.2}")
     
 else:
         # Display welcome message when no data is loaded
