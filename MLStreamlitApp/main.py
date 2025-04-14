@@ -34,7 +34,7 @@ st.markdown("""
 * **Interpret Results**: Explore visualizations and metrics to understand your model's strengths and limitations
 
 ### Understanding Your Model
-* The app uses the **last (rightmost) column** in your dataset as the target variable (variable being predicted) and other columns as features
+* The app uses the **last** column (rightmost) in your dataset as the target variable (variable being predicted) and other columns as features
 
 * **Decision Tree**: 
   * Splits the dataset into branches using feature thresholds, based on criteria like Gini impurity, entropy, or log loss
@@ -98,7 +98,7 @@ def plot_confusion_matrix(cm):
 
  # Plot the ROC curve
 def plot_roc_curve(fpr, tpr, roc_auc):
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(6, 4))
     plt.plot(fpr, tpr, lw=2, label=f'ROC Curve (AUC = {roc_auc:.2f})')
     plt.plot([0, 1], [0, 1], lw=2, linestyle='--', label='Random Guess') # Plotting 50% line
     plt.xlabel('False Positive Rate')
@@ -121,10 +121,12 @@ with st.sidebar:
       
       # Demo set options
       st.markdown("Don't have a dataset? Load a demo")
+
       demosets = {
-        'Titanic': 'https://raw.githubusercontent.com/datasciencedojo/datasets/refs/heads/master/titanic.csv',
-        ## other data sets?
+        'Titanic': "titanic.csv",
+        'Heart_Disease': "heart.csv"
         }
+
     
       demo_selection = st.selectbox('Select a demo dataset', 
                                     ['None'] + list(demosets.keys()), 
@@ -142,7 +144,7 @@ with st.sidebar:
           st.markdown("#### Decision Tree Parameters")
           tree_split_criterion = st.radio("Splitting Criterion", options=["gini", "entropy", "log_loss"])
           max_depth = st.slider("Select Max Depth of Tree", min_value=1, max_value=30, value=5)
-          st.markdown("*Higher values may lead to overfitting.*")
+          st.markdown("*Higher values may lead to overfitting*")
 
       elif model_selector == "Logistic_regression":
          # Data scaled or unscaled 
@@ -194,8 +196,16 @@ if df is not None:
         y_pred = model.predict(X_test)
         
       # Calculate accuracy
-        accuracy = accuracy_score(y_test, y_pred)
-        st.metric("Accuracy", f"{accuracy:.2%}")
+        col1, col2 = st.columns([1, 3])
+        with col1:
+            accuracy = accuracy_score(y_test, y_pred)
+            st.metric("Accuracy", f"{accuracy:.2%}")
+        with col2:
+           st.markdown(f"""
+            **Accuracy** measures the percent of correct predictions made by a model:
+            - Accuracy of {accuracy:.2%} means the model correctly predicted {int(accuracy * 100)} out of 100 cases
+            - ⚠️In imbalanced datasets, accuracy can be misleading. If 95% of samples belong to class A, a model can achieve 95% accuracy by predicting class A for everything!
+            """)
         
         col1, col2 = st.columns(2)
 
@@ -217,6 +227,13 @@ if df is not None:
         # Create Classification Report
         st.subheader("Classification Report")
         st.text(classification_report(y_test, y_pred))  
+        with st.expander("Metrics Explanation"):
+            st.markdown("""
+                        - **Precision**: Measures how many of the predicted positive cases were true positives. High precision: when the model predicts a positive, it’s likely accurate.
+                        - **Recall**: Measures how many of the true positive cases the model found. High recall: the model is catching most of the true positives.
+                        - **F1-Score**: The harmonic mean of precision and recall, a single score that balances both.
+                        - **Support**: The number of true instances for each class in the dataset.
+                        """)
 
         # visualize decision tree
         st.markdown("### Decision Tree")
@@ -225,16 +242,42 @@ if df is not None:
                         filled=True,
                         )
         st.graphviz_chart(dot_data)
-        # ROC Curve 
-        st.markdown("### ROC Curve")
-            # Get the predicted probabilities for the positive class, only the second column of the array 
+
+        st.markdown("""
+                    #### This tree is built based on your specified splitting criterion and depth (number of nodes from top to bottom)!
+                    
+                    Splitting criterion: 
+                    - **gini**: The model splits data to minimize information gain based on entropy, ze Gini impurity, or how often a randomly chosen element would be incorrectly classified
+                    - **entropy**: The model splits data based on the maximum reduction of disorder achieved in the dataset after each split
+                    - **log_loss**: The model optimizes splits by minimizing the error in predicted probabilities for classification
+                    """)
+
+         # ROC Curve  
+
+        # Get the predicted probabilities for the positive class, only the second column of the array 
         y_probs = model.predict_proba(X_test)[:, 1]
-            # Calculate the False Positive Rate (FPR), True Positive Rate (TPR), and thresholds
+        # Calculate the False Positive Rate (FPR), True Positive Rate (TPR), and thresholds
         fpr, tpr, thresholds = roc_curve(y_test, y_probs)
-            # Compute the Area Under the Curve (AUC) score
+        # Compute the Area Under the Curve (AUC) score
         roc_auc = roc_auc_score(y_test, y_probs)
+
+        # Display Chart and Area Under Curve
+        col1, col2 = st.columns([3,1])
+        with col1:
+            st.markdown("## ROC Curve")
+        with col2: 
+            st.metric("AUC", f"{roc_auc:.2}")
+
         plot_roc_curve(fpr, tpr, roc_auc)
-        st.metric("AUC", f"{roc_auc:.2}")
+        
+        # Explanation
+        with st.expander("ROC Curve and AUC Explanation"):
+            st.markdown("""
+                        The ROC (Receiver Operating Characteristic) curve is a graphical representation of the True Positive Rate (TPR) against the False Positive Rate (FPR).
+                        The AUC (Area Under the Curve) represents the average area under the ROC curve.
+                        - The AUC offers a metric to evaluate how well the model distinguishes between the positive and negative results
+                        - An AUC of 1 represents a perfect test, while an AUC of 0.5 represents a test no better than random classification
+                        """)
 
 
     # Logistic Regression
@@ -255,9 +298,16 @@ if df is not None:
         y_pred = model.predict(X_test)
         
         # Calculate accuracy
-        accuracy = accuracy_score(y_test, y_pred)
-        st.subheader("Model Performance")
-        st.metric("Accuracy", f"{accuracy:.2%}")
+        col1, col2 = st.columns([1, 3])
+        with col1:
+            accuracy = accuracy_score(y_test, y_pred)
+            st.metric("Accuracy", f"{accuracy:.2%}")
+        with col2:
+           st.markdown(f"""
+            **Accuracy** measures the percent of correct predictions made by a model:
+            - Accuracy of {accuracy:.2%} means the model correctly predicted {int(accuracy * 100)} out of 100 cases
+            - ⚠️In imbalanced datasets, accuracy can be misleading. If 95% of samples belong to class A, a model can achieve 95% accuracy by predicting class A for everything!
+            """)
         
         # Create a confusion matrix
         col1, col2 = st.columns(2)
@@ -280,29 +330,60 @@ if df is not None:
         # Create Classification Report
         st.subheader("Classification Report")
         st.text(classification_report(y_test, y_pred))   
-        
 
-        col1, col2 = st.columns(2)
+        with st.expander("Metrics Explanation"):
+            st.markdown("""
+                        - **Precision**: Measures how many of the predicted positive cases were true positives. High precision: when the model predicts a positive, it’s likely accurate.
+                        - **Recall**: Measures how many of the true positive cases the model found. High recall: the model is catching most of the true positives.
+                        - **F1-Score**: The harmonic mean of precision and recall, a single score that balances both.
+                        - **Support**: The number of true instances for each class in the dataset.
+                        """)
+            
 
         # Examine Coefficients
+        col1, col2 = st.columns(2)
+
         with col1: 
             st.markdown("### Model Coefficients")
             coef = pd.Series(model.coef_[0], index=X.columns)
             st.write(coef.sort_values(ascending=False))
         with col2:  
-            st.write({"Unscaled": "Each coefficient represents the change in the outcome probability (log-odds) for a one-unit change in the respective feature, holding all other features constant.", 
-                      "Scaled": "Scaled coefficients indicate the change in outcome probability (log-odds) for a one standard deviation change in that feature. This standardization makes it easier to compare the relative importance of features."})
+            st.write("")
+            st.write("")
+            st.write("")
+            st.markdown("""
+                        - **Unscaled** : Each coefficient represents the change in the outcome probability (log-odds) for a one-unit change in the respective feature, holding all other features constant.
+                        
+                        - **Scaled** : Scaled coefficients indicate the change in outcome probability (log-odds) for a one standard deviation change in that feature. This standardization makes it easier to compare the relative importance of features.""")
+
 
         # ROC Curve  
-        st.markdown("### ROC Curve")
+
         # Get the predicted probabilities for the positive class, only the second column of the array 
         y_probs = model.predict_proba(X_test)[:, 1]
         # Calculate the False Positive Rate (FPR), True Positive Rate (TPR), and thresholds
         fpr, tpr, thresholds = roc_curve(y_test, y_probs)
         # Compute the Area Under the Curve (AUC) score
         roc_auc = roc_auc_score(y_test, y_probs)
+
+        # Display Chart and Area Under Curve
+        col1, col2 = st.columns([3,1])
+        with col1:
+            st.markdown("## ROC Curve")
+        with col2: 
+            st.metric("AUC", f"{roc_auc:.2}")
+
         plot_roc_curve(fpr, tpr, roc_auc)
-        st.metric("AUC", f"{roc_auc:.2}")
+        
+         # Explanation
+        with st.expander("ROC Curve and AUC Explanation"):
+            st.markdown("""
+                        The ROC (Receiver Operating Characteristic) curve is a graphical representation of the True Positive Rate (TPR) against the False Positive Rate (FPR).
+                        The AUC (Area Under the Curve) represents the average area under the ROC curve.
+                        - The AUC offers a metric to evaluate how well the model distinguishes between the positive and negative results
+                        - An AUC of 1 represents a perfect test, while an AUC of 0.5 represents a test no better than random classification
+                        """)
+
     
 else:
         # Display welcome message when no data is loaded
