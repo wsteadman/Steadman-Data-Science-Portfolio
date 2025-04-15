@@ -9,8 +9,8 @@
 - **Application**: Useful for interacting with datasets to communicate easy to understand and simple insights through streamlit!
 
 - **Take Aways**:
-  - Gained hands-on experience using Streamlit to build and deploy data applications.
-  - Practiced data visualization and filtering techniques in a web-based interface.
+  - Gained hands-on experience using Streamlit to build and deploy data applications
+  - Practiced data visualization and filtering techniques in a web-based interface
 
 - [Link to Basic Streamlit App](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Basic-streamlit-app/main.py)
 
@@ -20,9 +20,9 @@
 
 ## Tidy Data Project
 ---
-- **Project Description**: This project is built in a Juypter Notebook, and focuses on cleaning unstructured data and transforming it into a tidy format suitable for analysis. In the project, I worked with raw, messy data detailing aspects of Olympians, and applied data wrangling techniques to make it useable. After cleaning, I visualized key insights from the dataset and displayed them.
+- **Project Description**: This project is built in a Juypter Notebook, and focuses on cleaning unstructured data and transforming it into a tidy format suitable for analysis. In the project, I worked with raw, messy data detailing aspects of Olympians, and applied data wrangling techniques to make it useable. After cleaning, I visualized key insights from the dataset and displayed them
 
-- **Application**: Useful for understanding how to reshape datsets so that they are easier to manipulate and understand for further analysis.
+- **Application**: Useful for understanding how to reshape datsets so that they are easier to manipulate and understand for further analysis
 
 - **Take Aways**:
   - Data cleaning and transformation using Pandas, and explained using markdown (identifying and handling missing, inconsistent, and duplicated data)
@@ -41,7 +41,7 @@
 
 - **Take Aways**:
   - Implemented a framework to switch between different algorithms (Decision Trees vs. Logistic Regression) and allowed users to edit some of these models' inputs/parameters, showing how these decisions can affect the strength of a model
-  - The app also automatically handles data preprocessing, demonstrating how essential this aspect of model building is
+  - The app also automatically handles data preprocessing, demonstrating how essential this aspect of model building is to a useable model
 
 - [Link to ML App Project]()
 
