@@ -206,10 +206,10 @@ if df is not None:
             - ⚠️In imbalanced datasets, accuracy can be misleading. If 95% of samples belong to class A, a model can achieve 95% accuracy by predicting class A for everything!
             """)
         
+         # Create a confusion matrix
         col1, col2 = st.columns(2)
 
         with col1:
-        # Create a confusion matrix
             st.write("## Confusion Matrix")
             cm = confusion_matrix(y_test, y_pred)
             plot_confusion_matrix(cm)
@@ -241,7 +241,6 @@ if df is not None:
                         filled=True,
                         )
         st.graphviz_chart(dot_data)
-
         st.markdown("""
                     #### This tree is built based on your specified splitting criterion and depth (number of nodes from top to bottom)!
                     
@@ -251,9 +250,8 @@ if df is not None:
                     - **log_loss**: The model optimizes splits by minimizing the error in predicted probabilities for classification
                     """)
 
-         # ROC Curve  
-
-        # Get the predicted probabilities for the positive class, only the second column of the array 
+        ## ROC Curve  
+        # Get the predicted probabilities for the "positive" data 
         y_probs = model.predict_proba(X_test)[:, 1]
         # Calculate the False Positive Rate (FPR), True Positive Rate (TPR), and thresholds
         fpr, tpr, thresholds = roc_curve(y_test, y_probs)
@@ -266,7 +264,6 @@ if df is not None:
             st.markdown("## ROC Curve")
         with col2: 
             st.metric("AUC", f"{roc_auc:.2}")
-
         plot_roc_curve(fpr, tpr, roc_auc)
         
         # Explanation
@@ -296,7 +293,7 @@ if df is not None:
         # Make predictions
         y_pred = model.predict(X_test)
         
-        # Calculate accuracy
+        # Calculate and present accuracy
         col1, col2 = st.columns([1, 3])
         with col1:
             accuracy = accuracy_score(y_test, y_pred)
@@ -312,7 +309,6 @@ if df is not None:
         col1, col2 = st.columns(2)
 
         with col1:
-        # Create a confusion matrix
             st.write("## Confusion Matrix")
             cm = confusion_matrix(y_test, y_pred)
             plot_confusion_matrix(cm)
@@ -329,7 +325,6 @@ if df is not None:
         # Create Classification Report
         st.subheader("Classification Report")
         st.text(classification_report(y_test, y_pred))   
-
         with st.expander("Metrics Explanation"):
             st.markdown("""
                         - **Precision**: Measures how many of the predicted positive cases were true positives. High precision: when the model predicts a positive, it’s likely accurate.
@@ -356,9 +351,8 @@ if df is not None:
                         - **Scaled** : Scaled coefficients indicate the change in outcome probability (log-odds) for a one standard deviation change in that feature. This standardization makes it easier to compare the relative importance of features.""")
 
 
-        # ROC Curve  
-
-        # Get the predicted probabilities for the positive class, only the second column of the array 
+        ## ROC Curve  
+        # Get the predicted probabilities for the "positive" data 
         y_probs = model.predict_proba(X_test)[:, 1]
         # Calculate the False Positive Rate (FPR), True Positive Rate (TPR), and thresholds
         fpr, tpr, thresholds = roc_curve(y_test, y_probs)
@@ -371,13 +365,12 @@ if df is not None:
             st.markdown("## ROC Curve")
         with col2: 
             st.metric("AUC", f"{roc_auc:.2}")
-
         plot_roc_curve(fpr, tpr, roc_auc)
         
          # Explanation
         with st.expander("ROC Curve and AUC Explanation"):
             st.markdown("""
-                        The ROC (Receiver Operating Characteristic) curve is a graphical representation of the True Positive Rate (TPR) against the False Positive Rate (FPR).
+                        The ROC (Receiver Operating Characteristic) curve is a graphical representation of the True Positive Rate (TPR) against the False Positive Rate (FPR), relative to different model cutoffs.
                         The AUC (Area Under the Curve) represents the average area under the ROC curve.
                         - The AUC offers a metric to evaluate how well the model distinguishes between the positive and negative results
                         - An AUC of 1 represents a perfect test, while an AUC of 0.5 represents a test no better than random classification
