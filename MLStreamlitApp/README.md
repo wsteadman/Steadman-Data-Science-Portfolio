@@ -55,7 +55,7 @@ This is an interactive data science application that allows users to build, eval
     - Coefficient analysis
     - ROC curve with AUC value
 
-## Visual Examples
+## Visuals
 <br>
 
 *Main interface with sidebar controls:*
