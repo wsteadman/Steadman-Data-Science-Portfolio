@@ -4,7 +4,18 @@
 This is an interactive data science application that allows users to build, evaluate, and visualize machine learning classification models. Users have the option to upload their own datasets or choose from demo options, and then compare the performance of both Decision Tree and Logistic Regression models with customizable configurations. The app creates visualizations and metrics to help users understand how the models function, and does so in a way that allows anyone with no prior knowledge of classification models to understand the outputs!
 
 ## Instructions 🛠️
-[link_to_classification_app]( )
+#### Click the link to get started!
+[link_to_classification_app](https://steadman-data-science-portfolio-9hqd4epyr8xgguu8xhii5s.streamlit.app/)
+
+**Using the App** 
+- Upload or choose a demoset dataset
+- Adjust model parameters using the sliders and checkboxes in the sidebar to see how they affect performance
+- Compare both models to determine which works best for your specific dataset
+
+**Troubleshooting**
+- If you have errors, ensure your data is in CSV format
+- Ensure that the target variable is binary and located in the last column
+- If models perform poorly, try adjusting parameters or consider if your dataset needs more preprocessing
 
 ## Required Libraries 📚
 - graphviz==0.20.3
