@@ -44,15 +44,22 @@ This is an interactive data science application that allows users to build, eval
     - ROC curve with AUC value
 
 ## Visual Examples
-Main interface with sidebar controls and model:
+<br>
+
+*Main interface with sidebar controls:*
+<br>
 <img src="https://github.com/user-attachments/assets/eb62906d-2400-4e39-bfe0-7c954a186af3" alt="image" width="700" />
+<br><br>
 
-Decision Tree Visualization:
+*Decision Tree Visualization:*
+<br>
 <img src="https://github.com/user-attachments/assets/96efdfbb-6aa3-405c-bc9c-3608d7ce6aec" alt="image" width="700" />
+<br><br>
 
-ROC curve with AUC score and confusion matrix heatmap:
+*ROC curve with AUC score and confusion matrix heatmap:*
+<br>
 <img src="https://github.com/user-attachments/assets/8727378c-d731-4b10-9ab2-846731f5e1dd" alt="image" width="700" />
-
+<br><br>
 
 ## References:
 [Decision_Tree_Notes](Notes\Week 10\IDS_Week_10_1_(3_25)_FINAL.ipynb)
