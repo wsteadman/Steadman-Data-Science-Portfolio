@@ -46,4 +46,5 @@ This is a machine learning classification app that allows users to build, visual
 [Link to ML App Project]()
 
 ### Visual:
-<img src="" alt="image" width="600" />
+<img src="https://github.com/user-attachments/assets/456be642-4d39-41e0-91d4-681a503e593c" alt="image" width="600" />
+
