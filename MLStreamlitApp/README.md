@@ -4,15 +4,15 @@
 This is an interactive data science application that allows users to build, evaluate, and visualize machine learning classification models. Users have the option to upload their own datasets or choose from demo options, and then compare the performance of both Decision Tree and Logistic Regression models with customizable configurations. The app creates visualizations and metrics to help users understand how the models function, and do so in a way that allows anyone with no prior knowledge of classification models to understand the outputs. 
 
 ## Instructions 🛠️
-[link to app]( )
+[link_to_classification_app]( )
 
 ## Required Libraries 📚
-- streamlit==1.27.0
-- pandas==2.0.3
-- seaborn==0.12.2
-- matplotlib==3.7.2
-- scikit-learn==1.3.0
-- graphviz==0.20.1
+- graphviz==0.20.3
+- matplotlib==3.10.1
+- pandas==2.2.3
+- scikit_learn==1.6.1
+- seaborn==0.13.2
+- streamlit==1.37.1
 
 ## App Features 📁
 ### Data Processing
@@ -45,7 +45,6 @@ Logistic Regression 📈
 
 ## Visual Examples
 App Interface:
-
 
 Main interface with sidebar controls and model:
 
