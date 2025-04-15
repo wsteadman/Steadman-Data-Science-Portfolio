@@ -68,7 +68,7 @@ This is an interactive data science application that allows users to build, eval
 <img src="https://github.com/user-attachments/assets/96efdfbb-6aa3-405c-bc9c-3608d7ce6aec" alt="image" width="700" />
 <br><br>
 
-*ROC curve with AUC score and confusion matrix heatmap:*
+*ROC curve with AUC score:*
 <br>
 <img src="https://github.com/user-attachments/assets/8727378c-d731-4b10-9ab2-846731f5e1dd" alt="image" width="700" />
 <br><br>
