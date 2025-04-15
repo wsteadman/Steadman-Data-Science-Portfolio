@@ -122,8 +122,7 @@ with st.sidebar:
 
       demosets = {
         'Heart_Disease_Predictor': "https://raw.githubusercontent.com/wsteadman/Steadman-Data-Science-Portfolio/refs/heads/main/MLStreamlitApp/heart.csv",
-        'Loan_Approval': "https://raw.githubusercontent.com/wsteadman/Steadman-Data-Science-Portfolio/refs/heads/main/MLStreamlitApp/loan_data.csv",
-        'Plays_Tennis': 'https://raw.githubusercontent.com/JadeMaveric/DecisionTreeViz/main/data/tennis.csv',
+        'Loan_Approval': "https://raw.githubusercontent.com/wsteadman/Steadman-Data-Science-Portfolio/refs/heads/main/MLStreamlitApp/loan_data.csv"
         }
 
     
