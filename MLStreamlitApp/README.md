@@ -16,11 +16,11 @@ This is an interactive data science application that allows users to build, eval
 
 ## App Features 📁
 ### Data Processing
-- Data Importing: Upload custom CSV files or use built-in demo datasets (Titanic, Heart Disease)
+- Data Importing: Upload custom CSV files or use built-in demo datasets (Heart Disease, loan approvals)
 - Preprocessing data: Automatically handles missing values and dummy variables
 
 ### Models
-Decision Tree 🌳
+**Decision Tree** 🌳
 - Configurable Parameters:
     - Splitting criterion: Choose between Gini impurity, entropy, or log loss 
     - Maximum tree depth: Control node depth with a slider (range: 1-30)
@@ -32,7 +32,7 @@ Decision Tree 🌳
     - Decision tree visualization
     - ROC curve with AUC value
 
-Logistic Regression 📈
+**Logistic Regression** 📈
 - Configurable Parameters:
     - Data scaling: Option to scale data 
 
@@ -44,15 +44,14 @@ Logistic Regression 📈
     - ROC curve with AUC value
 
 ## Visual Examples
-App Interface:
-
 Main interface with sidebar controls and model:
-
+<img src="https://github.com/user-attachments/assets/eb62906d-2400-4e39-bfe0-7c954a186af3" alt="image" width="700" />
 
 Decision Tree Visualization:
-
+<img src="https://github.com/user-attachments/assets/96efdfbb-6aa3-405c-bc9c-3608d7ce6aec" alt="image" width="700" />
 
 ROC curve with AUC score and confusion matrix heatmap:
+<img src="https://github.com/user-attachments/assets/8727378c-d731-4b10-9ab2-846731f5e1dd" alt="image" width="700" />
 
 
 ## References:
