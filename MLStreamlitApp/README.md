@@ -14,7 +14,8 @@ This is an interactive data science application that allows users to build, eval
 - seaborn==0.13.2
 - streamlit==1.37.1
 
-## App Features 📁 *for more info about any metric or visual just visit the app!*
+## App Features 📁 
+*for more info about any metric or visual just visit the app!*
 ### Data Processing
 - Data Importing: Upload custom CSV files or use built-in demo datasets (Heart Disease, loan approvals)
 - Preprocessing data: Automatically handles missing values and dummy variables
