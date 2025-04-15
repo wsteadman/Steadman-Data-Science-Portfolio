@@ -10,15 +10,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-from sklearn.metrics import mean_squared_error, root_mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.model_selection import GridSearchCV
-
 
 # -----------------------------------------------
-# Application Information
+# Application Title and Desciption
 # -----------------------------------------------
+
 st.set_page_config(
     page_title="Classification Predictor",
     page_icon="📊",
@@ -67,20 +65,21 @@ def format_data(df):
     y = df[target_col]
     return df, X, y, features
 
-
+# Splits data into training and testing split for models
 def split_data(X, y, test_size=0.2, random_state=42):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     return X_train, X_test, y_train, y_test
 
-
+# Trains decision tree model
 def train_tree_model(X_train, y_train, criterion='gini', max_depth = 5):
-    # Create model with the user-specified criterion
-    DT_model = DecisionTreeClassifier(criterion=criterion,
-                                      max_depth = max_depth)
-    # Train the model
+    DT_model = DecisionTreeClassifier(
+                            criterion=criterion,
+                            max_depth = max_depth
+                            )
     DT_model.fit(X_train, y_train)
     return DT_model
 
+# Trains logistic_regression model
 def train_logistic_regression_model(X_train, y_train):
     model = LogisticRegression()
     model.fit(X_train, y_train)
@@ -96,7 +95,7 @@ def plot_confusion_matrix(cm):
     st.pyplot(plt)
     plt.clf()
 
- # Plot the ROC curve
+# Plot the ROC curve
 def plot_roc_curve(fpr, tpr, roc_auc):
     plt.figure(figsize=(6, 4))
     plt.plot(fpr, tpr, lw=2, label=f'ROC Curve (AUC = {roc_auc:.2f})')
@@ -115,15 +114,14 @@ def plot_roc_curve(fpr, tpr, roc_auc):
 
 
 with st.sidebar: 
-      # File upload
+      # File uploader
       st.markdown("### 📂 Upload Your Own CSV File")
       upload_file = st.sidebar.file_uploader("Choose a file") 
       
-      # Demo set options
+      # Demo sets
       st.markdown("Don't have a dataset? Load a demo")
 
       demosets = {
-        'Titanic_Survival': "titanic_.csv",
         'Heart_Disease_Predictor': "heart.csv",
         'Loan_Approval': "loan_data.csv"
         }
@@ -133,22 +131,22 @@ with st.sidebar:
                                     ['None'] + list(demosets.keys()), 
                                     key='demo_selection')
       
+      # model and parameter selection
       st.divider()
-
       st.markdown("## ⚙️ Model Settings")
 
-      # model selection
       model_selector = st.radio("",options=["Decision_Tree", "Logistic_regression"])
       st.write("")
-
+      
+      # DT parameters
       if model_selector == "Decision_Tree":
           st.markdown("#### Decision Tree Parameters")
           tree_split_criterion = st.radio("Splitting Criterion", options=["gini", "entropy", "log_loss"])
           max_depth = st.slider("Select Max Depth of Tree", min_value=1, max_value=30, value=5)
           st.markdown("*Higher values may lead to overfitting*")
 
+      # Log regression parameters
       elif model_selector == "Logistic_regression":
-         # Data scaled or unscaled 
          scaler_selector = st.radio("Scale_Data", options=["Scaled", "Unscaled"])
           
 
@@ -188,7 +186,7 @@ if df is not None:
     X_train, X_test, y_train, y_test = split_data(X, y)
 
 
-    #Decision Tree
+    # Decision Tree
     if model_selector == "Decision_Tree": 
         # Train Model
         model = train_tree_model(X_train, y_train, criterion=tree_split_criterion, max_depth=max_depth)
