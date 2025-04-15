@@ -123,8 +123,9 @@ with st.sidebar:
       st.markdown("Don't have a dataset? Load a demo")
 
       demosets = {
-        'Titanic': "titanic.csv",
-        'Heart_Disease': "heart.csv"
+        'Titanic_Survival': "titanic_.csv",
+        'Heart_Disease_Predictor': "heart.csv",
+        'Loan_Approval': "loan_data.csv"
         }
 
     
