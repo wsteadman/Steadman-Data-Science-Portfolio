@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import graphviz
 
 from sklearn.metrics import roc_curve, roc_auc_score
 from sklearn import tree
@@ -122,8 +121,9 @@ with st.sidebar:
       st.markdown("Don't have a dataset? Load a demo")
 
       demosets = {
-        'Heart_Disease_Predictor': "heart.csv",
-        'Loan_Approval': "loan_data.csv"
+        'Heart_Disease_Predictor': "https://raw.githubusercontent.com/wsteadman/Steadman-Data-Science-Portfolio/refs/heads/main/MLStreamlitApp/heart.csv",
+        'Loan_Approval': "https://raw.githubusercontent.com/wsteadman/Steadman-Data-Science-Portfolio/refs/heads/main/MLStreamlitApp/loan_data.csv",
+        'Plays_Tennis': 'https://raw.githubusercontent.com/JadeMaveric/DecisionTreeViz/main/data/tennis.csv',
         }
 
     
