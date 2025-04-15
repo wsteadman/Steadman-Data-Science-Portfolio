@@ -43,7 +43,7 @@
   - Implemented a framework to switch between different algorithms (Decision Trees vs. Logistic Regression) and allowed users to edit some of these models' inputs/parameters, showing how these decisions can affect the strength of a model
   - The app also automatically handles data preprocessing, demonstrating how essential this aspect of model building is to a useable model
 
-- [Link to ML App Project]()
+- [Link to ML App Project](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/MLStreamlitApp/README.md)
 
 ### Visual:
 <img src="https://github.com/user-attachments/assets/456be642-4d39-41e0-91d4-681a503e593c" alt="image" width="600" />
