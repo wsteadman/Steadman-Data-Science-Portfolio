@@ -372,7 +372,7 @@ if df is not None:
             st.markdown("""
                         The ROC (Receiver Operating Characteristic) curve is a graphical representation of the True Positive Rate (TPR) against the False Positive Rate (FPR), relative to different model cutoffs.
                         The AUC (Area Under the Curve) represents the average area under the ROC curve and is used to evaluate the model.
-                        - Example: IF the model returns a .75 probability of a positive result and the cutoff is .5 it will return "positive"
+                        - Example: If the model returns a .75 probability of a positive result and the cutoff is .5 it will return "positive"
                         - The AUC offers a metric to evaluate how well the model distinguishes between the positive and false positive results
                         - An AUC of 1 represents a perfect test, while an AUC of 0.5 represents a test no better than random classification
                         """)
