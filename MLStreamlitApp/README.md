@@ -62,6 +62,6 @@ This is an interactive data science application that allows users to build, eval
 <br><br>
 
 ## References:
-[Decision_Tree_Notes](Notes\Week 10\IDS_Week_10_1_(3_25)_FINAL.ipynb)
+[Decision_Tree_Notes](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Notes/Week%2010/IDS_Week_10_1_(3_25)_FINAL.ipynb)
 
-[Logistic_Regression_Notes](Notes\Week 9\IDS_Week_9_1_(3_18)_FINAL-1.ipynb)
+[Logistic_Regression_Notes](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Notes/Week%209/IDS_Week_9_1_(3_18)_FINAL-1.ipynb)
