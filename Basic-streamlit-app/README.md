@@ -104,6 +104,5 @@ Include screenshots here if needed for visual documentation.
 
 ## 📬 Contact
 
-Created with 💙 by **Your Name**  
-📧 your.email@example.com  
-🌐 [your-portfolio.com](https://your-portfolio.com)
+📧 wsteadma@nd.edu
+🌐 
