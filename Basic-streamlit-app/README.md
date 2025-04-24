@@ -101,8 +101,3 @@ Include screenshots here if needed for visual documentation.
 - Inspired by [Streamlit](https://streamlit.io/) and [Pandas](https://pandas.pydata.org/)
 
 <br>
-
-## 📬 Contact
-
-📧 wsteadma@nd.edu
-🌐 
