@@ -57,7 +57,8 @@ The analysis follows these key steps implemented in the Jupyter Notebook:
 
 *Gold Medals by Sport:*
 
-<img src="image-1.png" alt="Horizontal bar chart showing Gold medals per sport" width="500">
+<img src= "https://github.com/user-attachments/assets/3ef6445e-0f2f-4685-ac4d-085c853688de" alt="Horizontal bar chart showing Gold medals per sport" width="500">
+
 
 ### Pivot Table Summary
 
