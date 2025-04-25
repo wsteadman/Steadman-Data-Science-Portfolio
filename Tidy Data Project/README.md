@@ -41,6 +41,7 @@ The analysis follows these key steps implemented in the Jupyter Notebook:
 ### Data Transformation (Original vs. Tidied)
 
 *Original Wide Format:*
+
 <img src="image-2.png" alt="Original wide format dataframe" width="600">
 
 *Tidied Long Format:*
