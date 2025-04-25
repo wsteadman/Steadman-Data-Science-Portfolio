@@ -47,7 +47,7 @@ The analysis follows these key steps implemented in the Jupyter Notebook:
 
 *Tidied Long Format:*
 
-<img src="image-3.png" alt="Tidied long format dataframe" width="300">
+<img src="https://github.com/user-attachments/assets/6c691210-c615-4a67-9c74-1fb6301bfb34" alt="Tidied long format dataframe" width="300">
 
 ### Example Charts
 
