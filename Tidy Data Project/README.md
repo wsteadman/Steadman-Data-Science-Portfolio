@@ -42,7 +42,8 @@ The analysis follows these key steps implemented in the Jupyter Notebook:
 
 *Original Wide Format:*
 
-<img src="image-2.png" alt="Original wide format dataframe" width="600">
+<img src="https://github.com/user-attachments/assets/eacd4a39-ef69-4378-8ff0-cb9e3183aca6" alt="Original wide format dataframe" width="600">
+
 
 *Tidied Long Format:*
 
