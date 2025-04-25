@@ -52,7 +52,7 @@ The analysis follows these key steps implemented in the Jupyter Notebook:
 
 *Medal Count by Type:*
 
-<img src="image.png" alt="Bar chart showing counts of Gold, Silver, and Bronze medals" width="500">
+<img src="https://github.com/user-attachments/assets/f3cb906e-f7cd-4be6-9cbb-5315cf9d3e85" alt="Bar chart showing counts of Gold, Silver, and Bronze medals" width="800">
 
 *Gold Medals by Sport:*
 
