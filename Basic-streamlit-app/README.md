@@ -90,5 +90,8 @@ The dataset contains physical measurements of penguins (bill length, flipper siz
 ## Sources
 
 - Dataset sourced from [Palmer Penguins Dataset](https://github.com/allisonhorst/palmerpenguins)
-- https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Notes/Week%203/Week_3_2_streamlit_IN-CLASS.py 
+- [Week_3_Notes](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Notes/Week%203/Week_3_2_streamlit_IN-CLASS.py)
+- [Week_4_Notes](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Notes/Week%204/Week_4_2_streamlit_data_IN-CLASS.py)
+
 <br>
+
