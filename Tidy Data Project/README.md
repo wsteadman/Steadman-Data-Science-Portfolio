@@ -30,7 +30,7 @@ The analysis follows these key steps implemented in the Jupyter Notebook:
         * A horizontal bar chart showing the number of Gold medals per sport
         * Generate a pivot table to summarize the number of medals (Gold, Silver, Bronze) won by athletes, broken down by both Sport and Sex.
 
-## 📋 Instructions
+## 🚀 Getting Started
 1. **Clone the Repository**
     ```
     git clone https://github.com/wsteadman/Steadman-Data-Science-Portfolio.git
