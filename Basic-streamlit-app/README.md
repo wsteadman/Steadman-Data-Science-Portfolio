@@ -8,12 +8,11 @@ Welcome to the **Penguin Explorer**, an interactive and data-driven web applicat
 
 This app enables you to:
 
-- 🔍 Filter penguins based on flipper length.
-- 🏝️ Explore penguin populations on different islands.
-- 📈 View species distribution and average biometric data.
-- 🧾 Display detailed data tables for in-depth exploration.
+- 🔍 Filter penguins based on flipper lengths
+- 🏝️ Explore penguin populations on different islands
+- 📈 View species distribution and average biometric data from each island
 
-Built with simplicity and interactivity in mind, this tool is perfect for educational purposes, data exploration, and quick insights.
+Built with simplicity and interactivity in mind, this tool is perfect for educational purposes, data exploration, and quick insights
 
 <br>
 
