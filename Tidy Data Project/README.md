@@ -31,10 +31,22 @@ The analysis follows these key steps implemented in the Jupyter Notebook:
         * Generate a pivot table to summarize the number of medals (Gold, Silver, Bronze) won by athletes, broken down by both Sport and Sex.
 
 ## 📋 Instructions
-* Clone this repository
-* Pip install pandas
-* Open the `Olympians.ipynb` file in Jupyter Notebook or JupyterLab
-* Run the cells sequentially from top to bottom to execute the data loading, cleaning, visualization, and analysis steps!
+1. **Clone the Repository**
+    ```
+    git clone https://github.com/wsteadman/Steadman-Data-Science-Portfolio.git
+    cd Steadman-Data-Science-Portfolio/Tidy%20Data%20Project
+    ```
+
+2. **Install Requirements**
+
+    Ensure Python is installed, then run:
+    ```
+    pip install pandas streamlit
+    ```
+
+3. **Run the Notebook**
+- Open Olympians.ipynb in Jupyter Notebook or JupyterLab.
+- Run the cells sequentially from top to bottom to execute the data loading, cleaning, visualization, and analysis steps!
 
 ## 📈 Visualizations & Results Examples
 
