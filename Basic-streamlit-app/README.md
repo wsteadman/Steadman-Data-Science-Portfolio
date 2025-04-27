@@ -28,15 +28,15 @@ Built with simplicity and interactivity in mind, this tool is perfect for educat
 
     Ensure Python is installed, then run:
     ```
-    pip install -r requirements.txt
+    pip install streamlit
+    pip install pandas
     ```
-    💡 *Tip: The main packages used are `streamlit` and `pandas`.*
 
 3. **Run the App**
 
     Use the command below to launch the app in your browser:
     ```
-    streamlit run app.py
+    streamlit run main.py
     ```
     🛠 *Make sure the `penguins.csv` file is located at `Data/penguins.csv`.*
 
@@ -88,15 +88,15 @@ The dataset contains physical measurements of penguins (bill length, flipper siz
 
 <br>
 
-## 📸 Screenshots (Optional)
+## 📸 Visuals
+![image](https://github.com/user-attachments/assets/b61d2593-8413-4ecd-8e76-ae151245e346)
+![image](https://github.com/user-attachments/assets/d44cc8fa-89bb-4ddf-a645-2f325c915640)
 
-Include screenshots here if needed for visual documentation.
 
 <br>
 
-## 🙌 Acknowledgements
+## 
 
 - Dataset sourced from [Palmer Penguins Dataset](https://github.com/allisonhorst/palmerpenguins)
-- Inspired by [Streamlit](https://streamlit.io/) and [Pandas](https://pandas.pydata.org/)
 
 <br>
