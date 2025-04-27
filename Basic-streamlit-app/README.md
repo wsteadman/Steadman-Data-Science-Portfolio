@@ -4,7 +4,7 @@ Welcome to the **Penguin Explorer**, an interactive and data-driven web applicat
 
 <br>
 
-## 📊 Overview
+## ✨ Overview
 
 This app enables you to:
 
@@ -75,7 +75,7 @@ The dataset contains physical measurements of penguins (bill length, flipper siz
 
 <br>
 
-## 📸 Visuals
+## 📈 Visuals
 
 *Flipper Length Analyzer:*
 
@@ -87,7 +87,7 @@ The dataset contains physical measurements of penguins (bill length, flipper siz
 
 <br>
 
-## Sources
+## 📚 References
 
 - Dataset sourced from [Palmer Penguins Dataset](https://github.com/allisonhorst/palmerpenguins)
 - [Week_3_Notes](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Notes/Week%203/Week_3_2_streamlit_IN-CLASS.py)
