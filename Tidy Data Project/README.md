@@ -40,14 +40,12 @@ The analysis follows these key steps implemented in the Jupyter Notebook:
 
 ### Data Transformation (Original vs. Tidied)
 
-*Original Wide Format:*
+*Original Wide Format and Tidied Long Format:*
 
-<img src="https://github.com/user-attachments/assets/eacd4a39-ef69-4378-8ff0-cb9e3183aca6" alt="Original wide format dataframe" width="600">
-
-
-*Tidied Long Format:*
-
-<img src="https://github.com/user-attachments/assets/6c691210-c615-4a67-9c74-1fb6301bfb34" alt="Tidied long format dataframe" width="300">
+<div style="display: flex; justify-content: space-between;">
+  <img src="https://github.com/user-attachments/assets/eacd4a39-ef69-4378-8ff0-cb9e3183aca6" alt="Original wide format dataframe" width="60%">
+  <img src="https://github.com/user-attachments/assets/6c691210-c615-4a67-9c74-1fb6301bfb34" alt="Tidied long format dataframe" width="30%">
+</div>
 
 ### Example Charts
 
@@ -62,7 +60,7 @@ The analysis follows these key steps implemented in the Jupyter Notebook:
 
 *Medal Counts by Sport and Sex:*
 
-<img src="https://github.com/user-attachments/assets/fb0ca541-df3c-498c-8ce7-782b429f7dd5" alt="Pivot table showing medal counts broken down by sport and sex" width="700">
+<img src="https://github.com/user-attachments/assets/fb0ca541-df3c-498c-8ce7-782b429f7dd5" alt="Pivot table showing medal counts broken down by sport and sex" width="400">
 
 ## 📚 References
 
