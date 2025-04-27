@@ -51,15 +51,12 @@ The analysis follows these key steps implemented in the Jupyter Notebook:
 
 ### Example Charts
 
-*Medal Count by Type:*
+*Medal Count by Type and Gold Medals by Sport:*
 
-<img src="https://github.com/user-attachments/assets/f2658c6f-0794-43d4-bc1f-fae18af8bbea" alt="Bar chart showing counts of Gold, Silver, and Bronze medals" width="800">
-
-
-*Gold Medals by Sport:*
-
-<img src= "https://github.com/user-attachments/assets/3ef6445e-0f2f-4685-ac4d-085c853688de" alt="Horizontal bar chart showing Gold medals per sport" width="800">
-
+<div style="display: flex; justify-content: space-between;">
+  <img src="https://github.com/user-attachments/assets/f2658c6f-0794-43d4-bc1f-fae18af8bbea" alt="Bar chart showing counts of Gold, Silver, and Bronze medals" width="36%">
+  <img src="https://github.com/user-attachments/assets/3ef6445e-0f2f-4685-ac4d-085c853688de" alt="Horizontal bar chart showing Gold medals per sport" width="60%">
+</div>
 
 ### Pivot Table Summary
 
