@@ -56,19 +56,6 @@ Built with simplicity and interactivity in mind, this tool is perfect for educat
 - See the total number of penguins, species distribution, and average metrics for that island.
 - Use the checkbox to view all penguin data from the selected island.
 
-<br>
-
-## 📂 Project Structure
-
-penguin-explorer/
-│
-├── Data/
-│ └── penguins.csv # Dataset used in the app
-│
-├── app.py # Main Streamlit application
-├── README.md # You're here!
-└── requirements.txt # Dependencies
-
 
 <br>
 
@@ -89,13 +76,18 @@ The dataset contains physical measurements of penguins (bill length, flipper siz
 <br>
 
 ## 📸 Visuals
-![image](https://github.com/user-attachments/assets/b61d2593-8413-4ecd-8e76-ae151245e346)
-![image](https://github.com/user-attachments/assets/d44cc8fa-89bb-4ddf-a645-2f325c915640)
 
+*Flipper Length Analyzer:*
+
+<img src="https://github.com/user-attachments/assets/b61d2593-8413-4ecd-8e76-ae151245e346" alt="Flipper Length Analyzer" width="500">
+
+*Island Explorer:*
+
+<img src="https://github.com/user-attachments/assets/d44cc8fa-89bb-4ddf-a645-2f325c915640" alt="Island Explorer" width="500">
 
 <br>
 
-## 
+## Sources
 
 - Dataset sourced from [Palmer Penguins Dataset](https://github.com/allisonhorst/palmerpenguins)
 
