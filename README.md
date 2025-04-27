@@ -12,7 +12,7 @@
   - Gained hands-on experience using Streamlit to build and deploy data applications
   - Practiced data visualization and filtering techniques in a web-based interface
 
-- [Link to Basic Streamlit App](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Basic-streamlit-app/main.py)
+- [Link to Basic Streamlit App](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Basic-streamlit-app/README.md)
 
 ### Visual:
 <img src="https://github.com/user-attachments/assets/abd61c90-b9ad-43fc-8f13-fe45be483baa" alt="image" width="600" />
