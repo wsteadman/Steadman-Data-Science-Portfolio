@@ -25,7 +25,7 @@ def load_sample_dataset(dataset_name):
     
     X = pd.DataFrame(data.data, columns=data.feature_names)
     y = pd.Series(data.target, name="target")
-    return X, y, data.target_names
+    return X, y 
 
 #Standardize features 
 def scale_features(X):
@@ -62,61 +62,60 @@ def apply_pca(X, n_components=2):
 
 #Plot clusters in 2D after PCA"""
 def plot_clusters(X_pca, clusters):
-    """Create a scatter plot of PCA-transformed data colored by cluster labels"""
     plt.figure(figsize=(8, 6))
-    
-    # Create a scatter plot for each cluster
+
     unique_clusters = np.unique(clusters)
     colors = ['navy', 'darkorange', 'green', 'red', 'purple', 'brown', 'pink', 'gray', 'olive', 'cyan']
-    
+
     for i in unique_clusters:
         mask = clusters == i
         plt.scatter(
             X_pca[mask, 0], X_pca[mask, 1],
-            c=colors[i % len(colors)], 
-            alpha=0.7, 
-            edgecolor='k', 
-            s=60, 
+            c=colors[i % len(colors)],
+            alpha=0.7,
+            edgecolor='k',
+            s=60,
             label=f'Cluster {i}'
         )
-    
+
     plt.xlabel('Principal Component 1')
     plt.ylabel('Principal Component 2')
     plt.title('KMeans Clustering: 2D PCA Projection')
     plt.legend(loc='best')
     plt.grid(True)
+
+    fig = plt.gcf()  # Get the current figure
+    return fig
     
 
 #Create elbow method and silhouette score plots"""
 def plot_elbow_method(ks, wcss, silhouette_scores):
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
-    
     plt.figure(figsize=(12, 5))
-    
-    # Create first subplot for WCSS (Elbow Method)
+
+    # Elbow Method
     plt.subplot(1, 2, 1)
     plt.plot(ks, wcss, 'o-', color='blue')
     plt.xlabel('Number of clusters (k)')
     plt.ylabel('Within-Cluster Sum of Squares')
     plt.title('Elbow Method')
     plt.grid(True)
-    
-    # Create second subplot for Silhouette Score
+
+    # Silhouette Score
     plt.subplot(1, 2, 2)
     plt.plot(ks, silhouette_scores, 'o-', color='green')
     plt.xlabel('Number of clusters (k)')
     plt.ylabel('Silhouette Score')
     plt.title('Silhouette Score')
     plt.grid(True)
-    
+
     plt.tight_layout()
-    return plt.show()
+    fig = plt.gcf()  # Get the current figure
+    return fig
 
 
-
-#############################################
-# Main App
-#############################################
+# -----------------------------------------------
+# Main App Layout
+# -----------------------------------------------
 
 # Set page configuration
 st.set_page_config(
@@ -146,7 +145,7 @@ if dataset_option == "Upload Your Own":
     uploaded_file = st.sidebar.file_uploader("Upload CSV file", type="csv")
     
     if uploaded_file is not None:
-        try:
+            
             df = pd.read_csv(uploaded_file)
             
             # Allow user to select target column (optional)
@@ -159,32 +158,49 @@ if dataset_option == "Upload Your Own":
                 feature_cols = [col for col in df.columns if col != target_col]
                 X = df[feature_cols]
                 y = df[target_col]
-                target_names = None
+    
             else:
                 X = df
                 y = None
-                target_names = None
                 
-        except Exception as e:
-            st.error(f"Error: {e}")
-            st.stop()
     else:
         st.info("👈 Please upload a CSV file or select a sample dataset.")
         st.stop()
 else:
-    X, y, target_names = load_sample_dataset(dataset_option)
+    X, y = load_sample_dataset(dataset_option)
 
 # Display dataset information
 st.subheader("Dataset Overview")
 st.write(f"Samples: {X.shape[0]}, Features: {X.shape[1]}")
 
+st.markdown("""
+- **Samples**: the individual data points or rows in your dataset
+- **Features**: are the attributes or columns describing each sample (used to cluster rows together)
+""")
+
 # Display the first few rows of the dataset
 with st.expander("Preview Dataset"):
     st.dataframe(X.head())
 
+# Display target variable information after the dataset overview
+if y is not None:
+    st.subheader("Target Variable Information")
+    
+    # Get target information based on dataset
+    target_info = ""
+    if dataset_option == "Breast Cancer":
+        target_info = "The target variable represents tumor diagnosis (0 = malignant, 1 = benign)."
+    elif dataset_option == "Iris":
+        target_info = "The target variable represents flower species (0 = setosa, 1 = versicolor, 2 = virginica)."
+    elif dataset_option == "Wine":
+        target_info = "The target variable represents different wine cultivars (0, 1, 2)."
+    elif dataset_option == "Upload Your Own":
+        target_info = f"Using '{target_col}' as the target variable."
+    
+    st.write(target_info)
 # KMeans parameters
 st.sidebar.header("KMeans Parameters")
-k = st.sidebar.slider("Number of clusters (k)", min_value=2, max_value=10, value=3)
+k = st.sidebar.slider("Number of clusters (k)", min_value=2, max_value=10)
 scaling = st.sidebar.checkbox("Scale features", value=True)
 
 # Run clustering when requested
@@ -192,22 +208,24 @@ if st.sidebar.button("Run Clustering"):
     # Scale features if selected
     if scaling:
         X_processed = scale_features(X)
-        st.success("Data scaled to mean=0, std=1")
+        st.success("Data scaled")
     else:
         X_processed = X.values
         st.warning("Using unscaled data. KMeans works best with scaled features.")
     
     # Run KMeans
-    with st.spinner("Running KMeans clustering..."):
-        kmeans_model, cluster_labels = run_kmeans(X_processed, k)
-        
-        # Add cluster labels to the original data
-        clustered_data = X.copy()
-        clustered_data['Cluster'] = cluster_labels
-        
-        if y is not None:
-            clustered_data['True_Label'] = y.values if hasattr(y, 'values') else y
-    
+    kmeans_model, cluster_labels = run_kmeans(X_processed, k)
+
+    # Add cluster labels to the original data
+    clustered_data = X.copy()
+    clustered_data['Cluster'] = cluster_labels
+
+
+    # Extract target values from y regardless of whether it's a pandas Series (has .values attribute)
+    # or already a NumPy array/list (doesn't have .values attribute)
+    if y is not None:
+        clustered_data['True_Label'] = y.values if hasattr(y, 'values') else y
+
     # Create tabs for different visualizations
     tab1, tab2, tab3 = st.tabs(["Cluster Visualization", "Optimal K Analysis", "Cluster Data"])
     
@@ -222,7 +240,7 @@ if st.sidebar.button("Run Clustering"):
         centroids_pca = PCA(n_components=2).fit_transform(kmeans_model.cluster_centers_) if X_processed.shape[1] > 2 else kmeans_model.cluster_centers_
         
         # Plot clusters
-        fig = plot_clusters(X_pca, cluster_labels, centroids_pca)
+        fig = plot_clusters(X_pca, cluster_labels)
         st.pyplot(fig)
         
     with tab2:
@@ -252,8 +270,15 @@ if st.sidebar.button("Run Clustering"):
         # Display clustered data
         st.write("### Data with Cluster Assignments")
         st.dataframe(clustered_data)
+
+        st.markdown("""
+            **Note:** When using a sample dataset like *Breast Cancer*, the original class labels (e.g. malignant vs. benign) are available and shown as `True_Label`.  
+            This allows you to compare the clustering results (`Cluster`) to the actual known classes (`True_Label`).  
+            Keep in mind that KMeans doesn’t know these labels — it just groups similar data points based on feature values.
+            """)
 else:
     st.info("👈 Adjust parameters in the sidebar and click 'Run Clustering' to start the analysis.")
+
 
 # Footer
 st.markdown("---")
