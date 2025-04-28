@@ -14,7 +14,7 @@ from sklearn.datasets import load_breast_cancer, load_iris, load_wine
 # -----------------------------------------------
 
 
-#Load a sample dataset from sklearn
+#Loading sample datasets from sklearn
 def load_sample_dataset(dataset_name):
     if dataset_name == "Breast Cancer":
         data = load_breast_cancer()
@@ -39,7 +39,7 @@ def run_kmeans(X, k):
     return kmeans, clusters
 
 
-##Compute data for elbow method and silhouette score
+#Compute data for elbow method and silhouette score
 def compute_elbow_data(X, max_k=10):
     wcss = []
     silhouette_scores = []
@@ -53,38 +53,39 @@ def compute_elbow_data(X, max_k=10):
         silhouette_scores.append(silhouette_score(X, labels))
     return ks, wcss, silhouette_scores
 
-#Apply PCA for dimensionality reduction"""
+#Apply PCA
 def apply_pca(X, n_components=2):
     pca = PCA(n_components=n_components)
     X_pca = pca.fit_transform(X)
     return X_pca, pca.explained_variance_ratio_
 
 
-#Plot clusters in 2D after PCA"""
+#Plot clusters using PCA
 def plot_clusters(X_pca, clusters):
     plt.figure(figsize=(8, 6))
-
+    
     unique_clusters = np.unique(clusters)
     colors = ['navy', 'darkorange', 'green', 'red', 'purple', 'brown', 'pink', 'gray', 'olive', 'cyan']
-
-    for i in unique_clusters:
-        mask = clusters == i
+    
+    for i in range(len(unique_clusters)):
+        cluster = unique_clusters[i]
         plt.scatter(
-            X_pca[mask, 0], X_pca[mask, 1],
+            X_pca[clusters == cluster, 0],
+            X_pca[clusters == cluster, 1],
             c=colors[i % len(colors)],
             alpha=0.7,
             edgecolor='k',
             s=60,
-            label=f'Cluster {i}'
+            label=f'Cluster {cluster}'
         )
-
+    
     plt.xlabel('Principal Component 1')
     plt.ylabel('Principal Component 2')
     plt.title('KMeans Clustering: 2D PCA Projection')
     plt.legend(loc='best')
     plt.grid(True)
-
-    fig = plt.gcf()  # Get the current figure
+    
+    fig = plt.gcf()
     return fig
     
 
@@ -121,7 +122,6 @@ def plot_elbow_method(ks, wcss, silhouette_scores):
 st.set_page_config(
     page_title="KMeans Clustering Explorer",
     page_icon="📊",
-    layout="wide"
 )
 
 # Title and introduction
@@ -180,7 +180,9 @@ st.markdown("""
 
 # Display the first few rows of the dataset
 with st.expander("Preview Dataset"):
-    st.dataframe(X.head())
+    st.dataframe(X.head(10))
+    st.write("Statistical Summary")
+    st.dataframe(X.describe())
 
 # Display target variable information after the dataset overview
 if y is not None:
@@ -198,6 +200,7 @@ if y is not None:
         target_info = f"Using '{target_col}' as the target variable."
     
     st.write(target_info)
+
 # KMeans parameters
 st.sidebar.header("KMeans Parameters")
 k = st.sidebar.slider("Number of clusters (k)", min_value=2, max_value=10)
@@ -205,7 +208,7 @@ scaling = st.sidebar.checkbox("Scale features", value=True)
 
 # Run clustering when requested
 if st.sidebar.button("Run Clustering"):
-    # Scale features if selected
+    # Scale features if selected and notify user
     if scaling:
         X_processed = scale_features(X)
         st.success("Data scaled")
@@ -226,18 +229,15 @@ if st.sidebar.button("Run Clustering"):
     if y is not None:
         clustered_data['True_Label'] = y.values if hasattr(y, 'values') else y
 
-    # Create tabs for different visualizations
+    # Create tabs for different analysis
     tab1, tab2, tab3 = st.tabs(["Cluster Visualization", "Optimal K Analysis", "Cluster Data"])
     
     with tab1:
         st.subheader("2D Visualization of Clusters")
         
-        # Apply PCA for visualization
+        # Apply PCA 
         X_pca, explained_variance = apply_pca(X_processed)
         st.write(f"Explained variance: {sum(explained_variance):.2%}")
-        
-        # Project centroids to same PCA space
-        centroids_pca = PCA(n_components=2).fit_transform(kmeans_model.cluster_centers_) if X_processed.shape[1] > 2 else kmeans_model.cluster_centers_
         
         # Plot clusters
         fig = plot_clusters(X_pca, cluster_labels)
@@ -262,12 +262,12 @@ if st.sidebar.button("Run Clustering"):
     with tab3:
         st.subheader("Clustered Data Results")
         
-        # Display cluster sizes
+        # Calculate and display cluster sizes
         st.write("### Cluster Sizes")
         cluster_counts = clustered_data['Cluster'].value_counts().sort_index()
         st.bar_chart(cluster_counts)
         
-        # Display clustered data
+        # Display Dataframe w cluster and target labels
         st.write("### Data with Cluster Assignments")
         st.dataframe(clustered_data)
 
@@ -277,9 +277,4 @@ if st.sidebar.button("Run Clustering"):
             Keep in mind that KMeans doesn’t know these labels — it just groups similar data points based on feature values.
             """)
 else:
-    st.info("👈 Adjust parameters in the sidebar and click 'Run Clustering' to start the analysis.")
-
-
-# Footer
-st.markdown("---")
-st.caption("KMeans Clustering Explorer | Created with Streamlit")
+    st.info("👈 Adjust parameters in the sidebar and click 'Run Clustering' to start analysis!")
