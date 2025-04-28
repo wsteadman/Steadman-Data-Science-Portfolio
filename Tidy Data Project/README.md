@@ -10,7 +10,7 @@ This project demonstrates the process of cleaning a "flawed" or "untidy" dataset
 
 * **Source:** CSV file provided by a professor (`olympics_08_medalists.csv`).
 * **Content:** Lists medalists from the 2008 Olympic Games.
-* **Challenge:** The original dataset is structured in a "wide" format where ever athlete forms a row and is cross-referenced with every sport/event column, making analysis difficult. This format causes numerous empty cells. The sex of the atheltes and their events are also combined, even though these features represent distinct data points.
+* **Challenge:** The original dataset is structured in a "wide" format where ever athlete forms a row and is cross-referenced with every sport/event column, making analysis difficult. 
 * **Link to flawed data:** [olympics_08_medalists.csv](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Tidy%20Data%20Project/olympics_08_medalists.csv)
 
 ## 🔍Process
