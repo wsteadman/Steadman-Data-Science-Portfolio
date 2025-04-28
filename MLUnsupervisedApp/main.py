@@ -115,7 +115,7 @@ def plot_elbow_method(ks, wcss, silhouette_scores):
 
 
 # -----------------------------------------------
-# Main App Layout
+# Main App Layoutt
 # -----------------------------------------------
 
 # Set page configuration
