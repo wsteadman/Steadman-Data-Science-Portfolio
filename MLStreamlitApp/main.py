@@ -191,6 +191,8 @@ if df is not None:
     # Process the data
     processed_df, X, y, features = format_data(df, target_col)
 
+    st.markdown("---")
+
     # Split data
     X_train, X_test, y_train, y_test = split_data(X, y)
 
