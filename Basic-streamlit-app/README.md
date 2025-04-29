@@ -1,6 +1,6 @@
 # 🐧 Penguin Explorer App
 
-Welcome to the **Penguin Explorer**, an interactive and data-driven web application built using Streamlit. This app allows users to explore and analyze Palmer Archipelago penguin data through intuitive visual tools.
+Welcome to the **Penguin Explorer**, an interactive web application built using Streamlit. This app allows users to explore and analyze Palmer Archipelago penguin data through intuitive visual tools.
 
 <br>
 
