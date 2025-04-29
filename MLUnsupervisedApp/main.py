@@ -256,7 +256,7 @@ if st.sidebar.button("Run Clustering"):
         fig = plot_elbow_method(ks, wcss, silhouette_scores)
         st.pyplot(fig)
         
-        st.info("""
+        st.markdown("""
         **How to interpret:**
         - **Elbow Method**: Look for the point where the decrease in WCSS slows down significantly.
         - **Silhouette Score**: Higher values indicate better-defined clusters.
