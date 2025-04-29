@@ -12,7 +12,7 @@ With this app, you can:
 - ⚙️ Customize model settings and view performance metrics
 - 📊 Visualize results with interactive charts and reports
 
-## 🛠️ Instructions 
+## 🚀 Instructions 
 Click the link to get started in your browser:
 [link_to_classification_app](https://steadman-data-science-portfolio-9hqd4epyr8xgguu8xhii5s.streamlit.app/)
 
@@ -30,7 +30,7 @@ Or, to run locally:
 <br>
 
 
-## 🧠 How to Use the App
+## How to Use the App
 
 ### 📁 Dataset Setup:
 - Upload a CSV file or select one of the built-in demo datasets (Heart Disease, Loan Approvals).
