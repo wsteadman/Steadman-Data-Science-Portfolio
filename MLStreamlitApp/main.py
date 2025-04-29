@@ -22,7 +22,8 @@ st.set_page_config(
 )
 st.title("Classification Predictor 🔍")
 st.markdown("""
-### This app builds and evaluates classification models on your data with just a few clicks!
+### This app builds and evaluates Decision Tree & Logistic Regression models on your data with just a few clicks! 
+The app uses your selected target column as the variable being predicted and other columns as features.
 
 ### How To Use
 * **Select Data**: Upload a CSV file or choose a demo dataset from the sidebar
@@ -30,16 +31,6 @@ st.markdown("""
 * **Select Model**: Decision Tree or Logistic Regression
 * **Configure Parameters**: Adjust model-specific settings to optimize performance
 * **Interpret Results**: Explore visualizations and metrics to understand your model's strengths and limitations
-
-### Understanding Your Model
-* The app uses your selected target column as the variable being predicted and other columns as features
-
-* **Decision Tree**: 
-  * Splits the dataset into branches using feature thresholds, based on criteria like Gini impurity, entropy, or log loss
-
-* **Logistic Regression**: 
-  * Models the logistic relationship between a dataset's features and the probability of a target variable with binary outcomes (ex: yes/no)
-  * To convert probabilities into predictions, a cutoff (typically 0.5) is used with probabilities above the threshold classified as "positives" and below as "negatives"
 """)
 
 # -----------------------------------------------
