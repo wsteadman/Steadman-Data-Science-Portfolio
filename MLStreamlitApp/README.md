@@ -58,7 +58,7 @@ Or, to run locally:
 
 <br>
 
-## Visuals
+## 📸 Visuals
 <br>
 
 *Main interface with sidebar controls:*
