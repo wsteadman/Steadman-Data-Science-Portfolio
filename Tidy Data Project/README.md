@@ -10,7 +10,7 @@ This project demonstrates the process of cleaning a "flawed" or "untidy" dataset
 
 * **Source:** CSV file provided by a professor (`olympics_08_medalists.csv`).
 * **Content:** Lists medalists from the 2008 Olympic Games.
-* **Challenge:** The original dataset is structured in a "wide" format where ever athlete forms a row and is cross-referenced with every sport/event column, making analysis difficult. 
+* **Challenge:** The original dataset is structured in a "wide" format where every athlete forms a row and is cross-referenced with every sport/event column, making analysis difficult. 
 * **Link to flawed data:** [olympics_08_medalists.csv](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Tidy%20Data%20Project/olympics_08_medalists.csv)
 
 ## 🔍Process
@@ -30,7 +30,7 @@ The analysis follows these key steps implemented in the Jupyter Notebook:
         * A horizontal bar chart showing the number of Gold medals per sport
         * Generate a pivot table to summarize the number of medals (Gold, Silver, Bronze) won by athletes, broken down by both Sport and Sex.
 
-## 🚀 Getting Started
+## 🚀 Instructions
 1. **Clone the Repository**
     ```
     git clone https://github.com/wsteadman/Steadman-Data-Science-Portfolio.git
