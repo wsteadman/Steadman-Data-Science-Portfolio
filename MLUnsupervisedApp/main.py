@@ -229,6 +229,9 @@ if st.sidebar.button("Run Clustering"):
     if y is not None:
         clustered_data['True_Label'] = y.values if hasattr(y, 'values') else y
 
+    # Move these columns to the front
+    clustered_data = clustered_data[['Cluster', 'True_Label'] + [col for col in clustered_data.columns if col not in ['Cluster', 'True_Label']]]
+
     # Create tabs for different analysis
     tab1, tab2, tab3 = st.tabs(["Cluster Visualization", "Optimal K Analysis", "Cluster Data"])
     
@@ -272,7 +275,7 @@ if st.sidebar.button("Run Clustering"):
         st.dataframe(clustered_data)
 
         st.markdown("""
-            **Note:** When using a sample dataset like *Breast Cancer*, the original class labels (e.g. malignant vs. benign) are available and shown as `True_Label`.  
+            - **Note:** When using a sample dataset like *Breast Cancer*, the original class labels (e.g. malignant vs. benign) are available and shown as `True_Label`.  
             This allows you to compare the clustering results (`Cluster`) to the actual known classes (`True_Label`).  
             Keep in mind that KMeans doesn’t know these labels — it just groups similar data points based on feature values.
             """)
