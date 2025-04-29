@@ -22,16 +22,17 @@ st.set_page_config(
 )
 st.title("Classification Predictor 🔍")
 st.markdown("""
-### This appp builds and evaluate classification models on your data with just a few clicks!
+### This app builds and evaluates classification models on your data with just a few clicks!
 
 ### How To Use
 * **Select Data**: Upload a CSV file or choose a demo dataset from the sidebar
+* **Select Target**: Choose which column to predict
 * **Select Model**: Decision Tree or Logistic Regression
 * **Configure Parameters**: Adjust model-specific settings to optimize performance
 * **Interpret Results**: Explore visualizations and metrics to understand your model's strengths and limitations
 
 ### Understanding Your Model
-* The app uses the **last** column (rightmost) in your dataset as the target variable (variable being predicted) and other columns as features
+* The app uses your selected target column as the variable being predicted and other columns as features
 
 * **Decision Tree**: 
   * Splits the dataset into branches using feature thresholds, based on criteria like Gini impurity, entropy, or log loss
@@ -45,19 +46,19 @@ st.markdown("""
 # Helper Functions
 # -----------------------------------------------
 
-def format_data(df):
+def format_data(df, target_col):
     # Remove rows with missing values
     df.dropna(inplace = True)
 
-   #  filters the DataFrame to only include columns with the data type 'object' then converts these to a list
+    # Filters the DataFrame to only include columns with the data type 'object' then converts these to a list
     categorical_columns = df.select_dtypes(include=['object']).columns.tolist()
     # One-hot encode categorical columns
     if categorical_columns:
         df = pd.get_dummies(df, columns=categorical_columns, drop_first=True)
 
-    # Make last column the target and the rest features
-    target_col = df.columns[-1]
-    features = df.columns[:-1]
+    # Use the selected target column
+    features = df.columns.tolist()
+    features.remove(target_col)
     
     # Define features and target
     X = df[features]
@@ -177,9 +178,18 @@ if df is not None:
         st.dataframe(df.head(10))
         st.write("#### Statistical Summary")
         st.dataframe(df.describe())
+    
+    # Target column selector
+    st.subheader("Choose Target Variable")
+    target_col = st.selectbox(
+        "Select the column you want to predict:",
+        options=df.columns.tolist(),
+        index=len(df.columns)-1  # Default to last column
+    )
+    st.write(f"Selected target: **{target_col}**")
 
     # Process the data
-    processed_df, X, y, features = format_data(df)
+    processed_df, X, y, features = format_data(df, target_col)
 
     # Split data
     X_train, X_test, y_train, y_test = split_data(X, y)
@@ -227,7 +237,7 @@ if df is not None:
         st.text(classification_report(y_test, y_pred))  
         with st.expander("Metrics Explanation"):
             st.markdown("""
-                        - **Precision**: Measures how many of the predicted positive cases were true positives. High precision: when the model predicts a positive, it’s likely accurate.
+                        - **Precision**: Measures how many of the predicted positive cases were true positives. High precision: when the model predicts a positive, it's likely accurate.
                         - **Recall**: Measures how many of the true positive cases the model found. High recall: the model is catching most of the true positives.
                         - **F1-Score**: The harmonic mean of precision and recall, a single score that balances both.
                         - **Support**: The number of true instances for each class in the dataset.
@@ -327,7 +337,7 @@ if df is not None:
         st.text(classification_report(y_test, y_pred))   
         with st.expander("Metrics Explanation"):
             st.markdown("""
-                        - **Precision**: Measures how many of the predicted positive cases were true positives. High precision: when the model predicts a positive, it’s likely accurate.
+                        - **Precision**: Measures how many of the predicted positive cases were true positives. High precision: when the model predicts a positive, it's likely accurate.
                         - **Recall**: Measures how many of the true positive cases the model found. High recall: the model is catching most of the true positives.
                         - **F1-Score**: The harmonic mean of precision and recall, a single score that balances both.
                         - **Support**: The number of true instances for each class in the dataset.
