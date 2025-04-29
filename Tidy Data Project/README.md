@@ -19,7 +19,7 @@ The analysis follows these key steps implemented in the Jupyter Notebook:
 
 1.  **Import Data:** Load the initial CSV file into a Pandas DataFrame.
 2.  **Data Tidying (Reshaping):**
-    * Use the `pandas.melt` function to transform the DataFrame from a wide format to a long format. This consolidates the multiple sport/event columns into two new columns: one for the sport/event category and one for the medal type (Gold, Silver, Bronze).
+    * Use the `pandas.melt` function to transform the DataFrame from a wide to long format. This consolidates the numerous columns into two new columns: one for the sport and one for the medal recieved (Gold, Silver, Bronze).
     * Remove rows with missing medal values (`NaN`)
     * Split the combined sport/event column into separate 'Sex' and 'Sport' columns.
     * Drop the original combined column.
