@@ -186,7 +186,7 @@ with st.expander("Preview Dataset"):
 
 # Display target variable information after the dataset overview
 if y is not None:
-    st.subheader("Target Variable Information")
+    st.markdown("#### Target Variable Information")
     
     # Get target information based on dataset
     target_info = ""
