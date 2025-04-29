@@ -1,61 +1,62 @@
 # Classification Predictor 📊
 
-## Project Overview 🚀
-This is an interactive data science application that allows users to build, evaluate, and visualize machine learning classification models. Users have the option to upload their own datasets or choose from demo options, and then compare the performance of both Decision Tree and Logistic Regression models with customizable configurations. The app creates visualizations and metrics to help users understand how the models function, and does so in a way that allows anyone with no prior knowledge of classification models to understand the outputs!
+Welcome to the **Classification Predictor**, an interactive Streamlit application for exploring and comparing classification models. This tool is designed to help users — from beginners to data enthusiasts — build and evaluate machine learning models on custom or demo datasets.
 
-## Instructions 🛠️
-#### Click the link to get started!
+<br>
+
+## ✨ Overview
+With this app, you can:
+- 📁 Upload your own dataset or choose from built-in demo data
+- 🎯 Select the column you want to predict (binary target required)
+- 🧠 Compare Decision Tree and Logistic Regression models
+- ⚙️ Customize model settings and view performance metrics
+- 📊 Visualize results with interactive charts and reports
+
+## 🛠️ Instructions 
+Click the link to get started in your browser:
 [link_to_classification_app](https://steadman-data-science-portfolio-9hqd4epyr8xgguu8xhii5s.streamlit.app/)
 
-**Using the App** 
-- Upload or choose a demoset dataset
-- Select which column you want to predict (target variable)
-- Adjust model parameters using the sliders and checkboxes in the sidebar to see how they affect performance
-- Compare both models to determine which works best for your specific dataset
+Or, to run locally: 
+1. Clone the Repository
 
-**Troubleshooting**
-- If you have errors, ensure your data is in CSV format
-- Ensure that the target variable is binary
-- If models perform poorly, try adjusting parameters or consider if your dataset needs more preprocessing
+        git clone https://github.com/your-username/classification-predictor.git
+        cd classification-predictor 
+3. Install Requirements
 
-## Required Libraries 📚
-- graphviz==0.20.3
-- matplotlib==3.10.1
-- pandas==2.2.3
-- scikit_learn==1.6.1
-- seaborn==0.13.2
-- streamlit==1.37.1
+        pip install -r requirements.txt
+4. Run the App
 
-## App Features 📁 
-*for more info about any metric or visual just visit the app!*
-### Data Processing
-- Data Importing: Upload custom CSV files or use built-in demo datasets (Heart Disease, loan approvals)
-- Target Selection: Choose any column as your prediction target
-- Preprocessing data: Automatically handles missing values and dummy variables
+        streamlit run main.py
+<br>
 
-### Models
-**Decision Tree** 🌳
-- Configurable Parameters:
-    - Splitting criterion: Choose between Gini impurity, entropy, or log loss 
-    - Maximum tree depth: Control node depth with a slider (range: 1-30)
 
-- Visualizations & Metrics:
-    - Accuracy score
-    - Confusion matrix heatmap
-    - Classification report (precision, recall, F1-score)
-    - Decision tree visualization
-    - ROC curve with AUC value
+## 🧠 How to Use the App
 
-**Logistic Regression** 📈
-- Configurable Parameters:
-    - Data scaling: Option to scale data 
+### 📁 Dataset Setup:
+- Upload a CSV file or select one of the built-in demo datasets (Heart Disease, Loan Approvals).
+- Choose the target column (must be binary).
 
-- Visualizations & Metrics:
-    - Accuracy score
-    - Confusion matrix heatmap
-    - Classification report (precision, recall, F1-score)
-    - Coefficient analysis
-    - ROC curve with AUC value
+### 🌳 Decision Tree Model
+- Customize settings:
+    - Splitting criterion: Gini, Entropy, or Log Loss
+    - Max depth: Slider (1–30)
+- Metrics & Visuals:
+    - Accuracy, confusion matrix, ROC curve
+    - Classification report
+    - Tree diagram visualization
+### 📈 Logistic Regression Model
+- Customize settings:
+    -  Scaled or unscaled data
+- Metrics & Visuals:
+    - Accuracy, confusion matrix, ROC curve
+    - Classification report
+    - Coefficient interpretation
+
+🛠 Troubleshooting
+- Make sure your dataset is in CSV format
+- Ensure the target column is binary (e.g., 0/1, yes/no)
+
+<br>
 
 ## Visuals
 <br>
