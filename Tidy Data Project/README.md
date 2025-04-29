@@ -45,8 +45,8 @@ The analysis follows these key steps implemented in the Jupyter Notebook:
     ```
 
 3. **Run the Notebook**
-- Open Olympians.ipynb in Jupyter Notebook or JupyterLab.
-- Run the cells sequentially from top to bottom to execute the data loading, cleaning, visualization, and analysis steps!
+   - Open Olympians.ipynb in Jupyter Notebook or JupyterLab.
+   - Run the cells sequentially from top to bottom to execute the data loading, cleaning, visualization, and analysis steps!
 
 ## 📈 Visualizations & Results
 
