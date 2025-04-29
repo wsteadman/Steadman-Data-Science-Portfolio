@@ -277,4 +277,5 @@ if st.sidebar.button("Run Clustering"):
             Keep in mind that KMeans doesn’t know these labels — it just groups similar data points based on feature values.
             """)
 else:
+    st.markdown("---")
     st.markdown("### 👈 Adjust parameters in the sidebar and click 'Run Clustering' to start analysis!")
