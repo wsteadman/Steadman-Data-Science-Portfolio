@@ -9,12 +9,13 @@ This is an interactive data science application that allows users to build, eval
 
 **Using the App** 
 - Upload or choose a demoset dataset
+- Select which column you want to predict (target variable)
 - Adjust model parameters using the sliders and checkboxes in the sidebar to see how they affect performance
 - Compare both models to determine which works best for your specific dataset
 
 **Troubleshooting**
 - If you have errors, ensure your data is in CSV format
-- Ensure that the target variable is binary and located in the last column
+- Ensure that the target variable is binary
 - If models perform poorly, try adjusting parameters or consider if your dataset needs more preprocessing
 
 ## Required Libraries 📚
@@ -29,6 +30,7 @@ This is an interactive data science application that allows users to build, eval
 *for more info about any metric or visual just visit the app!*
 ### Data Processing
 - Data Importing: Upload custom CSV files or use built-in demo datasets (Heart Disease, loan approvals)
+- Target Selection: Choose any column as your prediction target
 - Preprocessing data: Automatically handles missing values and dummy variables
 
 ### Models
@@ -60,7 +62,7 @@ This is an interactive data science application that allows users to build, eval
 
 *Main interface with sidebar controls:*
 <br>
-<img src="https://github.com/user-attachments/assets/eb62906d-2400-4e39-bfe0-7c954a186af3" alt="image" width="700" />
+<img src="https://github.com/user-attachments/assets/5cbd5327-43c8-4a62-b3ab-b33731f56aab" alt="image" width="700" />
 <br><br>
 
 *Decision Tree Visualization:*
