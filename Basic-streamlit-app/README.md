@@ -16,7 +16,7 @@ Built with simplicity and interactivity in mind, this tool is perfect for educat
 
 <br>
 
-## 🚀 Getting Started
+## 🚀 Instructions
 
 1. **Clone the Repository**
     ```
@@ -42,7 +42,7 @@ Built with simplicity and interactivity in mind, this tool is perfect for educat
 
 <br>
 
-## 🧭 How to Use the App
+## How to Use the App
 
 ### 🐧 Flipper Length Analyzer
 
