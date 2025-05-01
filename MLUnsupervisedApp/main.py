@@ -140,34 +140,40 @@ dataset_option = st.sidebar.radio(
     ["Breast Cancer", "Iris", "Wine", "Upload Your Own"]
 )
 
-# Load data based on selection
 if dataset_option == "Upload Your Own":
     uploaded_file = st.sidebar.file_uploader("Upload CSV file", type="csv")
-    
+
     if uploaded_file is not None:
         df = pd.read_csv(uploaded_file)
-    else:
-        st.info("👈 Please upload a CSV file.")
-        st.stop()
 
+        target_col = st.sidebar.selectbox(
+            "Select target column (optional):",
+            ["None"] + df.columns.tolist()
+        )
+
+        if target_col != "None":
+            feature_cols = [col for col in df.columns if col != target_col]
+            X = df[feature_cols]
+            y = df[target_col]
+        else:
+            X = df
+            y = None
+    else:
+        st.info("\ud83d\udc48 Please upload a CSV file or select a sample dataset.")
+        st.stop()
 else:
     X, y = load_sample_dataset(dataset_option)
-    df = pd.concat([X, y], axis=1)
 
+    # Make target column selectable for sample datasets
+    target_col = st.sidebar.selectbox(
+        "Select target column (optional):",
+        ["None", "target"] if y is not None else ["None"]
+    )
 
-
-# Allow user to select target column (optional)
-target_col = st.sidebar.selectbox(
-    "Select target column (optional):",
-    ["None"] + df.columns.tolist()
-        )
-if target_col != "None":
-    feature_cols = [col for col in df.columns if col != target_col]
-    X = df[feature_cols]
-    y = df[target_col]
-else:
-    X = df
-    y = None
+    if target_col != "None":
+        y = y
+    else:
+        y = None
 
 
 
