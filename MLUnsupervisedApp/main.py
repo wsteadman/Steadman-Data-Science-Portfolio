@@ -232,14 +232,14 @@ if st.sidebar.button("Run Clustering"):
     clustered_data = X.copy()
     clustered_data['Cluster'] = cluster_labels
 
-
-    # Extract target values from y regardless of whether it's a pandas Series (has .values attribute)
-    # or already a NumPy array/list (doesn't have .values attribute)
+    # Only add True_Label if a target is actually selected
     if y is not None:
         clustered_data['True_Label'] = y.values if hasattr(y, 'values') else y
-
-    # Move these columns to the front
-    clustered_data = clustered_data[['Cluster', 'True_Label'] + [col for col in clustered_data.columns if col not in ['Cluster', 'True_Label']]]
+        # Move these columns to the front with True_Label
+        clustered_data = clustered_data[['Cluster', 'True_Label'] + [col for col in clustered_data.columns if col not in ['Cluster', 'True_Label']]]
+    else:
+        # Only move Cluster to the front if no True_Label
+        clustered_data = clustered_data[['Cluster'] + [col for col in clustered_data.columns if col != 'Cluster']]
 
     # Create tabs for different analysis
     tab1, tab2, tab3 = st.tabs(["Cluster Visualization", "Optimal K Analysis", "Cluster Data"])
@@ -302,11 +302,13 @@ Each dot in the plot below represents a data point, and the color shows which **
         st.write("### Data with Cluster Assignments")
         st.dataframe(clustered_data)
 
-        st.markdown("""
-            - **Note:** When using a sample dataset like *Breast Cancer*, the original class labels (e.g. malignant vs. benign) are available and shown as `True_Label`.  
-            This allows you to compare the clustering results (`Cluster`) to the actual known classes (`True_Label`).  
-            Keep in mind that KMeans doesn’t know these labels — it just groups similar data points based on feature values.
-            """)
+        # Only show this explanation if there's a target variable
+        if y is not None:
+            st.markdown("""
+                - **Note:** When using a sample dataset like *Breast Cancer*, the original class labels (e.g. malignant vs. benign) are available and shown as `True_Label`.  
+                This allows you to compare the clustering results (`Cluster`) to the actual known classes (`True_Label`).  
+                Keep in mind that KMeans doesn't know these labels — it just groups similar data points based on feature values.
+                """)
 else:
     st.markdown("---")
     st.markdown("### 👈 Adjust parameters in the sidebar and click 'Run Clustering' to start analysis!")
