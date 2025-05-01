@@ -13,6 +13,20 @@ from sklearn.datasets import load_breast_cancer, load_iris, load_wine
 # Helper Functions
 # -----------------------------------------------
 
+# Preprocess data: handle missing values and categorical variables
+def preprocess_data(X):
+    # Drop rows with any missing values
+    X_clean = X.dropna()
+
+    # Identify categorical columns
+    categorical_cols = X_clean.select_dtypes(include=['object', 'category']).columns
+
+    # Convert categorical columns using one-hot encoding
+    if len(categorical_cols) > 0:
+        X_clean = pd.get_dummies(X_clean, columns=categorical_cols, drop_first=True)
+
+    return X_clean
+
 
 #Loading sample datasets from sklearn
 def load_sample_dataset(dataset_name):
@@ -158,6 +172,8 @@ if dataset_option == "Upload Your Own":
         else:
             X = df
             y = None
+            
+        X = preprocess_data(X)
     else:
         st.markdown("### 👈 Please upload a CSV file or select a sample dataset.")
         st.stop()
