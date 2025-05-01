@@ -145,34 +145,29 @@ if dataset_option == "Upload Your Own":
     uploaded_file = st.sidebar.file_uploader("Upload CSV file", type="csv")
     
     if uploaded_file is not None:
-            
-            df = pd.read_csv(uploaded_file)
-            
-            # Allow user to select target column (optional)
-            target_col = st.sidebar.selectbox(
-                "Select target column (optional):",
-                ["None"] + df.columns.tolist()
-            )
-            
-            if target_col != "None":
-                feature_cols = [col for col in df.columns if col != target_col]
-                X = df[feature_cols]
-                y = df[target_col]
-    
-            else:
-                X = df
-                y = None
-                
+        df = pd.read_csv(uploaded_file)
     else:
-        st.info("👈 Please upload a CSV file or select a sample dataset.")
-        st.stop()
+        st.info("👈 Please upload a CSV file.")
+
 else:
     X, y = load_sample_dataset(dataset_option)
-    
-    # Add optional target column selector for sample datasets
-    include_target = st.sidebar.checkbox("Include target variable?", value=True)
-    if not include_target:
-        y = None
+    df = pd.concat([X, y], axis=1)
+
+
+
+# Allow user to select target column (optional)
+target_col = st.sidebar.selectbox(
+    "Select target column (optional):",
+    ["None"] + df.columns.tolist()
+        )
+if target_col != "None":
+    feature_cols = [col for col in df.columns if col != target_col]
+    X = df[feature_cols]
+    y = df[target_col]
+else:
+    X = df
+    y = None
+
 
 
 # Display dataset information
