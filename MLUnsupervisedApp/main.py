@@ -172,8 +172,9 @@ if dataset_option == "Upload Your Own":
         else:
             X = df
             y = None
-            
+
         X = preprocess_data(X)
+        
     else:
         st.markdown("### 👈 Please upload a CSV file or select a sample dataset.")
         st.stop()
