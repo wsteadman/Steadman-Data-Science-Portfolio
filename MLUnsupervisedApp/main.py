@@ -168,6 +168,12 @@ if dataset_option == "Upload Your Own":
         st.stop()
 else:
     X, y = load_sample_dataset(dataset_option)
+    
+    # Add optional target column selector for sample datasets
+    include_target = st.sidebar.checkbox("Include target variable?", value=True)
+    if not include_target:
+        y = None
+
 
 # Display dataset information
 st.subheader("Dataset Overview")
