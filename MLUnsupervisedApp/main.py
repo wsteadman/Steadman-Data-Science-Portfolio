@@ -148,6 +148,7 @@ if dataset_option == "Upload Your Own":
         df = pd.read_csv(uploaded_file)
     else:
         st.info("👈 Please upload a CSV file.")
+        st.stop()
 
 else:
     X, y = load_sample_dataset(dataset_option)
