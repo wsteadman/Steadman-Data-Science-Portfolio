@@ -247,19 +247,22 @@ if st.sidebar.button("Run Clustering"):
         st.pyplot(fig)
 
         st.markdown("""
-            To help visualize your dataset, we used a technique called **PCA (Principal Component Analysis)**.  
-            Most datasets have many features (columns).
-                    - PCA looks for the directions (combinations of features) where the data varies the most.
-                    - It then **rotates and compresses** the data along those directions to create a 2D view.
+To help visualize your dataset, we used a technique called **PCA (Principal Component Analysis)**.  
+Most datasets have many features (columns), which makes them hard to plot directly.  
 
-            Each dot in the plot below represents a data point, and the color shows which **cluster** it was assigned to by the KMeans algorithm.
+- PCA looks for the directions (combinations of features) where the data varies the most.
+- It then **rotates and compresses** the data along those directions to create a 2D view.
 
-            How the KMeans algorithm works:
-                    - It first randomly picks **k** points as cluster centers (called centroids).
-                    - Each data point is assigned to the nearest centroid based on distance.
-                    - The centroids are then reassigned to the average position of the points assigned to them.
-                    - This repeats until the groupings stop changing significantly.
-                        """)
+Each dot in the plot below represents a data point, and the color shows which **cluster** it was assigned to by the KMeans algorithm.
+
+**How the KMeans algorithm works:**
+
+- It first randomly picks **k** points as cluster centers (called *centroids*).
+- Each data point is assigned to the nearest centroid based on distance.
+- The centroids are then updated to the average position of the points assigned to them.
+- This repeats until the cluster assignments stop changing significantly (called *convergence*).
+""")
+
     with tab2:
         st.subheader("Finding the Optimal Number of Clusters")
         
