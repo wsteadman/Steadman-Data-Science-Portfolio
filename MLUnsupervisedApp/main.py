@@ -29,8 +29,9 @@ def load_sample_dataset(dataset_name):
 
 #Standardize features 
 def scale_features(X):
+    X_numeric = X.select_dtypes(include=[np.number])
     scaler = StandardScaler()
-    return scaler.fit_transform(X)
+    return scaler.fit_transform(X_numeric)
 
 #Run the KMeans ML model
 def run_kmeans(X, k):
