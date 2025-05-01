@@ -187,7 +187,6 @@ with st.expander("Preview Dataset"):
 # Display target variable information after the dataset overview
 if y is not None:
     st.markdown("#### Target Variable Information")
-    st.markdown("This is an unsupervised model so it does not use the target to predict information, this is only to compare results to later")
     # Get target information based on dataset
     target_info = ""
     if dataset_option == "Breast Cancer":
@@ -200,6 +199,8 @@ if y is not None:
         target_info = f"Using '{target_col}' as the target variable."
     
     st.write(target_info)
+
+    st.markdown("*Note: This is an unsupervised model so the it does not use the target to make predictions, the target is only to compare results to afterwards*")
 
 # KMeans parameters
 st.sidebar.header("KMeans Parameters")
@@ -253,14 +254,16 @@ Most datasets have many features (columns), which makes them hard to plot direct
 - PCA looks for the directions (combinations of features) where the data varies the most.
 - It then **rotates and compresses** the data along those directions to create a 2D view.
 
+---
+
 Each dot in the plot below represents a data point, and the color shows which **cluster** it was assigned to by the KMeans algorithm.
 
-**How the KMeans algorithm works:**
-
-- It first randomly picks **k** points as cluster centers (called *centroids*).
-- Each data point is assigned to the nearest centroid based on distance.
-- The centroids are then updated to the average position of the points assigned to them.
-- This repeats until the cluster assignments stop changing significantly (called *convergence*).
+- **How the KMeans algorithm works:**
+    - It first randomly picks **k** points as cluster centers (called *centroids*).
+    - Each data point is assigned to the nearest centroid based on distance.
+    - The centroids are then updated to the average position of the points assigned to them.
+    - This repeats until the cluster assignments stop changing significantly (called *convergence*).
+                    
 """)
 
     with tab2:
