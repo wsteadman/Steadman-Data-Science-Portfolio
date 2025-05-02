@@ -303,7 +303,7 @@ if st.sidebar.button("Run Clustering"):
         fig = plot_elbow_method(ks, wcss, silhouette_scores)
         st.pyplot(fig)
 
-        
+
          # Add detailed descriptions below each plot
         col1, col2 = st.columns(2)
         
@@ -343,11 +343,12 @@ if st.sidebar.button("Run Clustering"):
 
         # Only show this explanation if there's a target variable
         if y is not None:
-            st.markdown("""
-                - **Note:** When using a sample dataset like *Breast Cancer*, the original class labels (e.g. malignant vs. benign) are available and shown as `True_Label`.  
-                This allows you to compare the clustering results (`Cluster`) to the actual known classes (`True_Label`).  
-                Keep in mind that KMeans doesn't know these labels — it just groups similar data points based on feature values.
-                """)
+            st.info("""
+                    **ℹ️ Note:** When using a sample dataset like *Breast Cancer*, the original class labels (e.g., *malignant* vs. *benign*) are available and shown as `True_Label`.
+                    This allows you to compare the clustering results (`Cluster`) to the actual known classes (`True_Label`).
+                    
+                    Keep in mind that **KMeans is an unsupervised algorithm** — it doesn't use or know these labels. It only groups similar data points based on their feature values.
+                    """)
 else:
     st.markdown("---")
     st.markdown("### 👈 Adjust parameters in the sidebar and click 'Run Clustering' to start analysis!")
