@@ -302,12 +302,32 @@ if st.sidebar.button("Run Clustering"):
         # Plot elbow method
         fig = plot_elbow_method(ks, wcss, silhouette_scores)
         st.pyplot(fig)
+
         
-        st.markdown("""
-        **How to interpret:**
-        - **Elbow Method**: Look for the point where the decrease in WCSS slows down significantly.
-        - **Silhouette Score**: Higher values indicate better-defined clusters.
-        """)
+         # Add detailed descriptions below each plot
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("""
+            **Elbow Method**
+            
+            This plot shows how the Within-Cluster Sum of Squares (WCSS) decreases as we add more clusters.
+            
+            - **What to look for:** The "elbow" point where adding more clusters gives diminishing returns
+            - **How it works:** WCSS measures how compact clusters are (lower is better)
+            - **Best K value:** Where the curve bends like an elbow
+            """)
+            
+        with col2:
+            st.markdown("""
+            **Silhouette Score**
+            
+            This plot shows how well-separated the clusters are at different K values.
+            
+            - **What to look for:** The highest point on the curve
+            - **How it works:** Scores range from -1 to 1, where higher values mean better-defined clusters
+            - **Best K value:** The K with the highest silhouette score
+            """)
         
     with tab3:
         st.subheader("Clustered Data Results")
