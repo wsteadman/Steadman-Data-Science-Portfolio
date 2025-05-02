@@ -231,7 +231,7 @@ if y is not None:
 st.sidebar.header("KMeans Parameters")
 k = st.sidebar.slider("Number of clusters (k)", min_value=2, max_value=10)
 scaling = st.sidebar.checkbox("Scale features", value=True)
-st.sidebar.markdown("*Scaling normalizes features to a similar range (mean=0, std=1). This prevents features with larger values from dominating the distance calculations in KMeans.*")
+
 
 # Run clustering when requested
 if st.sidebar.button("Run Clustering"):
@@ -242,7 +242,8 @@ if st.sidebar.button("Run Clustering"):
     else:
         X_processed = X.values
         st.warning("Using unscaled data. KMeans works best with scaled features.")
-    
+        
+    st.sidebar.markdown("*Scaling normalizes features to a similar range (mean=0, std=1). This prevents features with larger values from dominating the distance calculations in KMeans.*")
     # Run KMeans
     kmeans_model, cluster_labels = run_kmeans(X_processed, k)
 
