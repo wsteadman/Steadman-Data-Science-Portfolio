@@ -275,7 +275,7 @@ if st.sidebar.button("Run Clustering"):
         fig = plot_clusters(X_pca, cluster_labels)
         st.pyplot(fig)
 
-        with st.expander():
+        with st.expander("PCA Explained"):
             st.markdown("""
                         To help visualize your dataset, we used a technique called **PCA (Principal Component Analysis)**. Most datasets have many features (columns), which makes them hard to plot directly.
                         - PCA looks for the directions (combinations of features) where the data varies the most.
