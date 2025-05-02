@@ -275,15 +275,16 @@ if st.sidebar.button("Run Clustering"):
         fig = plot_clusters(X_pca, cluster_labels)
         st.pyplot(fig)
 
-        st.markdown("""
-To help visualize your dataset, we used a technique called **PCA (Principal Component Analysis)**.  
+        with st.expander():
+            st.markdown("""
+                        To help visualize your dataset, we used a technique called **PCA (Principal Component Analysis)**.  
 Most datasets have many features (columns), which makes them hard to plot directly.  
 
 - PCA looks for the directions (combinations of features) where the data varies the most.
 - It then **rotates and compresses** the data along those directions to create a 2D view.
+                        """)
 
----
-
+        st.markdown("""
 Each dot in the plot below represents a data point, and the color shows which **cluster** it was assigned to by the KMeans algorithm.
 
 - **How the KMeans algorithm works:**
