@@ -174,7 +174,7 @@ if dataset_option == "Upload Your Own":
             y = None
 
         X = preprocess_data(X)
-        
+
     else:
         st.markdown("### 👈 Please upload a CSV file or select a sample dataset.")
         st.stop()
@@ -225,12 +225,13 @@ if y is not None:
     
     st.write(target_info)
 
-    st.markdown("*Note: This is an unsupervised model so the it does not use the target to make predictions, the target is only to compare results to afterwards*")
+    st.markdown("*Note: This is an unsupervised model so it does not use the target to make predictions, the target is only to compare results to afterwards*")
 
 # KMeans parameters
 st.sidebar.header("KMeans Parameters")
 k = st.sidebar.slider("Number of clusters (k)", min_value=2, max_value=10)
 scaling = st.sidebar.checkbox("Scale features", value=True)
+st.sidebar.markdown("*Scaling normalizes features to a similar range (mean=0, std=1). This prevents features with larger values from dominating the distance calculations in KMeans.*")
 
 # Run clustering when requested
 if st.sidebar.button("Run Clustering"):
