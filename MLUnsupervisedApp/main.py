@@ -287,9 +287,9 @@ if st.sidebar.button("Run Clustering"):
                     
                     **How the KMeans algorithm works:**
                         - It first randomly picks **k** points as cluster centers (called *centroids*).
-                        - Each data point is assigned to the nearest centroid based on distance.
-                        - The centroids are then updated to the average position of the points assigned to them.
-                        - This repeats until the cluster assignments stop changing significantly (called *convergence*).
+                    - Each data point is assigned to the nearest centroid based on distance.
+                    - The centroids are then updated to the average position of the points assigned to them.
+                    - This repeats until the cluster assignments stop changing significantly (called *convergence*).
                     
                     """)
 
