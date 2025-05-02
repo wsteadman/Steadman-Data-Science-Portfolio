@@ -347,7 +347,7 @@ if st.sidebar.button("Run Clustering"):
                     **ℹ️ Note:** When using a sample dataset like *Breast Cancer*, the original class labels (e.g., *malignant* vs. *benign*) are available and shown as `True_Label`.
                     This allows you to compare the clustering results (`Cluster`) to the actual known classes (`True_Label`).
                     
-                    Keep in mind that **KMeans is an unsupervised algorithm** — it doesn't use or know these labels. It only groups similar data points based on their feature values.
+                    Keep in mind that the **KMeans model is an unsupervised algorithm** — it doesn't use or know these labels.
                     """)
 else:
     st.markdown("---")
