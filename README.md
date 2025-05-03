@@ -58,7 +58,7 @@
   - Built an interactive KMeans clustering pipeline, from preprocessing to analysis with parameter customization.
   - Implemented PCA capabilites to visualize high-dimensional data & created evaluation metrics (Elbow and Silhouette) to assist users in identifying optimal cluster counts.
 
-- Link: [Link to Unseupervised ML App Project]()
+- Link: [Link to Unseupervised ML App Project](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/MLUnsupervisedApp/main.py)
 
 ### Visual:
 
