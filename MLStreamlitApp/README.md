@@ -59,12 +59,14 @@ Or, to run locally:
 <br>
 
 ## 📸 Visuals
-<br>
+
+### Main Interface
 
 *Main interface with sidebar controls:*
-<br>
-<img src="https://github.com/user-attachments/assets/5cbd5327-43c8-4a62-b3ab-b33731f56aab" alt="image" width="700" />
-<br><br>
+
+<img src="https://github.com/user-attachments/assets/5cbd5327-43c8-4a62-b3ab-b33731f56aab" alt="Main interface with sidebar controls" width="100%">
+
+### Model Visualization Outputs
 
 *Decision Tree and Confusion Matrix:*
 
@@ -73,11 +75,11 @@ Or, to run locally:
   <img src="https://github.com/user-attachments/assets/24dc10c7-a3ec-4f6c-b32f-1189868ab254" alt="Confusion Matrix" width="41%">
 </div>
 
+### ROC Curve
 
-*ROC curve with AUC score:*
-<br>
-<img src="https://github.com/user-attachments/assets/8727378c-d731-4b10-9ab2-846731f5e1dd" alt="image" width="700" />
-<br><br>
+*ROC Curve with AUC Score:*
+
+<img src="https://github.com/user-attachments/assets/8727378c-d731-4b10-9ab2-846731f5e1dd" alt="ROC curve with AUC score" width="100%">
 
 ## References:
 [Decision_Tree_Notes](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Notes/Week%2010/IDS_Week_10_1_(3_25)_FINAL.ipynb)
