@@ -18,7 +18,7 @@ from sklearn.tree import DecisionTreeClassifier
 
 st.set_page_config(
     page_title="Classification Predictor",
-    page_icon="📊",
+    page_icon=":bar_chart:",
 )
 st.title("Classification Predictor 🔍")
 st.markdown("""
