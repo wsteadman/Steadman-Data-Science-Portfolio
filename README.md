@@ -2,6 +2,8 @@
 
 **This Portfolio is a compilation of all the Data Science and Data Analysis projects I have done for academic and self-learning purposes!**
 
+--- 
+
 ## First Streamlit App 
 
 - **Project Description**: This project demonstrates the process of importing a dataset and creating a basic web application using Streamlit! In this project, I worked with a dataset of Penguins and built an interactive web application that allows users to explore and visualize the data surounding the penguins fliiper lengths in a dynamic and interactive way!
@@ -17,6 +19,7 @@
 ### Visual:
 <img src="https://github.com/user-attachments/assets/abd61c90-b9ad-43fc-8f13-fe45be483baa" alt="image" width="600" />
 
+--- 
 
 ## Tidy Data Project
 
@@ -33,6 +36,7 @@
 ### Visual: 
 <img src="https://github.com/user-attachments/assets/1f665d80-1f3b-4a10-aee4-3b8c4ec176fb" alt="image" width="600" />
 
+--- 
 
 ## Machine Learning Application Project
 
@@ -49,8 +53,10 @@
 ### Visual:
 <img src="https://github.com/user-attachments/assets/456be642-4d39-41e0-91d4-681a503e593c" alt="image" width="600" />
 
+--- 
 
-## KMeans Clustering Explorer
+## Unseupervised Machine Learning Application Project
+
 - **Project Description**:This unsupervised machine learning application lets users explore KMeans clustering across different datasets. Built using Streamlit and scikit-learn, the app includes functionality to upload a custom dataset or select sample datasets, scale features, run KMeans clustering, apply PCA for visualization, and use the Elbow Method and Silhouette Score to determine the optimal number of clusters.
 
 - **Application**: Helpful for identifying natural groupings in data without supervision. Ideal for exploring dataset structure, dimensionality reduction, and clustering metrics with interactive visuals and automatic preprocessing.
