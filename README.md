@@ -68,5 +68,5 @@
 - Link: [Link to Unseupervised ML App Project](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/MLUnsupervisedApp/main.py)
 
 ### Visual:
-
+<img src="https://github.com/user-attachments/assets/57bdb367-8b71-4190-9d0e-05749b4bcd5f" alt="image" width="600" />
 
