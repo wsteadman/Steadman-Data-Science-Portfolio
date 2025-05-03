@@ -48,3 +48,18 @@
 ### Visual:
 <img src="https://github.com/user-attachments/assets/456be642-4d39-41e0-91d4-681a503e593c" alt="image" width="600" />
 
+
+### KMeans Clustering Explorer
+- **Project Description**:This unsupervised machine learning application lets users explore KMeans clustering across different datasets. Built using Streamlit and scikit-learn, the app includes functionality to upload a custom dataset or select sample datasets, scale features, run KMeans clustering, apply PCA for visualization, and use the Elbow Method and Silhouette Score to determine the optimal number of clusters.
+
+- **Application**: Helpful for identifying natural groupings in data without supervision. Ideal for exploring dataset structure, dimensionality reduction, and clustering metrics with interactive visuals and automatic preprocessing.
+
+- **Take Aways**:
+  - Built an interactive KMeans clustering pipeline, from preprocessing to analysis with parameter customization.
+  - Implemented PCA capabilites to visualize high-dimensional data & created evaluation metrics (Elbow and Silhouette) to assist users in identifying optimal cluster counts.
+
+- Link: [Link to Unseupervised ML App Project]()
+
+### Visual:
+
+
