@@ -1,284 +1,387 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
+import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
-from sklearn.cluster import KMeans
-from sklearn.metrics import silhouette_score
-from sklearn.datasets import load_breast_cancer, load_iris, load_wine
 
+from sklearn.metrics import roc_curve, roc_auc_score
+from sklearn import tree
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+from sklearn.preprocessing import StandardScaler
+from sklearn.tree import DecisionTreeClassifier
+
+# -----------------------------------------------
+# Application Title and Desciption
+# -----------------------------------------------
+
+st.set_page_config(
+    page_title="Classification Predictor",
+    page_icon="📊",
+)
+st.title("Classification Predictor 🔍")
+st.markdown("""
+### This app builds and evaluates Decision Tree & Logistic Regression models on your data with just a few clicks! 
+The app uses your selected target column as the variable being predicted and other columns as features.
+
+### How To Use
+* **Select Data**: Upload a CSV file or choose a demo dataset from the sidebar
+* **Select Target**: Choose which column to predict
+* **Select Model**: Decision Tree or Logistic Regression
+* **Configure Parameters**: Adjust model-specific settings to optimize performance
+* **Interpret Results**: Explore visualizations and metrics to understand your model's strengths and limitations
+""")
 
 # -----------------------------------------------
 # Helper Functions
 # -----------------------------------------------
 
+def format_data(df, target_col):
+    # Remove rows with missing values
+    df.dropna(inplace = True)
 
-#Loading sample datasets from sklearn
-def load_sample_dataset(dataset_name):
-    if dataset_name == "Breast Cancer":
-        data = load_breast_cancer()
-    elif dataset_name == "Iris":
-        data = load_iris()
-    elif dataset_name == "Wine":
-        data = load_wine()
+    # Filters the DataFrame to only include columns with the data type 'object' then converts these to a list
+    categorical_columns = df.select_dtypes(include=['object']).columns.tolist()
+    # One-hot encode categorical columns
+    if categorical_columns:
+        df = pd.get_dummies(df, columns=categorical_columns, drop_first=True)
 
-    X = pd.DataFrame(data.data, columns=data.feature_names)
-    y = pd.Series(data.target, name="target")
-    return X, y 
+    # Use the selected target column
+    features = df.columns.tolist()
+    features.remove(target_col)
+    
+    # Define features and target
+    X = df[features]
+    y = df[target_col]
+    return df, X, y, features
 
-#Standardize features 
-def scale_features(X):
-    scaler = StandardScaler()
-    return scaler.fit_transform(X)
+# Splits data into training and testing split for models
+def split_data(X, y, test_size=0.2, random_state=42):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    return X_train, X_test, y_train, y_test
 
-#Run the KMeans ML model
-def run_kmeans(X, k):
-    kmeans = KMeans(n_clusters=k)
-    clusters = kmeans.fit_predict(X)
-    return kmeans, clusters
+# Trains decision tree model
+def train_tree_model(X_train, y_train, criterion='gini', max_depth = 5):
+    DT_model = DecisionTreeClassifier(
+                            criterion=criterion,
+                            max_depth = max_depth
+                            )
+    DT_model.fit(X_train, y_train)
+    return DT_model
 
+# Trains logistic_regression model
+def train_logistic_regression_model(X_train, y_train):
+    model = LogisticRegression()
+    model.fit(X_train, y_train)
+    return model
 
-#Compute data for elbow method and silhouette score
-def compute_elbow_data(X, max_k=10):
-    wcss = []
-    silhouette_scores = []
-    ks = range(2, max_k + 1)
+# Generate confusion matrix
+def plot_confusion_matrix(cm):
+    plt.figure(figsize=(6,4))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+    plt.title('Confusion Matrix')
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    st.pyplot(plt)
+    plt.clf()
 
-    for i in ks:
-        km = KMeans(n_clusters=i)
-        km.fit(X)
-        wcss.append(km.inertia_)
-        labels = km.labels_
-        silhouette_scores.append(silhouette_score(X, labels))
-    return ks, wcss, silhouette_scores
-
-#Apply PCA
-def apply_pca(X, n_components=2):
-    pca = PCA(n_components=n_components)
-    X_pca = pca.fit_transform(X)
-    return X_pca, pca.explained_variance_ratio_
-
-
-#Plot clusters using PCA
-def plot_clusters(X_pca, clusters):
-    plt.figure(figsize=(8, 6))
-
-    unique_clusters = np.unique(clusters)
-    colors = ['navy', 'darkorange', 'green', 'red', 'purple', 'brown', 'pink', 'gray', 'olive', 'cyan']
-
-    for i in range(len(unique_clusters)):
-        cluster = unique_clusters[i]
-        plt.scatter(
-            X_pca[clusters == cluster, 0],
-            X_pca[clusters == cluster, 1],
-            c=colors[i % len(colors)],
-            alpha=0.7,
-            edgecolor='k',
-            s=60,
-            label=f'Cluster {cluster}'
-        )
-
-    plt.xlabel('Principal Component 1')
-    plt.ylabel('Principal Component 2')
-    plt.title('KMeans Clustering: 2D PCA Projection')
-    plt.legend(loc='best')
-    plt.grid(True)
-
-    fig = plt.gcf()
-    return fig
-
-
-#Create elbow method and silhouette score plots
-""""""
-def plot_elbow_method(ks, wcss, silhouette_scores):
-    plt.figure(figsize=(12, 5))
-
-    # Elbow Method
-    plt.subplot(1, 2, 1)
-    plt.plot(ks, wcss, 'o-', color='blue')
-    plt.xlabel('Number of clusters (k)')
-    plt.ylabel('Within-Cluster Sum of Squares')
-    plt.title('Elbow Method')
-    plt.grid(True)
-
-    # Silhouette Score
-    plt.subplot(1, 2, 2)
-    plt.plot(ks, silhouette_scores, 'o-', color='green')
-    plt.xlabel('Number of clusters (k)')
-    plt.ylabel('Silhouette Score')
-    plt.title('Silhouette Score')
-    plt.grid(True)
-
-    plt.tight_layout()
-    fig = plt.gcf()  # Get the current figure
-    return fig
+# Plot the ROC curve
+def plot_roc_curve(fpr, tpr, roc_auc):
+    plt.figure(figsize=(6, 4))
+    plt.plot(fpr, tpr, lw=2, label=f'ROC Curve (AUC = {roc_auc:.2f})')
+    plt.plot([0, 1], [0, 1], lw=2, linestyle='--', label='Random Guess') # Plotting 50% line
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('Receiver Operating Characteristic (ROC) Curve')
+    plt.legend(loc="lower right")
+    st.pyplot(plt)
+    plt.clf()
 
 
 # -----------------------------------------------
-# Main App Layout
+# Sidebar layout
 # -----------------------------------------------
 
-st.set_page_config(
-    page_title="KMeans Clustering Explorer",
-    page_icon="\ud83d\udcca",
-)
 
-st.title("\ud83d\udcca KMeans Clustering Explorer")
-st.markdown("""
-This app allows you to explore KMeans clustering on various datasets.
-Upload your own dataset or use one of the sample datasets to discover natural groups in your data.
-""")
+with st.sidebar: 
+      # File uploader
+      st.markdown("### 📂 Upload Your Own CSV File")
+      upload_file = st.sidebar.file_uploader("Choose a file") 
+      
+      # Demo sets
+      st.markdown("Don't have a dataset? Load a demo")
 
-st.sidebar.header("Settings")
+      demosets = {
+        'Heart_Disease_Predictor': "https://raw.githubusercontent.com/wsteadman/Steadman-Data-Science-Portfolio/refs/heads/main/MLStreamlitApp/heart.csv",
+        'Loan_Approval': "https://raw.githubusercontent.com/wsteadman/Steadman-Data-Science-Portfolio/refs/heads/main/MLStreamlitApp/loan_data.csv"
+        }
 
-dataset_option = st.sidebar.radio(
-    "Choose a dataset:",
-    ["Breast Cancer", "Iris", "Wine", "Upload Your Own"]
-)
+    
+      demo_selection = st.selectbox('Select a demo dataset', 
+                                    ['None'] + list(demosets.keys()), 
+                                    key='demo_selection')
+      
+      # model and parameter selection
+      st.divider()
+      st.markdown("## ⚙️ Model Settings")
 
-if dataset_option == "Upload Your Own":
-    uploaded_file = st.sidebar.file_uploader("Upload CSV file", type="csv")
+      model_selector = st.radio("",options=["Decision_Tree", "Logistic_regression"])
+      st.write("")
+      
+      # DT parameters
+      if model_selector == "Decision_Tree":
+          st.markdown("#### Decision Tree Parameters")
+          tree_split_criterion = st.radio("Splitting Criterion", options=["gini", "entropy", "log_loss"])
+          max_depth = st.slider("Select Max Depth of Tree", min_value=1, max_value=30, value=5)
+          st.markdown("*Higher values may lead to overfitting*")
 
-    if uploaded_file is not None:
-        df = pd.read_csv(uploaded_file)
+      # Log regression parameters
+      elif model_selector == "Logistic_regression":
+         scaler_selector = st.radio("Scale_Data", options=["Scaled", "Unscaled"])
+          
 
-        target_col = st.sidebar.selectbox(
-            "Select target column (optional):",
-            ["None"] + df.columns.tolist()
-        )
+# -----------------------------------------------
+# Main Panel layout
+# -----------------------------------------------
 
-        if target_col != "None":
-            feature_cols = [col for col in df.columns if col != target_col]
-            X = df[feature_cols]
-            y = df[target_col]
-        else:
-            X = df
-            y = None
-    else:
-        st.info("\ud83d\udc48 Please upload a CSV file or select a sample dataset.")
-        st.stop()
+
+df = None
+
+# Handle dataset selection (file upload or demo selection)
+if upload_file is not None:
+    # Read the uploaded file into a dataframe
+    df = pd.read_csv(upload_file)
 else:
-    X, y = load_sample_dataset(dataset_option)
+    if demo_selection != 'None':
+        # Load the selected demo dataset
+        df = pd.read_csv(demosets[demo_selection])
 
-    # Make target column selectable for sample datasets
-    target_col = st.sidebar.selectbox(
-        "Select target column (optional):",
-        ["None", "target"] if y is not None else ["None"]
+
+st.divider()
+
+# Only process if a dataframe is inputted
+if df is not None:
+    # Display the raw dataset
+    with st.expander("Click to view Data Information"):
+        st.write("### Overview of your Dataset")
+        st.write("#### First 10 Rows of the Dataset")
+        st.dataframe(df.head(10))
+        st.write("#### Statistical Summary")
+        st.dataframe(df.describe())
+    
+    # Target column selector
+    st.subheader("Choose Target Variable")
+    target_col = st.selectbox(
+        "Select the column you want to predict:",
+        options=df.columns.tolist(),
+        index=len(df.columns)-1  # Default to last column
     )
+    st.write(f"Selected target: **{target_col}**")
 
-    if target_col != "None":
-        y = y
-    else:
-        y = None
+    # Process the data
+    processed_df, X, y, features = format_data(df, target_col)
 
-st.subheader("Dataset Overview")
-st.write(f"Samples: {X.shape[0]}, Features: {X.shape[1]}")
-
-st.markdown("""
-- **Samples**: rows = individual observations (like one flower or one patient).
-- **Features**: columns = measurements or characteristics (like petal width or alcohol content).
-""")
-
-with st.expander("Preview Dataset"):
-    st.dataframe(X.head(10))
-    st.write("Statistical Summary")
-    st.dataframe(X.describe())
-
-if y is not None:
-    st.markdown("#### Target Variable Information")
-    if dataset_option == "Breast Cancer":
-        target_info = "The target variable represents tumor diagnosis (0 = malignant, 1 = benign)."
-    elif dataset_option == "Iris":
-        target_info = "The target variable represents flower species (0 = setosa, 1 = versicolor, 2 = virginica)."
-    elif dataset_option == "Wine":
-        target_info = "The target variable represents different wine cultivars (0, 1, 2)."
-    elif dataset_option == "Upload Your Own":
-        target_info = f"Using '{target_col}' as the target variable."
-
-    st.write(target_info)
-    st.markdown("*Note: This is an unsupervised model so the it does not use the target to make predictions, the target is only to compare results to afterwards*")
-
-st.sidebar.header("KMeans Parameters")
-k = st.sidebar.slider("Number of clusters (k)", min_value=2, max_value=10)
-scaling = st.sidebar.checkbox("Scale features", value=True)
-
-if st.sidebar.button("Run Clustering"):
-    if scaling:
-        X_processed = scale_features(X)
-        st.success("Data scaled")
-    else:
-        X_processed = X.values
-        st.warning("Using unscaled data. KMeans works best with scaled features.")
-
-    kmeans_model, cluster_labels = run_kmeans(X_processed, k)
-
-    clustered_data = X.copy()
-    clustered_data['Cluster'] = cluster_labels
-
-    if y is not None:
-        clustered_data['True_Label'] = y.values if hasattr(y, 'values') else y
-
-    clustered_data = clustered_data[['Cluster', 'True_Label'] + [col for col in clustered_data.columns if col not in ['Cluster', 'True_Label']]]
-
-    tab1, tab2, tab3 = st.tabs(["Cluster Visualization", "Optimal K Analysis", "Cluster Data"])
-
-    with tab1:
-        st.subheader("2D Visualization of Clusters")
-
-        X_pca, explained_variance = apply_pca(X_processed)
-        st.write(f"Explained variance: {sum(explained_variance):.2%}")
-
-        fig = plot_clusters(X_pca, cluster_labels)
-        st.pyplot(fig)
-
-        st.markdown("""
-To help visualize your dataset, we used a technique called **PCA (Principal Component Analysis)**.  
-Most datasets have many features (columns), which makes them hard to plot directly.  
-
-- PCA looks for the directions (combinations of features) where the data varies the most.
-- It then **rotates and compresses** the data along those directions to create a 2D view.
-
----
-
-Each dot in the plot below represents a data point, and the color shows which **cluster** it was assigned to by the KMeans algorithm.
-
-- **How the KMeans algorithm works:**
-    - It first randomly picks **k** points as cluster centers (called *centroids*).
-    - Each data point is assigned to the nearest centroid based on distance.
-    - The centroids are then updated to the average position of the points assigned to them.
-    - This repeats until the cluster assignments stop changing significantly (called *convergence*).
-""")
-
-    with tab2:
-        st.subheader("Finding the Optimal Number of Clusters")
-
-        ks, wcss, silhouette_scores = compute_elbow_data(X_processed)
-
-        fig = plot_elbow_method(ks, wcss, silhouette_scores)
-        st.pyplot(fig)
-
-        st.markdown("""
-        **How to interpret:**
-        - **Elbow Method**: Look for the point where the decrease in WCSS slows down significantly.
-        - **Silhouette Score**: Higher values indicate better-defined clusters.
-        """)
-
-    with tab3:
-        st.subheader("Clustered Data Results")
-
-        st.write("### Cluster Sizes")
-        cluster_counts = clustered_data['Cluster'].value_counts().sort_index()
-        st.bar_chart(cluster_counts)
-
-        st.write("### Data with Cluster Assignments")
-        st.dataframe(clustered_data)
-
-        st.markdown("""
-            - **Note:** When using a sample dataset like *Breast Cancer*, the original class labels (e.g. malignant vs. benign) are available and shown as `True_Label`.  
-            This allows you to compare the clustering results (`Cluster`) to the actual known classes (`True_Label`).  
-            Keep in mind that KMeans doesn’t know these labels — it just groups similar data points based on feature values.
-            """)
-else:
     st.markdown("---")
-    st.markdown("### \ud83d\udc48 Adjust parameters in the sidebar and click 'Run Clustering' to start analysis!")
+
+    # Split data
+    X_train, X_test, y_train, y_test = split_data(X, y)
+
+
+    # Decision Tree
+    if model_selector == "Decision_Tree": 
+        # Train Model
+        model = train_tree_model(X_train, y_train, criterion=tree_split_criterion, max_depth=max_depth)
+        
+        # Make predictions based on trained model
+        y_pred = model.predict(X_test)
+        
+      # Calculate accuracy
+        col1, col2 = st.columns([1, 3])
+        with col1:
+            accuracy = accuracy_score(y_test, y_pred)
+            st.metric("Accuracy", f"{accuracy:.2%}")
+        with col2:
+           st.markdown(f"""
+            **Accuracy** measures the percent of correct predictions made by a model:
+            - Accuracy of {accuracy:.2%} means the model correctly predicted {int(accuracy * 100)} out of 100 cases
+            - ⚠️In imbalanced datasets, accuracy can be misleading. If 95% of samples belong to class A, a model can achieve 95% accuracy by predicting class A for everything!
+            """)
+        
+         # Create a confusion matrix
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.write("## Confusion Matrix")
+            cm = confusion_matrix(y_test, y_pred)
+            plot_confusion_matrix(cm)
+        with col2:
+            st.markdown("##### Understanding the Matrix")
+            st.markdown("""
+                        A confusion matrix shows how well the model classifies:
+                        - **True Positives (top left)**: Correctly predicted positive
+                        - **False Positives (bottom left)**: Incorrectly predicted as positive
+                        - **False Negatives (top right)**: Incorrectly predicted as negative
+                        - **True Negatives (bottom right)**: Correctly predicted negatives
+                        """)
+            
+        # Create Classification Report
+        st.subheader("Classification Report")
+        st.text(classification_report(y_test, y_pred))  
+        with st.expander("Metrics Explanation"):
+            st.markdown("""
+                        - **Precision**: Measures how many of the predicted positive cases were true positives. High precision: when the model predicts a positive, it's likely accurate.
+                        - **Recall**: Measures how many of the true positive cases the model found. High recall: the model is catching most of the true positives.
+                        - **F1-Score**: The harmonic mean of precision and recall, a single score that balances both.
+                        - **Support**: The number of true instances for each class in the dataset.
+                        """)
+
+        # visualize decision tree
+        st.markdown("### Decision Tree")
+        dot_data = tree.export_graphviz(model,
+                        feature_names=X_train.columns,
+                        filled=True,
+                        )
+        st.graphviz_chart(dot_data)
+        st.markdown("""
+                    #### This tree is built based on your specified splitting criterion and depth (number of nodes from top to bottom)!
+                    
+                    Splitting criterion: 
+                    - **gini**: The model splits data to minimize information gain based on entropy, ze Gini impurity, or how often a randomly chosen element would be incorrectly classified
+                    - **entropy**: The model splits data based on the maximum reduction of disorder achieved in the dataset after each split
+                    - **log_loss**: The model optimizes splits by minimizing the error in predicted probabilities for classification
+                    """)
+
+        ## ROC Curve  
+        # Get the predicted probabilities for the "positive" data 
+        y_probs = model.predict_proba(X_test)[:, 1]
+        # Calculate the False Positive Rate (FPR), True Positive Rate (TPR), and thresholds
+        fpr, tpr, thresholds = roc_curve(y_test, y_probs)
+        # Compute the Area Under the Curve (AUC) score
+        roc_auc = roc_auc_score(y_test, y_probs)
+
+        # Display Chart and Area Under Curve
+        col1, col2 = st.columns([3,1])
+        with col1:
+            st.markdown("## ROC Curve")
+        with col2: 
+            st.metric("AUC", f"{roc_auc:.2}")
+        plot_roc_curve(fpr, tpr, roc_auc)
+        
+        # Explanation
+        with st.expander("ROC Curve and AUC Explanation"):
+            st.markdown("""
+                        The ROC (Receiver Operating Characteristic) curve is a graphical representation of the True Positive Rate (TPR) against the False Positive Rate (FPR), relative to different model cutoffs.
+                        The AUC (Area Under the Curve) represents the average area under the ROC curve and is used to evaluate the model.
+                        - Example: IF the model returns a .75 probability of a positive result and the cutoff is .5 it will return "positive"
+                        - The AUC offers a metric to evaluate how well the model distinguishes between the positive and false positive results
+                        - An AUC of 1 represents a perfect test, while an AUC of 0.5 represents a test no better than random classification
+                        """)
+
+
+    # Logistic Regression
+    else:  
+        # Scale data (conditional on radio)
+        if scaler_selector == "Scaled":
+            scaler = StandardScaler()
+            X_train = scaler.fit_transform(X_train)
+            X_test = scaler.transform(X_test)
+            # Convert the scaled arrays back to DataFrames
+            X_train = pd.DataFrame(X_train, columns=features)
+            X_test = pd.DataFrame(X_test, columns=features)
+
+        # Train model
+        model = train_logistic_regression_model(X_train, y_train)
+        
+        # Make predictions
+        y_pred = model.predict(X_test)
+        
+        # Calculate and present accuracy
+        col1, col2 = st.columns([1, 3])
+        with col1:
+            accuracy = accuracy_score(y_test, y_pred)
+            st.metric("Accuracy", f"{accuracy:.2%}")
+        with col2:
+           st.markdown(f"""
+            **Accuracy** measures the percent of correct predictions made by a model:
+            - Accuracy of {accuracy:.2%} means the model correctly predicted {int(accuracy * 100)} out of 100 cases
+            - ⚠️In imbalanced datasets, accuracy can be misleading. If 95% of samples belong to class A, a model can achieve 95% accuracy by predicting class A for everything!
+            """)
+        
+        # Create a confusion matrix
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.write("## Confusion Matrix")
+            cm = confusion_matrix(y_test, y_pred)
+            plot_confusion_matrix(cm)
+        with col2:
+            st.markdown("##### Understanding the Matrix")
+            st.markdown("""
+                        A confusion matrix shows how well the model classifies:
+                        - **True Positives (top left)**: Correctly predicted positive
+                        - **False Positives (bottom left)**: Incorrectly predicted as positive
+                        - **False Negatives (top right)**: Incorrectly predicted as negative
+                        - **True Negatives (bottom right)**: Correctly predicted negatives
+                        """)
+        
+        # Create Classification Report
+        st.subheader("Classification Report")
+        st.text(classification_report(y_test, y_pred))   
+        with st.expander("Metrics Explanation"):
+            st.markdown("""
+                        - **Precision**: Measures how many of the predicted positive cases were true positives. High precision: when the model predicts a positive, it's likely accurate.
+                        - **Recall**: Measures how many of the true positive cases the model found. High recall: the model is catching most of the true positives.
+                        - **F1-Score**: The harmonic mean of precision and recall, a single score that balances both.
+                        - **Support**: The number of true instances for each class in the dataset.
+                        """)
+            
+
+        # Examine Coefficients
+        col1, col2 = st.columns(2)
+
+        with col1: 
+            st.markdown("### Model Coefficients")
+            coef = pd.Series(model.coef_[0], index=X.columns)
+            st.write(coef.sort_values(ascending=False))
+        with col2:  
+            st.write("")
+            st.write("")
+            st.write("")
+            st.markdown("""
+                        - **Unscaled** : Each coefficient represents the change in the outcome probability (log-odds) for a one-unit change in the respective feature, holding all other features constant.
+                        
+                        - **Scaled** : Scaled coefficients indicate the change in outcome probability (log-odds) for a one standard deviation change in that feature. This standardization makes it easier to compare the relative importance of features.""")
+
+
+        ## ROC Curve  
+        # Get the predicted probabilities for the "positive" data 
+        y_probs = model.predict_proba(X_test)[:, 1]
+        # Calculate the False Positive Rate (FPR), True Positive Rate (TPR), and thresholds
+        fpr, tpr, thresholds = roc_curve(y_test, y_probs)
+        # Compute the Area Under the Curve (AUC) score
+        roc_auc = roc_auc_score(y_test, y_probs)
+
+        # Display Chart and Area Under Curve
+        col1, col2 = st.columns([3,1])
+        with col1:
+            st.markdown("## ROC Curve")
+        with col2: 
+            st.metric("AUC", f"{roc_auc:.2}")
+        plot_roc_curve(fpr, tpr, roc_auc)
+        
+         # Explanation
+        with st.expander("ROC Curve and AUC Explanation"):
+            st.markdown("""
+                        The ROC (Receiver Operating Characteristic) curve is a graphical representation of the True Positive Rate (TPR) against the False Positive Rate (FPR), relative to different model cutoffs.
+                        The AUC (Area Under the Curve) represents the average area under the ROC curve and is used to evaluate the model.
+                        - Example: If the model returns a .75 probability of a positive result and the cutoff is .5 it will return "positive"
+                        - The AUC offers a metric to evaluate how well the model distinguishes between the positive and false positive results
+                        - An AUC of 1 represents a perfect test, while an AUC of 0.5 represents a test no better than random classification
+                        """)
+
+    
+else:
+        # Display welcome message when no data is loaded
+        st.markdown("""👋 Welcome to the Classification Predictor!
+                    Get started by uploading your dataset or selecting a demo dataset from the sidebar""")
