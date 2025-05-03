@@ -66,10 +66,13 @@ Or, to run locally:
 <img src="https://github.com/user-attachments/assets/5cbd5327-43c8-4a62-b3ab-b33731f56aab" alt="image" width="700" />
 <br><br>
 
-*Decision Tree Visualization:*
-<br>
-<img src="https://github.com/user-attachments/assets/96efdfbb-6aa3-405c-bc9c-3608d7ce6aec" alt="image" width="700" />
-<br><br>
+*Decision Tree and Confusion Matrix:*
+
+<div style="display: flex; justify-content: space-between;">
+  <img src="https://github.com/user-attachments/assets/96efdfbb-6aa3-405c-bc9c-3608d7ce6aec" alt="Decision Tree" width="58%">
+  <img src="https://github.com/user-attachments/assets/24dc10c7-a3ec-4f6c-b32f-1189868ab254" alt="Confusion Matrix" width="41%">
+</div>
+
 
 *ROC curve with AUC score:*
 <br>
