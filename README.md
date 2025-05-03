@@ -34,7 +34,7 @@
 <img src="https://github.com/user-attachments/assets/1f665d80-1f3b-4a10-aee4-3b8c4ec176fb" alt="image" width="600" />
 
 
-### Machine Learning Application Project
+## Machine Learning Application Project
 - **Project Description**: This is a machine learning classification app that allows users to build, visualize, and evaluate machine learning classification models in streamlit. Built with Streamlit and scikit-learn, this tool makes powerful classification algorithms, visuals, and metrics accessible to users of all technical backgrounds who can upload their own data or choose a demo dataset!
 
 - **Application**: This tool allows users to upload their own datasets or choose from demo datasets to gain meaningful insights that would typically require significant background work. Users can also change model parameters, like descion tree depth or scaling data to see how these aspects affect results!
@@ -49,7 +49,7 @@
 <img src="https://github.com/user-attachments/assets/456be642-4d39-41e0-91d4-681a503e593c" alt="image" width="600" />
 
 
-### KMeans Clustering Explorer
+## KMeans Clustering Explorer
 - **Project Description**:This unsupervised machine learning application lets users explore KMeans clustering across different datasets. Built using Streamlit and scikit-learn, the app includes functionality to upload a custom dataset or select sample datasets, scale features, run KMeans clustering, apply PCA for visualization, and use the Elbow Method and Silhouette Score to determine the optimal number of clusters.
 
 - **Application**: Helpful for identifying natural groupings in data without supervision. Ideal for exploring dataset structure, dimensionality reduction, and clustering metrics with interactive visuals and automatic preprocessing.
