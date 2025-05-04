@@ -47,6 +47,8 @@ Or, to run locally:
 - Ensure your data is in CSV format
 - If clustering results seem poor, try scaling features or adjusting k to better match the underlying data
 
+<br> 
+
 ## 📸 Visuals
 
 ### Main Interface
