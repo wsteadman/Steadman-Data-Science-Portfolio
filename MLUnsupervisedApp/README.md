@@ -52,8 +52,8 @@ Or, to run locally:
 *App interface with clustering visualization:*
 <br>
 <div style="display: flex; justify-content: space-between;">
-  <img src="" alt="image" width="58%">
-  <img src="" alt="image" width="41%">
+  <img src="https://github.com/user-attachments/assets/d2b59fd0-463c-4718-9507-2e0fe3fd2415" alt="image" width="55%">
+  <img src="https://github.com/user-attachments/assets/31e1fa72-d600-46d6-a7b3-ec206fe85ba4" alt="image" width="43%">
 </div>
 <br><br>
 
@@ -62,8 +62,8 @@ Or, to run locally:
 *Elbow Method & Silhouette Score:*
 <br>
 <div style="display: flex; justify-content: space-between;">
-  <img src="" alt="image" width="58%">
-  <img src="" alt="image" width="41%">
+  <img src="https://github.com/user-attachments/assets/cff9c5d9-1ebc-41ef-8d76-e8c530bc8bb8" alt="image" width="48.5%">
+  <img src="https://github.com/user-attachments/assets/c9e6c104-20af-42c6-9239-3e1da6f3a9e5" alt="image" width="47%">
 </div>
 <br><br>
 
@@ -72,7 +72,7 @@ Or, to run locally:
 
 *Clustered Data Table:*
 <br>
-<img src="" alt="image" width="700" />
+<img src="https://github.com/user-attachments/assets/0e1f0fcb-32c8-4ad2-b4b5-fdcd01ad75cc" alt="image" width="700" />
 <br><br>
 
 ## References:
