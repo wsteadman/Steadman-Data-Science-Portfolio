@@ -14,7 +14,7 @@
   - Gained hands-on experience using Streamlit to build and deploy data applications
   - Practiced data visualization and filtering techniques in a web-based interface
 
-- [Link to Basic Streamlit App](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Basic-streamlit-app/main.py)
+- [Link to Basic Streamlit App](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/tree/main/Basic-streamlit-app)
 
 ### Visual:
 <img src="https://github.com/user-attachments/assets/abd61c90-b9ad-43fc-8f13-fe45be483baa" alt="image" width="600" />
@@ -30,7 +30,7 @@
 - **Take Aways**:
   - Data cleaning and transformation using Pandas, and explained using markdown (identifying and handling missing, inconsistent, and duplicated data)
 
-- [Link to Tidy Data Project](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Tidy%20Data%20Project/Olympians.ipynb)
+- [Link to Tidy Data Project](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/tree/main/Tidy%20Data%20Project)
 
 
 ### Visual: 
@@ -48,7 +48,7 @@
   - Implemented a framework to switch between different algorithms (Decision Trees vs. Logistic Regression) and allowed users to edit some of these models' inputs/parameters, showing how these decisions can affect the strength of a model
   - The app also automatically handles data preprocessing, demonstrating how essential this aspect of model building is to a useable model
 
-- [Link to ML App Project](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/MLStreamlitApp/README.md)
+- [Link to ML App Project](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/tree/main/MLStreamlitApp)
 
 ### Visual:
 <img src="https://github.com/user-attachments/assets/456be642-4d39-41e0-91d4-681a503e593c" alt="image" width="600" />
