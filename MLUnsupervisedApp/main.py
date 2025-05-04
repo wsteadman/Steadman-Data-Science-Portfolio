@@ -219,7 +219,7 @@ if y is not None:
     elif dataset_option == "Iris":
         target_info = "The target variable represents flower species (0 = setosa, 1 = versicolor, 2 = virginica)."
     elif dataset_option == "Wine":
-        target_info = "The target variable represents different wine cultivars (0, 1, 2)."
+        target_info = "The target variable represents different wine cultivators (0, 1, 2)."
     elif dataset_option == "Upload Your Own":
         target_info = f"Using '{target_col}' as the target variable."
     
