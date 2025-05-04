@@ -113,10 +113,9 @@ with st.sidebar:
       st.markdown("Don't have a dataset? Load a demo")
 
       demosets = {
-        'Heart_Disease_Predictor': "https://raw.githubusercontent.com/wsteadman/Steadman-Data-Science-Portfolio/refs/heads/main/MLStreamlitApp/heart.csv",
-        'Loan_Approval': "https://raw.githubusercontent.com/wsteadman/Steadman-Data-Science-Portfolio/refs/heads/main/MLStreamlitApp/loan_data.csv"
+        'Heart_Disease_Predictor': "https://raw.githubusercontent.com/wsteadman/Steadman-Data-Science-Portfolio/refs/heads/main/MLStreamlitApp/Data/heart.csv",
+        'Loan_Approval': "https://raw.githubusercontent.com/wsteadman/Steadman-Data-Science-Portfolio/refs/heads/main/MLStreamlitApp/Data/loan_data.csv"
         }
-
     
       demo_selection = st.selectbox('Select a demo dataset', 
                                     ['None'] + list(demosets.keys()), 
