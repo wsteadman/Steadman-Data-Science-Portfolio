@@ -76,6 +76,6 @@ Or, to run locally:
 <br><br>
 
 ## References:
-[_Notes]()
+[Kmeans_notes](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Notes/Week%2013/IDS_13_1_(4_15)_FINAL.ipynb)
 
-[_Notes]()
+[KMeans article](https://www.geeksforgeeks.org/k-means-clustering-introduction/)
