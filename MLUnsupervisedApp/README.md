@@ -32,10 +32,12 @@ Or, to run locally:
 - Choose how many clusters (k) to find
 - Decide whether to scale the features for better KMeans performance
 
-### 📈 Analysis
+### 📈 Running the Model
 - 2D PCA Projection: Displays the data in two dimensions using PCA to show how well clusters are formed and separated
 - Elbow Method Graph: Shows within-cluster sum of squares (WCSS) dropping for k values. The "elbow" (value after steepest drow-off) suggests best number of clusters
 - Silhouette Score Graph: Measures how similar each point is to its own cluster vs. other clusters. Higher scores indicate better k values
+
+### 💡 Results Analysis
 - Clustered Data Table: View your dataset with added cluster (and optional true) label assignment(s)
 - Cluster Size Bar Chart: See how many samples fall into each cluster and if any cluster(s) dominate
 
