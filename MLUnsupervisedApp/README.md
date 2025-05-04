@@ -41,13 +41,13 @@ Or, to run locally:
 - Clustered Data Table: View your dataset with added cluster (and optional true) label assignment(s)
 - Cluster Size Bar Chart: See how many samples fall into each cluster and if any cluster(s) dominate
 
+<br> 
+
 **🛠 Troubleshooting**
 - Ensure your data is in CSV format
 - If clustering results seem poor, try scaling features or adjusting k to better match the underlying data
 
 ## 📸 Visuals
-
-<br>
 
 ### Main Interface
 
