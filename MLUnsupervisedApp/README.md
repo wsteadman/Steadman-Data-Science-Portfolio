@@ -73,8 +73,7 @@ Or, to run locally:
 *Elbow Method & Silhouette Score:*
 <br>
 <div style="display: flex; justify-content: space-between;">
-  <img src="https://github.com/user-attachments/assets/cff9c5d9-1ebc-41ef-8d76-e8c530bc8bb8" alt="image" width="48.5%">
-  <img src="https://github.com/user-attachments/assets/c9e6c104-20af-42c6-9239-3e1da6f3a9e5" alt="image" width="47%">
+  <img src="https://github.com/user-attachments/assets/1f4b523e-b829-4b8f-9702-cf310af879d6" alt="image">
 </div>
 <br><br>
 
