@@ -65,7 +65,7 @@ def compute_linkage_matrix(X, method='ward'):
     return Z
 
 # Plot dendrogram for hierarchical clustering
-def plot_dendrogram(Z, labels=None, max_d=None):
+def plot_dendrogram(Z):
     plt.figure(figsize=(10, 7))
     plt.title('Hierarchical Clustering Dendrogram')
     plt.xlabel('Sample index or (cluster size)')
@@ -78,19 +78,15 @@ def plot_dendrogram(Z, labels=None, max_d=None):
             truncate_mode='lastp',
             p=30,  # Show only the last 30 merges
             leaf_rotation=90.,
-            leaf_font_size=8.,
-            labels=labels
+            leaf_font_size=8.
         )
     else:
         dendrogram(
             Z,
             leaf_rotation=90.,
-            leaf_font_size=8.,
-            labels=labels
+            leaf_font_size=8.
         )
     
-    if max_d:
-        plt.axhline(y=max_d, c='k', linestyle='--')
     
     fig = plt.gcf()
     return fig
