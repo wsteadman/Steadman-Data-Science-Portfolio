@@ -154,25 +154,30 @@ dataset_option = st.sidebar.radio(
     ["Breast Cancer", "Iris", "Wine", "Upload Your Own"]
 )
 
+# Check if the user selected the "Upload Your Own" option from the sidebar
 if dataset_option == "Upload Your Own":
     uploaded_file = st.sidebar.file_uploader("Upload CSV file", type="csv")
 
     if uploaded_file is not None:
         df = pd.read_csv(uploaded_file)
-
+        
+        # Ask the user to select a target column from the DataFrame (optional)
         target_col = st.sidebar.selectbox(
             "Select target column (optional):",
             ["None"] + df.columns.tolist()
         )
-
+        
+        # If a target column is selected
         if target_col != "None":
+             # Use all columns except the target as features
             feature_cols = [col for col in df.columns if col != target_col]
             X = df[feature_cols]
             y = df[target_col]
+        # If no target column is selected, treat all columns as features
         else:
             X = df
             y = None
-
+        # Preprocess data
         X = preprocess_data(X)
 
     else:
@@ -304,7 +309,7 @@ if st.sidebar.button("Run Clustering"):
         st.pyplot(fig)
 
 
-         # Add detailed descriptions below each plot
+         # Add descriptions below each plot
         col1, col2 = st.columns(2)
         
         with col1:
