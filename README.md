@@ -42,10 +42,10 @@
 
 - **Project Description**: This is a machine learning classification app that allows users to build, visualize, and evaluate machine learning classification models in streamlit. Built with Streamlit and scikit-learn, this tool makes powerful classification algorithms, visuals, and metrics accessible to users of all technical backgrounds who can upload their own data or choose a demo dataset!
 
-- **Application**: This tool allows users to upload their own datasets or choose from demo datasets to gain meaningful insights that would typically require significant background work. Users can also change model parameters, like descion tree depth or scaling data to see how these aspects affect results!
+- **Application**: This tool allows users to upload their own datasets or choose from demo datasets to gain meaningful insights that would typically require significant background work. Users can also change model parameters, like descion tree depth or scaling data to see how these aspects affect results.
 
 - **Take Aways**:
-  - Implemented a framework to switch between different algorithms (Decision Trees vs. Logistic Regression) and allowed users to edit some of these models' inputs/parameters, showing how these decisions can affect the strength of a model
+  - Implemented a framework to switch between different algorithms (Decision Trees vs. Logistic Regression) and allowed users to edit some of these models' inputs/parameters, showing how these decisions can affect the strength of a model.
   - The app also automatically handles data preprocessing, demonstrating how essential this aspect of model building is to a useable model
 
 - [Link to ML App Project](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/tree/main/MLStreamlitApp)
@@ -59,10 +59,10 @@
 
 - **Project Description**:This unsupervised machine learning application lets users explore KMeans clustering across different datasets. Built using Streamlit and scikit-learn, the app includes functionality to upload a custom dataset or select sample datasets, scale features, run KMeans clustering, apply PCA for visualization, and use the Elbow Method and Silhouette Score to determine the optimal number of clusters.
 
-- **Application**: Helpful for identifying natural groupings in data without supervision. Ideal for exploring dataset structure, optimal dimensionality reduction, and clustering metrics with interactive visuals and automatic preprocessing.
+- **Application**: Helpful for identifying natural groupings in data without supervision. Ideal for exploring dataset structure, optimal dimensionality reduction, and clustering metrics with interactive visuals and automatic preprocessing!
 
 - **Take Aways**:
-  - Built an interactive KMeans clustering pipeline, from preprocessing to analysis with parameter customization.
+  - App built around an interactive KMeans clustering pipeline, from preprocessing to analysis with significant parameter customization.
   - Implemented PCA capabilites to visualize high-dimensional data & created evaluation metrics (Elbow and Silhouette) to assist users in identifying optimal cluster counts.
 
 - [Link to Unseupervised ML App Project](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/tree/main/MLUnsupervisedApp)
