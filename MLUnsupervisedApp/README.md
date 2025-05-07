@@ -2,6 +2,7 @@
 
 ## ✨ Overview
 - 📁 Upload your own dataset or choose from built-in demos (Iris, Wine, Breast Cancer)
+- 🧮 Choose between KMeans and Hierarchical clustering algorithms
 - ⚙️ Automatically scale and preprocess your data
 - 🔍 Explore clusters visually using PCA projection
 - 📊 Use Elbow Method and Silhouette Score to find the optimal number of clusters
@@ -29,18 +30,24 @@ Or, to run locally:
 ### 📁 Dataset Setup:
 - Upload a CSV file or select one of the built-in demo datasets (Breast_Cancer, Iris, Wine).
 - *(Optional) Select a target column to compare results to (not used by the model)*
+- Choose your clustering algorithm (KMeans or Hierarchical)
 - Choose how many clusters (k) to find
 - Decide whether to scale the features for better KMeans performance
 
-### 📈 Running the Model
+## Features:
 - 2D PCA Projection: Displays the data in two dimensions using PCA to show how well clusters are formed and separated
-- Elbow Method Graph: Shows within-cluster sum of squares (WCSS) dropping for k values. The "elbow" (value after steepest drow-off) suggests best number of clusters
 - Silhouette Score Graph: Measures how similar each point is to its own cluster vs. other clusters. Higher scores indicate better k values
 
-### 💡 Results Analysis
+### KMeans Specific Analysis:
+- Elbow Method Graph: Shows within-cluster sum of squares (WCSS) dropping for k values. The "elbow" (value after steepest drop-off) suggests best number of clusters
+
+### Hierarchical Clustering Specific Analysis:
+- Dendrogram: Visualizes the hierarchical relationship between clusters, showing which samples are most similar to each other
+
+
+## 💡 Results Analysis
 - Clustered Data Table: View your dataset with added cluster (and optional true) label assignment(s)
 - Cluster Size Bar Chart: See how many samples fall into each cluster and if any cluster(s) dominate
-
 <br> 
 
 **🛠 Troubleshooting**
