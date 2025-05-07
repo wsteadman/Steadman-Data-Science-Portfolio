@@ -296,14 +296,6 @@ st.sidebar.header("Clustering Parameters")
 k = st.sidebar.slider("Number of clusters (k)", min_value=2, max_value=10)
 scaling = st.sidebar.checkbox("Scale features", value=True)
 
-# Display explanation of Ward linkage method for hierarchical clustering
-if clustering_method == "Hierarchical":
-    st.sidebar.markdown("""
-    **Ward Linkage Method:**
-    - Minimizes the sum of squared differences within clusters (similar to KMeans)
-    - (Solid for most applications as it's robust to noise)
-    """)
-
 # Run clustering when requested
 if st.sidebar.button(f"Run {clustering_method} Clustering"):
     # Scale features if selected and notify user
@@ -394,11 +386,12 @@ if st.sidebar.button(f"Run {clustering_method} Clustering"):
             st.pyplot(fig)
 
             # Explaining Linkage method
-            with st.expander('Ward Linkage Metho details'):
+            with st.expander('Ward Linkage Method Details'):
                 st.markdown("""
                     **Ward Linkage Method:**
                     - Minimizes the sum of squared differences within clusters (similar to KMeans)
-                    - (Solid for most applications as it's robust to noise)
+                        - Merges clusters that yield the smallest increase in total within‑cluster variance
+                        - (Solid for most applications as it's robust to noise)
                             """)
                 
             st.markdown("""
