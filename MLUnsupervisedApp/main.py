@@ -53,15 +53,15 @@ def run_kmeans(X, k):
     clusters = kmeans.fit_predict(X)
     return kmeans, clusters
 
-# Run the hierarchical clustering model
+# Run the hierarchical clustering model with Ward linkage
 def run_hierarchical(X, k, linkage_method='ward'):
-    hierarchical = AgglomerativeClustering(n_clusters=k, linkage=linkage_method)
+    hierarchical = AgglomerativeClustering(n_clusters=k, linkage='ward')
     clusters = hierarchical.fit_predict(X)
     return hierarchical, clusters
 
-# Compute linkage matrix for dendrogram
+# Compute linkage matrix for dendrogram using Ward method
 def compute_linkage_matrix(X, method='ward'):
-    Z = linkage(X, method=method)
+    Z = linkage(X, method='ward')
     return Z
 
 # Plot dendrogram for hierarchical clustering
@@ -296,10 +296,8 @@ st.sidebar.header("Clustering Parameters")
 k = st.sidebar.slider("Number of clusters (k)", min_value=2, max_value=10)
 scaling = st.sidebar.checkbox("Scale features", value=True)
 
-# Set Ward linkage as the default for hierarchical clustering
+# Display explanation of Ward linkage method for hierarchical clustering
 if clustering_method == "Hierarchical":
-    linkage_method = "ward"
-    
     st.sidebar.markdown("""
     **Ward Linkage Method:**
     - Minimizes the sum of squared differences within clusters (similar to KMeans)
@@ -389,8 +387,8 @@ if st.sidebar.button(f"Run {clustering_method} Clustering"):
         with tab2:
             st.subheader("Hierarchical Clustering Dendrogram")
             
-            # Compute linkage matrix for dendrogram
-            Z = compute_linkage_matrix(X_processed, method=linkage_method)
+            # Compute linkage matrix for dendrogram using Ward method
+            Z = compute_linkage_matrix(X_processed, method='ward')
             
             # Plot dendrogram
             fig = plot_dendrogram(Z)
