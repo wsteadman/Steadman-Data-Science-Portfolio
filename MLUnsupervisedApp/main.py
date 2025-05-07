@@ -385,7 +385,7 @@ if st.sidebar.button(f"Run {clustering_method} Clustering"):
             st.pyplot(fig)
 
             # Explaining Linkage method
-            with st.expander('Ward Linkage Method Details'):
+            with st.expander('Linkage Method Details'):
                 st.markdown("""
                     **Ward Linkage Method:**
                     - Minimizes the sum of squared differences within clusters (similar to KMeans)
