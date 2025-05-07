@@ -392,15 +392,23 @@ if st.sidebar.button(f"Run {clustering_method} Clustering"):
             # Plot dendrogram
             fig = plot_dendrogram(Z)
             st.pyplot(fig)
-            
+
+            # Explaining Linkage method
+            with st.expander('Ward Linkage Metho details'):
+                st.sidebar.markdown("""
+                    **Ward Linkage Method:**
+                    - Minimizes the sum of squared differences within clusters (similar to KMeans)
+                    - (Solid for most applications as it's robust to noise)
+                            """)
+                
             st.markdown("""
                 **How to read a dendrogram:**
                 - The dendrogram shows the hierarchical relationship between clusters.
                 - The y-axis represents the distance or dissimilarity between clusters.
+                    - Each vertical line corresponds to a merge between two clusters.
+                    - The height of the vertical line indicates the dissimilarity between the merged clusters.
                 - The x-axis represents individual data points or clusters.
-                - Each vertical line corresponds to a merge between two clusters.
-                - The height of the vertical line indicates the dissimilarity between the merged clusters.
-                - To get **k** clusters, imagine drawing a horizontal line across the dendrogram and count the number of vertical lines it intersects.
+                - To get **k** clusters, imagine drawing a horizontal line across the dendrogram and count the number of vertical lines it intersects!
             """)
 
     # Tab for optimal k analysis
