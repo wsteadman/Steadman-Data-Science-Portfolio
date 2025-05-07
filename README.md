@@ -63,7 +63,7 @@
 
 - **Take Aways**:
   - Built a comprehensive clustering pipeline that handles two major clustering algorithms with parameter customization
-  - Implemented advanced visualization techniques like dendrograms and PCA plots to interpret hierarchical relationships
+  - Implemented advanced visualization techniques like dendrograms and PCA plots to interpret cluster relationships
   - Implemented evaluation metrics to guide users in finding optimal parameter settings
 
 - [Link to Unseupervised ML App Project](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/tree/main/MLUnsupervisedApp)
