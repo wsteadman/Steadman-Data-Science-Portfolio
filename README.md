@@ -57,13 +57,14 @@
 
 ## Unseupervised Machine Learning Application Project
 
-- **Project Description**:This unsupervised machine learning application lets users explore KMeans clustering across different datasets. Built using Streamlit and scikit-learn, the app includes functionality to upload a custom dataset or select sample datasets, scale features, run KMeans clustering, apply PCA for visualization, and use the Elbow Method and Silhouette Score to determine the optimal number of clusters.
+- **Project Description**: This advanced clustering application lets users explore both KMeans and Hierarchical clustering across different datasets. Built using Streamlit and scikit-learn, the app includes functionality to upload a custom dataset or select sample datasets, scale features, run clustering algorithms, apply PCA for visualization, and use evaluation metrics to determine the optimal number of clusters.
 
-- **Application**: Helpful for identifying natural groupings in data without supervision. Ideal for exploring dataset structure, optimal dimensionality reduction, and clustering metrics with interactive visuals and automatic preprocessing!
+- **Application**: Powerful tool for identifying natural groupings in data through multiple unsupervised learning techniques. The app provides interactive visuals, automatic preprocessing, and detailed analysis tools to help users understand their data's structure!
 
 - **Take Aways**:
-  - App built around an interactive KMeans clustering pipeline, from preprocessing to analysis with significant parameter customization.
-  - Implemented PCA capabilites to visualize high-dimensional data & created evaluation metrics (Elbow and Silhouette) to assist users in identifying optimal cluster counts.
+  - Built a comprehensive clustering pipeline that handles two major clustering algorithms with parameter customization
+  - Implemented advanced visualization techniques like dendrograms and PCA plots to interpret hierarchical relationships
+  - Implemented evaluation metrics to guide users in finding optimal parameter settings
 
 - [Link to Unseupervised ML App Project](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/tree/main/MLUnsupervisedApp)
 
