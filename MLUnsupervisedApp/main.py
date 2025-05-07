@@ -53,13 +53,13 @@ def run_kmeans(X, k):
     clusters = kmeans.fit_predict(X)
     return kmeans, clusters
 
-# Run the hierarchical clustering model with Ward linkage
+# Run the hierarchical clustering model (ward linkage)
 def run_hierarchical(X, k, linkage_method='ward'):
     hierarchical = AgglomerativeClustering(n_clusters=k, linkage='ward')
     clusters = hierarchical.fit_predict(X)
     return hierarchical, clusters
 
-# Compute linkage matrix for dendrogram using Ward method
+# Compute linkage matrix for dendrogram
 def compute_linkage_matrix(X, method='ward'):
     Z = linkage(X, method='ward')
     return Z
@@ -77,16 +77,9 @@ def plot_dendrogram(Z):
             Z,
             truncate_mode='lastp',
             p=30,  # Show only the last 30 merges
-            leaf_rotation=90.,
-            leaf_font_size=8.
         )
     else:
-        dendrogram(
-            Z,
-            leaf_rotation=90.,
-            leaf_font_size=8.
-        )
-    
+        dendrogram(Z)
     
     fig = plt.gcf()
     return fig
