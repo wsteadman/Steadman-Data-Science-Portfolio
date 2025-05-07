@@ -301,8 +301,7 @@ if clustering_method == "Hierarchical":
     st.sidebar.markdown("""
     **Ward Linkage Method:**
     - Minimizes the sum of squared differences within clusters (similar to KMeans)
-    - Generally produces more compact, evenly-sized clusters
-    - Recommended for most applications as it's more robust to noise
+    - (Solid for most applications as it's robust to noise)
     """)
 
 # Run clustering when requested
