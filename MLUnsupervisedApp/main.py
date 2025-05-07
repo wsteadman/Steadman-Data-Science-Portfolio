@@ -395,7 +395,7 @@ if st.sidebar.button(f"Run {clustering_method} Clustering"):
 
             # Explaining Linkage method
             with st.expander('Ward Linkage Metho details'):
-                st.sidebar.markdown("""
+                st.markdown("""
                     **Ward Linkage Method:**
                     - Minimizes the sum of squared differences within clusters (similar to KMeans)
                     - (Solid for most applications as it's robust to noise)
