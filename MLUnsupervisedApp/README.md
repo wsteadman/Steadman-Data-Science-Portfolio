@@ -89,3 +89,5 @@ Or, to run locally:
 [Kmeans_notes](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Notes/Week%2013/IDS_13_1_(4_15)_FINAL.ipynb)
 
 [KMeans article](https://www.geeksforgeeks.org/k-means-clustering-introduction/)
+
+[Hierarchical_clustering_notes](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/blob/main/Notes/Week%2013/IDS_13_2_(4_17)_FINAL.ipynb)
