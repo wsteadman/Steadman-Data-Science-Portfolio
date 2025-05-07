@@ -63,8 +63,8 @@ Or, to run locally:
 *App interface with clustering visualization:*
 <br>
 <div style="display: flex; justify-content: space-between;">
-  <img src="https://github.com/user-attachments/assets/d2b59fd0-463c-4718-9507-2e0fe3fd2415" alt="image" width="55%">
-  <img src="https://github.com/user-attachments/assets/31e1fa72-d600-46d6-a7b3-ec206fe85ba4" alt="image" width="43%">
+  <img src="https://github.com/user-attachments/assets/a7acadbd-cf49-48b9-bbab-ae9ebb92350b" alt="image" width="60%">
+  <img src="https://github.com/user-attachments/assets/ab1a46d6-d667-4b29-bc94-6310dddfbedb" alt="image" width="35%">
 </div>
 <br><br>
 
