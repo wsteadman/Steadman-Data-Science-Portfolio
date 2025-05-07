@@ -296,20 +296,15 @@ st.sidebar.header("Clustering Parameters")
 k = st.sidebar.slider("Number of clusters (k)", min_value=2, max_value=10)
 scaling = st.sidebar.checkbox("Scale features", value=True)
 
-# Hierarchical specific parameters
+# Set Ward linkage as the default for hierarchical clustering
 if clustering_method == "Hierarchical":
-    linkage_method = st.sidebar.selectbox(
-        "Linkage method:",
-        ["ward", "complete", "average", "single"],
-        index=0  # Default to ward
-    )
+    linkage_method = "ward"
     
     st.sidebar.markdown("""
-    **Linkage methods:**
-    - **Ward**: Minimizes the sum of squared differences within clusters (similar to KMeans)
-    - **Complete**: Based on maximum distance between any two points in different clusters
-    - **Average**: Based on average distance between all pairs of points in different clusters
-    - **Single**: Based on minimum distance between any two points in different clusters
+    **Ward Linkage Method:**
+    - Minimizes the sum of squared differences within clusters (similar to KMeans)
+    - Generally produces more compact, evenly-sized clusters
+    - Recommended for most applications as it's more robust to noise
     """)
 
 # Run clustering when requested
@@ -327,8 +322,8 @@ if st.sidebar.button(f"Run {clustering_method} Clustering"):
     # Run selected clustering algorithm
     if clustering_method == "KMeans":
         model, cluster_labels = run_kmeans(X_processed, k)
-    else:  # Hierarchical
-        model, cluster_labels = run_hierarchical(X_processed, k, linkage_method)
+    else:  # Hierarchical with Ward linkage
+        model, cluster_labels = run_hierarchical(X_processed, k, 'ward')
 
     # Add cluster labels to the original data
     clustered_data = X.copy()
