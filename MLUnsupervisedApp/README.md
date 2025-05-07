@@ -34,7 +34,7 @@ Or, to run locally:
 - Choose how many clusters (k) to find
 - Decide whether to scale the features for better KMeans performance
 
-## Features:
+## 💭 Features:
 - 2D PCA Projection: Displays the data in two dimensions using PCA to show how well clusters are formed and separated
 - Silhouette Score Graph: Measures how similar each point is to its own cluster vs. other clusters. Higher scores indicate better k values
 
