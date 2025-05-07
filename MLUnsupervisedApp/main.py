@@ -55,7 +55,7 @@ def run_kmeans(X, k):
 
 # Run the hierarchical clustering model
 def run_hierarchical(X, k, linkage_method='ward'):
-    hierarchical = AgglomerativeClustering(n_clusters=k, linkage=linkage_method)
+    hierarchical = AgglomerativeClustering(n_clusters=k, linkage=ward)
     clusters = hierarchical.fit_predict(X)
     return hierarchical, clusters
 
