@@ -57,13 +57,13 @@
 
 ## Unseupervised Machine Learning Application Project
 
-- **Project Description**: This advanced clustering application lets users explore both KMeans and Hierarchical clustering across different datasets. Built using Streamlit and scikit-learn, the app includes functionality to upload a custom dataset or select sample datasets, scale features, run clustering algorithms, apply PCA for visualization, and use evaluation metrics to determine the optimal number of clusters.
+- **Project Description**: This clustering app lets users explore both KMeans and Hierarchical clustering across different datasets. Built using Streamlit and scikit-learn, the app includes functionality to upload a custom dataset or select sample datasets, scale features, run clustering algorithms, apply PCA for visualization, and use evaluation metrics to determine the optimal number of clusters.
 
 - **Application**: Powerful tool for identifying natural groupings in data through multiple unsupervised learning techniques. The app provides interactive visuals, automatic preprocessing, and detailed analysis tools to help users understand their data's structure!
 
 - **Take Aways**:
   - Built a comprehensive clustering pipeline that handles two major clustering algorithms with parameter customization
-  - Implemented advanced visualization techniques like dendrograms and PCA plots to interpret cluster relationships
+  - Implemented visualization techniques like dendrograms and PCA plots to interpret cluster relationships
   - Implemented evaluation metrics to guide users in finding optimal parameter settings
 
 - [Link to Unseupervised ML App Project](https://github.com/wsteadman/Steadman-Data-Science-Portfolio/tree/main/MLUnsupervisedApp)
