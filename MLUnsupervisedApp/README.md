@@ -10,7 +10,7 @@
 
 ## 🚀 Instructions
 ### Click the link to get started!
-[link_to_kmeans_app](https://steadman-data-science-portfolio-pny9n2pvh9knl6q3kupnip.streamlit.app/)
+[link_to_unsupervised_ML_app](https://steadman-data-science-portfolio-pny9n2pvh9knl6q3kupnip.streamlit.app/)
 
 Or, to run locally: 
 1. Clone the Repository
