@@ -368,7 +368,6 @@ if st.sidebar.button(f"Run {clustering_method} Clustering"):
                 **How Hierarchical Clustering works:**
                 - It starts by treating each data point as its own cluster.
                 - Then, it repeatedly merges the two most similar clusters.
-                - The way it measures similarity between clusters depends on the linkage method.
                 - The process continues until all points belong to a single cluster.
                 - We then "cut" the resulting tree at a point that gives us **k** clusters.
             """)
