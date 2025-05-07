@@ -449,7 +449,9 @@ if st.sidebar.button(f"Run {clustering_method} Clustering"):
         st.info(f"""
             **ℹ️ Note:** Use the bar chart to determine if certain clusters dominate. The updated dataframe displays which cluster each data point was assigned. 
             
-            If a target variable is used (`Cluster`) can be compared to the known classes (`True_Label`). For instance, when using a sample dataset like *Breast Cancer*, the original class labels (e.g., *malignant* vs. *benign*) are shown as `True_Label`.        
+            If a target variable is used (`Cluster`) can be compared to the known classes (`True_Label`). 
+            For instance, when using a sample dataset like *Breast Cancer*, the original class labels (e.g., *malignant* vs. *benign*) are shown as `True_Label`.        
+           
             Keep in mind that the **{clustering_method} model is an unsupervised algorithm** — it doesn't use or know the true labels.
             """)
 else:
