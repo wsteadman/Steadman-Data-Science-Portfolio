@@ -1,4 +1,4 @@
-# KMeans Clustering Explorer 📊
+# Clustering Explorer 📊
 
 ## ✨ Overview
 - 📁 Upload your own dataset or choose from built-in demos (Iris, Wine, Breast Cancer)
