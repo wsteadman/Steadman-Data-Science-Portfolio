@@ -4,8 +4,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
-from sklearn.cluster import KMeans
+from sklearn.cluster import KMeans, AgglomerativeClustering
 from sklearn.metrics import silhouette_score
+from scipy.cluster.hierarchy import dendrogram, linkage
 from sklearn.datasets import load_breast_cancer, load_iris, load_wine
 
 
@@ -28,7 +29,7 @@ def preprocess_data(X):
     return X_clean
 
 
-#Loading sample datasets from sklearn
+# Loading sample datasets from sklearn
 def load_sample_dataset(dataset_name):
     if dataset_name == "Breast Cancer":
         data = load_breast_cancer()
@@ -41,40 +42,76 @@ def load_sample_dataset(dataset_name):
     y = pd.Series(data.target, name="target")
     return X, y 
 
-#Standardize features 
+# Standardize features 
 def scale_features(X):
     scaler = StandardScaler()
     return scaler.fit_transform(X)
 
-#Run the KMeans ML model
+# Run the KMeans ML model
 def run_kmeans(X, k):
     kmeans = KMeans(n_clusters=k)
     clusters = kmeans.fit_predict(X)
     return kmeans, clusters
 
+# Run the hierarchical clustering model (ward linkage)
+def run_hierarchical(X, k, linkage_method='ward'):
+    hierarchical = AgglomerativeClustering(n_clusters=k, linkage='ward')
+    clusters = hierarchical.fit_predict(X)
+    return hierarchical, clusters
 
-#Compute data for elbow method and silhouette score
-def compute_elbow_data(X, max_k=10):
+# Compute linkage matrix for dendrogram
+def compute_linkage_matrix(X, method='ward'):
+    Z = linkage(X, method='ward')
+    return Z
+
+# Plot dendrogram for hierarchical clustering
+def plot_dendrogram(Z):
+    plt.figure(figsize=(10, 7))
+    plt.title('Hierarchical Clustering Dendrogram')
+    plt.xlabel('Sample index or (cluster size)')
+    plt.ylabel('Distance')
+    
+    # If we have too many samples, truncate the dendrogram
+    if Z.shape[0] > 50:  # If more than 50 samples
+        dendrogram(
+            Z,
+            truncate_mode='lastp',
+            p=30,  # Show only the last 30 merges
+        )
+    else:
+        dendrogram(Z)
+    
+    fig = plt.gcf()
+    return fig
+
+# Compute data for elbow method and silhouette score
+def compute_metrics(X, method, max_k=10):
     wcss = []
     silhouette_scores = []
     ks = range(2, max_k + 1)
     
     for i in ks:
-        km = KMeans(n_clusters=i)
-        km.fit(X)
-        wcss.append(km.inertia_)
-        labels = km.labels_
+        if method == 'kmeans':
+            km = KMeans(n_clusters=i)
+            km.fit(X)
+            wcss.append(km.inertia_)
+            labels = km.labels_
+        else:  # hierarchical
+            hc = AgglomerativeClustering(n_clusters=i)
+            labels = hc.fit_predict(X)
+            wcss.append(None)  # Hierarchical doesn't have inertia
+        
         silhouette_scores.append(silhouette_score(X, labels))
+    
     return ks, wcss, silhouette_scores
 
-#Apply PCA
+# Apply PCA
 def apply_pca(X, n_components=2):
     pca = PCA(n_components=n_components)
     X_pca = pca.fit_transform(X)
     return X_pca, pca.explained_variance_ratio_
 
-
-#Plot clusters using PCA
+# Plot clusters using PCA
 def plot_clusters(X_pca, clusters):
     plt.figure(figsize=(8, 6))
     
@@ -95,28 +132,33 @@ def plot_clusters(X_pca, clusters):
     
     plt.xlabel('Principal Component 1')
     plt.ylabel('Principal Component 2')
-    plt.title('KMeans Clustering: 2D PCA Projection')
+    plt.title('Clustering: 2D PCA Projection')
     plt.legend(loc='best')
     plt.grid(True)
     
     fig = plt.gcf()
     return fig
-    
 
-#Create elbow method and silhouette score plots"""
-def plot_elbow_method(ks, wcss, silhouette_scores):
+# Plot optimal k analysis (elbow method and silhouette scores)
+def plot_optimal_k(ks, wcss, silhouette_scores, method):
     plt.figure(figsize=(12, 5))
 
-    # Elbow Method
-    plt.subplot(1, 2, 1)
-    plt.plot(ks, wcss, 'o-', color='blue')
-    plt.xlabel('Number of clusters (k)')
-    plt.ylabel('Within-Cluster Sum of Squares')
-    plt.title('Elbow Method')
-    plt.grid(True)
+    # If KMeans, include Elbow Method
+    if method == 'kmeans' and wcss[0] is not None:
+        plt.subplot(1, 2, 1)
+        plt.plot(ks, wcss, 'o-', color='blue')
+        plt.xlabel('Number of clusters (k)')
+        plt.ylabel('Within-Cluster Sum of Squares')
+        plt.title('Elbow Method')
+        plt.grid(True)
+        
+        # Silhouette Score
+        plt.subplot(1, 2, 2)
 
-    # Silhouette Score
-    plt.subplot(1, 2, 2)
+    # Just silhouette if hierarchical or if wcss is None
+    else:
+        plt.subplot(1, 1, 1)
+    
     plt.plot(ks, silhouette_scores, 'o-', color='green')
     plt.xlabel('Number of clusters (k)')
     plt.ylabel('Silhouette Score')
@@ -124,24 +166,25 @@ def plot_elbow_method(ks, wcss, silhouette_scores):
     plt.grid(True)
 
     plt.tight_layout()
-    fig = plt.gcf()  # Get the current figure
+    fig = plt.gcf()
     return fig
 
 
 # -----------------------------------------------
-# Main App Layoutt
+# Main App Layout
 # -----------------------------------------------
 
 # Set page configuration
 st.set_page_config(
-    page_title="KMeans Clustering Explorer",
+    page_title="Advanced Clustering Explorer",
     page_icon="📊",
+    layout="wide"
 )
 
 # Title and introduction
-st.title("📊 KMeans Clustering Explorer")
+st.title("📊 Advanced Clustering Explorer")
 st.markdown("""
-This app allows you to explore KMeans clustering on various datasets.
+This app allows you to explore both KMeans and Hierarchical clustering on various datasets.
 Upload your own dataset or use one of the sample datasets to discover natural groups in your data.
 """)
 
@@ -154,25 +197,30 @@ dataset_option = st.sidebar.radio(
     ["Breast Cancer", "Iris", "Wine", "Upload Your Own"]
 )
 
+# Check if the user selected the "Upload Your Own" option from the sidebar
 if dataset_option == "Upload Your Own":
     uploaded_file = st.sidebar.file_uploader("Upload CSV file", type="csv")
 
     if uploaded_file is not None:
         df = pd.read_csv(uploaded_file)
-
+        
+        # Ask the user to select a target column from the DataFrame (optional)
         target_col = st.sidebar.selectbox(
             "Select target column (optional):",
             ["None"] + df.columns.tolist()
         )
-
+        
+        # If a target column is selected
         if target_col != "None":
+             # Use all columns except the target as features
             feature_cols = [col for col in df.columns if col != target_col]
             X = df[feature_cols]
             y = df[target_col]
+        # If no target column is selected, treat all columns as features
         else:
             X = df
             y = None
-
+        # Preprocess data
         X = preprocess_data(X)
 
     else:
@@ -192,8 +240,6 @@ else:
     else:
         y = None
 
-
-
 # Display dataset information
 st.subheader("Dataset Overview")
 st.write(f"Samples: {X.shape[0]}, Features: {X.shape[1]}")
@@ -201,7 +247,7 @@ st.write(f"Samples: {X.shape[0]}, Features: {X.shape[1]}")
 st.markdown("""
 - **Samples**: rows = individual observations (like one flower or one patient).
 - **Features**: columns = measurements or characteristics (like petal width or alcohol content).
-            """)
+""")
 
 # Display the first few rows of the dataset
 with st.expander("Preview Dataset"):
@@ -227,26 +273,35 @@ if y is not None:
 
     st.markdown("*Note: This is an unsupervised model so it does not use the target to make predictions, the target is only to compare results to afterwards*")
 
-# KMeans parameters
-st.sidebar.header("KMeans Parameters")
+# Clustering Method Selection
+st.sidebar.header("Clustering Method")
+clustering_method = st.sidebar.radio(
+    "Select clustering algorithm:",
+    ["KMeans", "Hierarchical"]
+)
+
+# Common parameters
+st.sidebar.header("Clustering Parameters")
 k = st.sidebar.slider("Number of clusters (k)", min_value=2, max_value=10)
 scaling = st.sidebar.checkbox("Scale features", value=True)
 
-
 # Run clustering when requested
-if st.sidebar.button("Run Clustering"):
+if st.sidebar.button(f"Run {clustering_method} Clustering"):
     # Scale features if selected and notify user
     if scaling:
         X_processed = scale_features(X)
         st.success("Data scaled")
     else:
         X_processed = X.values
-        st.warning("Using unscaled data. KMeans works best with scaled features.")
+        st.warning(f"Using unscaled data. {clustering_method} works best with scaled features for most datasets.")
 
-    st.markdown("*Scaling normalizes features to a similar range (mean=0, std=1). This prevents features with larger values from dominating the distance calculations in KMeans.*")
+    st.markdown("*Scaling normalizes features to a similar range (mean=0, std=1). This prevents features with larger values from dominating the distance calculations.*")
     
-    # Run KMeans
-    kmeans_model, cluster_labels = run_kmeans(X_processed, k)
+    # Run selected clustering algorithm
+    if clustering_method == "KMeans":
+        model, cluster_labels = run_kmeans(X_processed, k)
+    else:  # Hierarchical with Ward linkage
+        model, cluster_labels = run_hierarchical(X_processed, k, 'ward')
 
     # Add cluster labels to the original data
     clustered_data = X.copy()
@@ -262,7 +317,10 @@ if st.sidebar.button("Run Clustering"):
         clustered_data = clustered_data[['Cluster'] + [col for col in clustered_data.columns if col != 'Cluster']]
 
     # Create tabs for different analysis
-    tab1, tab2, tab3 = st.tabs(["Cluster Visualization", "Optimal K Analysis", "Cluster Data"])
+    if clustering_method == "KMeans":
+        tab1, tab2, tab3 = st.tabs(["Cluster Visualization", "Optimal K Analysis", "Cluster Data"])
+    else:  # Hierarchical
+        tab1, tab2, tab3, tab4 = st.tabs(["Cluster Visualization", "Dendrogram", "Optimal K Analysis", "Cluster Data"])
     
     with tab1:
         st.subheader("2D Visualization of Clusters")
@@ -277,48 +335,93 @@ if st.sidebar.button("Run Clustering"):
 
         with st.expander("PCA Explained"):
             st.markdown("""
-                        To help visualize your dataset, we used a technique called **PCA (Principal Component Analysis)**. Most datasets have many features (columns), which makes them hard to plot directly.
-                        - PCA looks for the directions (combinations of features) where the data varies the most.
-                        - It then **rotates and compresses** the data along those directions to create a 2D view.
-                        """)
+                To help visualize your dataset, we used a technique called **PCA (Principal Component Analysis)**. Most datasets have many features (columns), which makes them hard to plot directly.
+                - PCA looks for the directions (combinations of features) where the data varies the most.
+                - It then **rotates and compresses** the data along those directions to create a 2D view.
+            """)
 
-        st.markdown("""
-                    Each dot in the plot below represents a data point, and the color shows which **cluster** it was assigned to by the KMeans algorithm.
-                    
-                    **How the KMeans algorithm works:**
-                        - It first randomly picks **k** points as cluster centers (called *centroids*).
-                    - Each data point is assigned to the nearest centroid based on distance.
-                    - The centroids are then updated to the average position of the points assigned to them.
-                    - This repeats until the cluster assignments stop changing significantly (called *convergence*).
-                    
-                    """)
+        if clustering_method == "KMeans":
+            st.markdown("""
+                Each dot in the plot represents a data point, and the color shows which **cluster** it was assigned to by the KMeans algorithm.
+                
+                **How the KMeans algorithm works:**
+                - It first randomly picks **k** points as cluster centers (called *centroids*).
+                - Each data point is assigned to the nearest centroid based on distance.
+                - The centroids are then updated to the average position of the points assigned to them.
+                - This repeats until the cluster assignments stop changing significantly (called *convergence*).
+            """)
+        else:  # Hierarchical
+            st.markdown("""
+                Each dot in the plot represents a data point, and the color shows which **cluster** it was assigned to by the Hierarchical clustering algorithm.
+                
+                **How Hierarchical Clustering works:**
+                - It starts by treating each data point as its own cluster.
+                - Then, it repeatedly merges the two most similar clusters.
+                - The process continues until all points belong to a single cluster.
+                - We then "cut" the resulting tree at a point that gives us **k** clusters.
+            """)
+    
+    # Only show dendrogram tab for hierarchical clustering
+    if clustering_method == "Hierarchical":
+        with tab2:
+            st.subheader("Hierarchical Clustering Dendrogram")
+            
+            # Compute linkage matrix for dendrogram using Ward method
+            Z = compute_linkage_matrix(X_processed, method='ward')
+            
+            # Plot dendrogram
+            fig = plot_dendrogram(Z)
+            st.pyplot(fig)
 
-    with tab2:
+            # Explaining Linkage method
+            with st.expander('Linkage Method Details'):
+                st.markdown("""
+                    **Ward Linkage Method:**
+                    - Minimizes the sum of squared differences within clusters (similar to KMeans)
+                        - Merges clusters that yield the smallest increase in total within‑cluster variance
+                        - (Solid for most applications as it's robust to noise)
+                            """)
+                
+            st.markdown("""
+                **How to read a dendrogram:**
+                - The dendrogram shows the hierarchical relationship between clusters.
+                - The y-axis represents the distance or dissimilarity between clusters.
+                    - Each vertical line corresponds to a merge between two clusters.
+                    - The height of the vertical line indicates the dissimilarity between the merged clusters.
+                - The x-axis represents individual data points or clusters.
+                - To get **k** clusters, imagine drawing a horizontal line across the dendrogram and count the number of vertical lines it intersects!
+            """)
+
+    # Tab for optimal k analysis
+    with tab2 if clustering_method == "KMeans" else tab3:
         st.subheader("Finding the Optimal Number of Clusters")
         
-        # Compute elbow method data
-        ks, wcss, silhouette_scores = compute_elbow_data(X_processed)
+        # Compute metrics for optimal k
+        ks, wcss, silhouette_scores = compute_metrics(X_processed, 
+                                                     'kmeans' if clustering_method == "KMeans" else 'hierarchical')
         
-        # Plot elbow method
-        fig = plot_elbow_method(ks, wcss, silhouette_scores)
+        # Plot optimal k analysis
+        fig = plot_optimal_k(ks, wcss, silhouette_scores, 
+                           'kmeans' if clustering_method == "KMeans" else 'hierarchical')
         st.pyplot(fig)
 
-
-         # Add detailed descriptions below each plot
-        col1, col2 = st.columns(2)
+        # Add explanations
+        if clustering_method == "KMeans":
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                st.markdown("""
+                **Elbow Method**
+                
+                This plot shows how the Within-Cluster Sum of Squares (WCSS) decreases as we add more clusters.
+                
+                - **What to look for:** The "elbow" point where adding more clusters gives diminishing returns
+                - **How it works:** WCSS measures how compact clusters are (lower is better)
+                - **Best K value:** Where the curve bends like an elbow
+                """)
         
-        with col1:
-            st.markdown("""
-            **Elbow Method**
-            
-            This plot shows how the Within-Cluster Sum of Squares (WCSS) decreases as we add more clusters.
-            
-            - **What to look for:** The "elbow" point where adding more clusters gives diminishing returns
-            - **How it works:** WCSS measures how compact clusters are (lower is better)
-            - **Best K value:** Where the curve bends like an elbow
-            """)
-            
-        with col2:
+        # This explanation is shown for both methods
+        with col2 if clustering_method == "KMeans" else st.container():
             st.markdown("""
             **Silhouette Score**
             
@@ -328,8 +431,9 @@ if st.sidebar.button("Run Clustering"):
             - **How it works:** Scores range from -1 to 1, where higher values mean better-defined clusters
             - **Best K value:** The K with the highest silhouette score
             """)
-        
-    with tab3:
+    
+    # Tab for clustered data
+    with tab3 if clustering_method == "KMeans" else tab4:
         st.subheader("Clustered Data Results")
         
         # Calculate and display cluster sizes
@@ -341,14 +445,15 @@ if st.sidebar.button("Run Clustering"):
         st.write("### Data with Cluster Assignments")
         st.dataframe(clustered_data)
 
-        # Only show this explanation if there's a target variable
-        if y is not None:
-            st.info("""
-                    **ℹ️ Note:** When using a sample dataset like *Breast Cancer*, the original class labels (e.g., *malignant* vs. *benign*) are available and shown as `True_Label`.
-                    This allows you to compare the clustering results (`Cluster`) to the actual known classes (`True_Label`).
-                    
-                    Keep in mind that the **KMeans model is an unsupervised algorithm** — it doesn't use or know these labels.
-                    """)
+
+        st.info(f"""
+            **ℹ️ Note:** Use the bar chart to determine if certain clusters dominate. The updated dataframe displays which cluster each data point was assigned. 
+            
+            If a target variable is used (`Cluster`) can be compared to the known classes (`True_Label`). 
+            For instance, when using a sample dataset like *Breast Cancer*, the original class labels (e.g., *malignant* vs. *benign*) are shown as `True_Label`.        
+           
+            Keep in mind that the **{clustering_method} model is an unsupervised algorithm** — it doesn't use or know the true labels.
+            """)
 else:
     st.markdown("---")
     st.markdown("### 👈 Adjust parameters in the sidebar and click 'Run Clustering' to start analysis!!")

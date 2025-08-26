@@ -41,7 +41,7 @@ The analysis follows these key steps implemented in the Jupyter Notebook:
 
     Ensure Python is installed, then run:
     ```
-    pip install pandas streamlit
+    pip install pandas matplotlib
     ```
 
 3. **Run the Notebook**
