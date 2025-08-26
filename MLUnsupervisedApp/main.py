@@ -351,4 +351,4 @@ if st.sidebar.button("Run Clustering"):
                     """)
 else:
     st.markdown("---")
-    st.markdown("### 👈 Adjust parameters in the sidebar and click 'Run Clustering' to start analysis!")
+    st.markdown("### 👈 Adjust parameters in the sidebar and click 'Run Clustering' to start analysis!!")
